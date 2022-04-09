@@ -13,7 +13,9 @@ class Graph
 	private:
 		std::unordered_map<uint32_t, NodeInGraph> _nodes;
 		std::unordered_map<uint64_t, Edge> _edges;
+		double _weight_sum;
 	public:
+		double weight_sum(void) const;
 		unsigned int size_edges(void) const;
 		unsigned int size_nodes(void) const;
 		typename std::unordered_map<uint32_t, NodeInGraph>::const_iterator begin() const;
@@ -32,4 +34,5 @@ class Graph
 		bool remove_edge(const Edge& edge);
 		
 		float density(void) const;
+		Graph();
 };

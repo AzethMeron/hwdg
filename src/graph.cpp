@@ -1,7 +1,7 @@
 
 #include <string>
 #include "string_format.hpp"
-#include "graphs.hpp"
+#include "graph.hpp"
 
 unsigned int Graph::size_edges(void) const
 {
@@ -56,14 +56,14 @@ typename std::unordered_map<uint64_t, Edge>::const_iterator Graph::get_edge(cons
 const NodeInGraph& Graph::fetch_node(const Node& node) const
 {
 	auto iter = this->get_node(node);
-	if(iter == this->end()) throw std::out_of_range(string_format("No such node: %s", node.str()).c_str());
+	if(iter == this->end()) throw std::out_of_range(string_format("No such node: %s", node.str().c_str()));
 	return iter->second;
 }
 
 const Edge& Graph::fetch_edge(const Edge& edge) const
 {
 	auto iter = this->get_edge(edge);
-	if(iter == this->_edges.cend()) throw std::out_of_range(string_format("No such edge: %s", edge.str()).c_str());
+	if(iter == this->_edges.cend()) throw std::out_of_range(string_format("No such edge: %s", edge.str().c_str()));
 	return iter->second;
 }
 
@@ -79,6 +79,7 @@ bool Graph::add_edge(const Edge& edge)
 {
 	if(this->has_edge(edge)) return false;
 	this->_edges.insert({edge.id(), edge});
+	this->_weight_sum = this->_weight_sum + edge.weight();
 	const Node& src = edge.source();
 	if(!this->has_node(src)) this->add_node(src);
 	std::unordered_map<uint32_t, NodeInGraph>::iterator iter = this->_nodes.find(src.id());
@@ -125,4 +126,14 @@ float Graph::density(void) const
 	float max_edges = this->size_nodes()*this->size_nodes();
 	float edges = this->size_edges();
 	return edges / max_edges;
+}
+
+Graph::Graph()
+{
+	this->_weight_sum = 0;
+}
+
+double Graph::weight_sum(void) const
+{
+	return this->_weight_sum;
 }
