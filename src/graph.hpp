@@ -33,6 +33,9 @@ class Graph
 		bool add_edge(const Edge& edge);
 		bool remove_edge(const Edge& edge);
 		
+		const std::unordered_map<uint64_t, Edge>& edges(void) const;
+		const std::unordered_map<uint32_t, NodeInGraph>& nodes(void) const;
+		
 		float density(void) const;
 		Graph();
 };

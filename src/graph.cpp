@@ -91,6 +91,7 @@ bool Graph::add_edge(const Edge& edge)
 bool Graph::remove_edge(const Edge& edge)
 {
 	if(!this->has_edge(edge)) return false;
+	this->_weight_sum = this->_weight_sum - this->fetch_edge(edge).weight();
 	this->_edges.erase(edge.id());
 	const Node& src = edge.source();
 	std::unordered_map<uint32_t, NodeInGraph>::iterator iter = this->_nodes.find(src.id());
@@ -106,7 +107,7 @@ std::string Graph::str(void) const
 		std::string tmp = string_format("	%s\n", pair.second.str().c_str());
 		output.append(tmp);
 	}
-	output.append("\n]");
+	output.append("]");
 	return output;
 }
 
@@ -136,4 +137,14 @@ Graph::Graph()
 double Graph::weight_sum(void) const
 {
 	return this->_weight_sum;
+}
+
+const std::unordered_map<uint64_t, Edge>& Graph::edges(void) const
+{
+	return this->_edges;
+}
+
+const std::unordered_map<uint32_t, NodeInGraph>& Graph::nodes(void) const
+{
+	return this->_nodes;
 }
