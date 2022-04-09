@@ -54,7 +54,7 @@ std::string NodeInGraph::str(void) const
 	std::string list_of_next = "[";
 	for(auto pair : *this)
 	{
-		list_of_next.append(string_format(" (%s,%.1f) ", pair.second.target().str().c_str(), pair.second.weight()));
+		list_of_next.append(string_format(" (%s, %.1f) ", pair.second.target().str().c_str(), pair.second.weight()));
 	}
 	list_of_next.append("]");
 	std::string output = string_format("(%s, %s)", Node::str().c_str(), list_of_next.c_str());
