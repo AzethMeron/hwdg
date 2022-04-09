@@ -3,24 +3,6 @@
 #include "string_format.hpp"
 #include "graphs.hpp"
 
-/*class Graph
-{
-	private:
-		std::unordered_map<uint32_t, NodeInGraph> _nodes;
-		std::unordered_map<uint64_t, Edge> _edges;
-	public:
-		unsigned int size_edges(void) const;
-		unsigned int size_nodes(void) const;
-		typename std::unordered_map<uint32_t, NodeInGraph>::const_iterator begin() const;
-		typename std::unordered_map<uint32_t, NodeInGraph>::const_iterator end() const;
-		bool has_edge(const Edge& edge) const;
-		typename std::unordered_map<uint32_t, NodeInGraph>::const_iterator get_node(const Node& node) const;
-		
-		bool add_node(const Node& node);
-		bool add_edge(const Edge& edge);
-		bool remove_edge(const Edge& edge);
-};*/
-
 unsigned int Graph::size_edges(void) const
 {
 	return this->_edges.size();
@@ -66,6 +48,25 @@ typename std::unordered_map<uint32_t, NodeInGraph>::const_iterator Graph::get_no
 	return this->_nodes.find(node.id());
 }
 
+typename std::unordered_map<uint64_t, Edge>::const_iterator Graph::get_edge(const Edge& edge) const
+{
+	return this->_edges.find(edge.id());
+}
+
+const NodeInGraph& Graph::fetch_node(const Node& node) const
+{
+	auto iter = this->get_node(node);
+	if(iter == this->end()) throw std::out_of_range(string_format("No such node: %s", node.str()).c_str());
+	return iter->second;
+}
+
+const Edge& Graph::fetch_edge(const Edge& edge) const
+{
+	auto iter = this->get_edge(edge);
+	if(iter == this->_edges.cend()) throw std::out_of_range(string_format("No such edge: %s", edge.str()).c_str());
+	return iter->second;
+}
+
 bool Graph::add_node(const Node& node)
 {
 	if(this->has_node(node)) return false;
@@ -77,6 +78,7 @@ bool Graph::add_node(const Node& node)
 bool Graph::add_edge(const Edge& edge)
 {
 	if(this->has_edge(edge)) return false;
+	this->_edges.insert({edge.id(), edge});
 	const Node& src = edge.source();
 	if(!this->has_node(src)) this->add_node(src);
 	std::unordered_map<uint32_t, NodeInGraph>::iterator iter = this->_nodes.find(src.id());
@@ -88,6 +90,7 @@ bool Graph::add_edge(const Edge& edge)
 bool Graph::remove_edge(const Edge& edge)
 {
 	if(!this->has_edge(edge)) return false;
+	this->_edges.erase(edge.id());
 	const Node& src = edge.source();
 	std::unordered_map<uint32_t, NodeInGraph>::iterator iter = this->_nodes.find(src.id());
 	iter->second.remove_edge(edge);
@@ -97,11 +100,29 @@ bool Graph::remove_edge(const Edge& edge)
 std::string Graph::str(void) const
 {
 	std::string output = "[\n";
-	for(auto Wsk : *this)
+	for(auto pair : *this)
 	{
-		std::string tmp = string_format("	%s\n", Wsk.second.str().c_str());
+		std::string tmp = string_format("	%s\n", pair.second.str().c_str());
 		output.append(tmp);
 	}
 	output.append("\n]");
 	return output;
+}
+
+std::string Graph::str_edges(void) const
+{
+	std::string output = "[\n";
+	for(auto pair : this->_edges)
+	{
+		output.append(string_format("	%s\n", pair.second.str().c_str()));
+	}
+	output.append("]");
+	return output;
+}
+
+float Graph::density(void) const
+{
+	float max_edges = this->size_nodes()*this->size_nodes();
+	float edges = this->size_edges();
+	return edges / max_edges;
 }

@@ -54,6 +54,13 @@ Edge::Edge(const Node& src, const Node& tgt, float weight) : _src_node(src), _tg
 	this->_id = src.id() + tgt.id()*limit32;
 }
 
+Edge::Edge(const Node& src, const Node& tgt) : _src_node(src), _tgt_node(tgt)
+{
+	this->_weight = Edge::DUMMY_WEIGHT;
+	uint64_t limit32 = std::numeric_limits<uint32_t>::max();
+	this->_id = src.id() + tgt.id()*limit32;
+}
+
 bool Edge::operator == (const Edge& edge) const
 {
 	return this->id() == edge.id();

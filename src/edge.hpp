@@ -19,6 +19,7 @@ class Edge
 		const Node& target(void) const;
 		Edge() = delete;
 		Edge(const Node& src, const Node& tgt, float weight);
+		Edge(const Node& src, const Node& tgt);
 		Edge(const Edge& to_copy);
 		Edge(const Edge&& to_move);
 		Edge& operator = (const Edge& to_copy);
