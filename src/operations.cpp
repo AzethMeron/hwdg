@@ -5,6 +5,7 @@
 #include "edge.hpp"
 #include "node_in_graph.hpp"
 #include "graph.hpp"
+#include "map.hpp"
 
 namespace Graphs
 {
@@ -12,23 +13,23 @@ namespace Graphs
 	{
 		Graph output = a;
 		// adding nodes from b
-		for(auto pair : b)
+		for(auto node : b)
 		{
-			output.add((const Node&)pair.second);
+			output.add((const Node&)node);
 		}
 		// adding edges
-		for(auto pair : b.edges())
+		for(auto edge : b.edges())
 		{
-			if(a.has(pair.second))
+			if(a.has(edge))
 			{
-				float weight_from_a = a.fetch(pair.second).weight();
-				float weight_from_b = pair.second.weight();
-				output.remove(pair.second);
-				output.add(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+				float weight_from_a = a.fetch(edge).weight();
+				float weight_from_b = edge.weight();
+				output.remove(edge);
+				output.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
 			}
 			else
 			{
-				output.add(pair.second);
+				output.add(edge);
 			}
 		}
 		return output;
@@ -39,23 +40,23 @@ namespace Graphs
 	{
 		Graph output = a;
 		// adding nodes from b
-		for(auto pair : b)
+		for(auto node : b)
 		{
-			output.add((const Node&)pair.second);
+			output.add((const Node&)node);
 		}
 		// adding edges
-		for(auto pair : b.edges())
+		for(auto edge : b.edges())
 		{
-			if(a.has(pair.second))
+			if(a.has(edge))
 			{
-				float weight_from_a = balancer * a.fetch(pair.second).weight();
-				float weight_from_b = (1.0 - balancer) * pair.second.weight();
-				output.remove(pair.second);
-				output.add(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+				float weight_from_a = balancer * a.fetch(edge).weight();
+				float weight_from_b = (1.0 - balancer) * edge.weight();
+				output.remove(edge);
+				output.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
 			}
 			else
 			{
-				output.add(pair.second);
+				output.add(edge);
 			}
 		}
 		return output;
@@ -64,20 +65,20 @@ namespace Graphs
 	Graph Intersection(const Graph& a, const Graph& b, float balancer)
 	{
 		Graph output;
-		for(auto pair : a.nodes())
+		for(auto node : a.nodes())
 		{
-			if(b.has(pair.second))
+			if(b.has(node))
 			{
-				output.add((const Node&)pair.second);
+				output.add((const Node&)node);
 			}
 		}
-		for(auto pair : a.edges())
+		for(auto edge : a.edges())
 		{
-			if(b.has(pair.second))
+			if(b.has(edge))
 			{
-				float weight_from_a = balancer * pair.second.weight();
-				float weight_from_b = (1.0 - balancer) * b.fetch(pair.second).weight();
-				output.add(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+				float weight_from_a = balancer * edge.weight();
+				float weight_from_b = (1.0 - balancer) * b.fetch(edge).weight();
+				output.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
 			}
 		}
 		return output;
@@ -86,18 +87,18 @@ namespace Graphs
 	Graph Difference(const Graph& a, const Graph& b)
 	{
 		Graph output;
-		for(auto pair : a.nodes())
+		for(auto node : a.nodes())
 		{
-			if(!b.has(pair.second))
+			if(!b.has(node))
 			{
-				output.add((const Node&)pair.second);
+				output.add((const Node&)node);
 			}
 		}
-		for(auto pair : a.edges())
+		for(auto edge : a.edges())
 		{
-			if(!b.has(pair.second))
+			if(!b.has(edge))
 			{
-				output.add(pair.second);
+				output.add(edge);
 			}
 		}
 		return output;
@@ -119,12 +120,12 @@ namespace Graphs
 	float ValueSimilarity(const Graph& a, const Graph& b)
 	{
 		float output = 0;
-		for(auto pair : a.edges())
+		for(auto edge : a.edges())
 		{
-			if(b.has(pair.second))
+			if(b.has(edge))
 			{
-				float tmp_nom = std::min(pair.second.weight(), b.fetch(pair.second).weight());
-				float tmp_denom = std::max(pair.second.weight(), b.fetch(pair.second).weight());
+				float tmp_nom = std::min(edge.weight(), b.fetch(edge).weight());
+				float tmp_denom = std::max(edge.weight(), b.fetch(edge).weight());
 				output = output + tmp_nom / tmp_denom;
 			}
 		}

@@ -16,19 +16,19 @@ namespace Graphs
 		return this->_nodes.size();
 	}
 
-	typename std::unordered_map<uint32_t, NodeInGraph>::const_iterator Graph::begin() const
+	const_iterator<uint32_t, NodeInGraph> Graph::begin() const
 	{
 		return this->_nodes.cbegin();
 	}
 
-	typename std::unordered_map<uint32_t, NodeInGraph>::const_iterator Graph::end() const
+	const_iterator<uint32_t, NodeInGraph> Graph::end() const
 	{
 		return this->_nodes.cend();
 	}
 
 	bool Graph::has(const Edge& edge) const
 	{
-		std::unordered_map<uint64_t, Edge>::const_iterator iter = this->_edges.find(edge.id());
+		const_iterator<uint64_t, Edge> iter = this->_edges.find(edge.id());
 		if(iter == this->_edges.cend())
 		{
 			return false;
@@ -38,7 +38,7 @@ namespace Graphs
 
 	bool Graph::has(const Node& node) const
 	{
-		std::unordered_map<uint32_t, NodeInGraph>::const_iterator iter = this->_nodes.find(node.id());
+		const_iterator<uint32_t, NodeInGraph> iter = this->_nodes.find(node.id());
 		if(iter == this->_nodes.cend())
 		{
 			return false;
@@ -46,12 +46,12 @@ namespace Graphs
 		return true;
 	}
 
-	typename std::unordered_map<uint32_t, NodeInGraph>::const_iterator Graph::get_node(const Node& node) const
+	const_iterator<uint32_t, NodeInGraph> Graph::get_node(const Node& node) const
 	{
 		return this->_nodes.find(node.id());
 	}
 
-	typename std::unordered_map<uint64_t, Edge>::const_iterator Graph::get_edge(const Edge& edge) const
+	const_iterator<uint64_t, Edge> Graph::get_edge(const Edge& edge) const
 	{
 		return this->_edges.find(edge.id());
 	}
@@ -60,14 +60,14 @@ namespace Graphs
 	{
 		auto iter = this->get_node(node);
 		if(iter == this->end()) throw std::out_of_range(string_format("No such node: %s", node.str().c_str()));
-		return iter->second;
+		return *iter;
 	}
 
 	const Edge& Graph::fetch(const Edge& edge) const
 	{
 		auto iter = this->get_edge(edge);
 		if(iter == this->_edges.cend()) throw std::out_of_range(string_format("No such edge: %s", edge.str().c_str()));
-		return iter->second;
+		return *iter;
 	}
 
 	bool Graph::add(const Node& node)
@@ -85,8 +85,8 @@ namespace Graphs
 		this->_weight_sum = this->_weight_sum + edge.weight();
 		const Node& src = edge.source();
 		if(!this->has(src)) this->add(src);
-		std::unordered_map<uint32_t, NodeInGraph>::iterator iter = this->_nodes.find(src.id());
-		iter->second.add(edge);
+		auto iter = this->_nodes.find(src.id());
+		iter->add(edge);
 		this->add(edge.target()); 
 		return true;
 	}
@@ -104,17 +104,17 @@ namespace Graphs
 		this->_weight_sum = this->_weight_sum - this->fetch(edge).weight();
 		this->_edges.erase(edge.id());
 		const Node& src = edge.source();
-		std::unordered_map<uint32_t, NodeInGraph>::iterator iter = this->_nodes.find(src.id());
-		iter->second.remove(edge);
+		auto iter = this->_nodes.find(src.id());
+		iter->remove(edge);
 		return true;
 	}
 
 	std::string Graph::str(void) const
 	{
 		std::string output = "[\n";
-		for(auto pair : *this)
+		for(const auto& node : *this)
 		{
-			std::string tmp = string_format("	%s\n", pair.second.str().c_str());
+			std::string tmp = string_format("	%s\n", node.str().c_str());
 			output.append(tmp);
 		}
 		output.append("]");
@@ -124,9 +124,9 @@ namespace Graphs
 	std::string Graph::str_edges(void) const
 	{
 		std::string output = "[\n";
-		for(auto pair : this->_edges)
+		for(const auto& edge : this->_edges)
 		{
-			output.append(string_format("	%s\n", pair.second.str().c_str()));
+			output.append(string_format("	%s\n", edge.str().c_str()));
 		}
 		output.append("]");
 		return output;
@@ -149,12 +149,12 @@ namespace Graphs
 		return this->_weight_sum;
 	}
 
-	const std::unordered_map<uint64_t, Edge>& Graph::edges(void) const
+	const unordered_map<uint64_t, Edge>& Graph::edges(void) const
 	{
 		return this->_edges;
 	}
 
-	const std::unordered_map<uint32_t, NodeInGraph>& Graph::nodes(void) const
+	const unordered_map<uint32_t, NodeInGraph>& Graph::nodes(void) const
 	{
 		return this->_nodes;
 	}

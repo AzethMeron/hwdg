@@ -43,18 +43,6 @@ namespace Graphs
 		return *this;
 	}
 
-	Edge::Edge(const Edge& to_copy) : _src_node(to_copy.source()), _tgt_node(to_copy.target())
-	{
-		this->_weight = to_copy.weight();
-		this->_id = to_copy.id();
-	}
-
-	Edge::Edge(const Edge&& to_move) : _src_node(to_move.source()), _tgt_node(to_move.target())
-	{
-		this->_weight = to_move.weight();
-		this->_id = to_move.id();
-	}
-
 	Edge::Edge(const Node& src, const Node& tgt, float weight) : _src_node(src), _tgt_node(tgt)
 	{
 		this->_weight = weight;
