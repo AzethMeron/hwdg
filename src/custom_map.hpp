@@ -34,13 +34,13 @@ namespace Graphs
 	class unordered_map : public std::unordered_map<keytype, valuetype>
 	{
 		public:
-			iterator<keytype, valuetype> begin() { return (iterator<keytype, valuetype>) std::unordered_map<keytype, valuetype>::begin(); }
-			const_iterator<keytype, valuetype> cbegin() const { return (const_iterator<keytype, valuetype>) std::unordered_map<keytype, valuetype>::cbegin(); }
-			const_iterator<keytype, valuetype> begin() const { return (const_iterator<keytype, valuetype>) std::unordered_map<keytype, valuetype>::begin(); }
+			iterator<keytype, valuetype> begin() { return iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::begin()); }
+			const_iterator<keytype, valuetype> cbegin() const { return const_iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::cbegin()); }
+			const_iterator<keytype, valuetype> begin() const { return const_iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::begin()); }
 			iterator<keytype, valuetype> end() { return (iterator<keytype, valuetype>) std::unordered_map<keytype, valuetype>::end(); }
-			const_iterator<keytype, valuetype> cend() const { return (const_iterator<keytype, valuetype>) std::unordered_map<keytype, valuetype>::cend(); }
-			const_iterator<keytype, valuetype> end() const { return (const_iterator<keytype, valuetype>) std::unordered_map<keytype, valuetype>::end(); }
-			iterator<keytype, valuetype> find(const keytype& id) { return (iterator<keytype, valuetype>) std::unordered_map<keytype, valuetype>::find(id); }
-			const_iterator<keytype, valuetype> find(const keytype& id) const { return (const_iterator<keytype, valuetype>) std::unordered_map<keytype, valuetype>::find(id); }
+			const_iterator<keytype, valuetype> cend() const { return const_iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::cend()); }
+			const_iterator<keytype, valuetype> end() const { return const_iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::end()); }
+			iterator<keytype, valuetype> find(const keytype& id) { return iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::find(id)); }
+			const_iterator<keytype, valuetype> find(const keytype& id) const { return const_iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::find(id)); }
 	};
 }
