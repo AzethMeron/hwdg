@@ -13,12 +13,12 @@ namespace Graphs
 	{
 		Graph output = a;
 		// adding nodes from b
-		for(auto node : b)
+		for(auto& node : b)
 		{
 			output.add((const Node&)node);
 		}
 		// adding edges
-		for(auto edge : b.edges())
+		for(auto& edge : b.edges())
 		{
 			if(a.has(edge))
 			{
@@ -40,12 +40,12 @@ namespace Graphs
 	{
 		Graph output = a;
 		// adding nodes from b
-		for(auto node : b)
+		for(auto& node : b)
 		{
 			output.add((const Node&)node);
 		}
 		// adding edges
-		for(auto edge : b.edges())
+		for(auto& edge : b.edges())
 		{
 			if(a.has(edge))
 			{
@@ -65,14 +65,14 @@ namespace Graphs
 	Graph Intersection(const Graph& a, const Graph& b, float balancer)
 	{
 		Graph output;
-		for(auto node : a.nodes())
+		for(auto& node : a.nodes())
 		{
 			if(b.has(node))
 			{
 				output.add((const Node&)node);
 			}
 		}
-		for(auto edge : a.edges())
+		for(auto& edge : a.edges())
 		{
 			if(b.has(edge))
 			{
@@ -87,14 +87,14 @@ namespace Graphs
 	Graph Difference(const Graph& a, const Graph& b)
 	{
 		Graph output;
-		for(auto node : a.nodes())
+		for(auto& node : a.nodes())
 		{
 			if(!b.has(node))
 			{
 				output.add((const Node&)node);
 			}
 		}
-		for(auto edge : a.edges())
+		for(auto& edge : a.edges())
 		{
 			if(!b.has(edge))
 			{
@@ -120,7 +120,7 @@ namespace Graphs
 	float ValueSimilarity(const Graph& a, const Graph& b)
 	{
 		float output = 0;
-		for(auto edge : a.edges())
+		for(auto& edge : a.edges())
 		{
 			if(b.has(edge))
 			{

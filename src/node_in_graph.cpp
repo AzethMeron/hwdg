@@ -54,7 +54,7 @@ namespace Graphs
 	std::string NodeInGraph::str(void) const
 	{
 		std::string list_of_next = "[";
-		for(auto edge : *this)
+		for(auto& edge : *this)
 		{
 			list_of_next.append(string_format(" (%s, %.1f) ", edge.target().str().c_str(), edge.weight()));
 		}
