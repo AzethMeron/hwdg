@@ -1,8 +1,13 @@
 #pragma once
 #include "graph.hpp"
 
-Graph Union(const Graph& a, const Graph& b, float balancer);
-Graph Intersection(const Graph& a, const Graph& b, float balancer);
-Graph Difference(const Graph& a, const Graph& b);
-float ContainmentSimilarity(const Graph& a, const Graph& b);
-float SizeSimilarity(const Graph& a, const Graph& b);
+namespace Graphs
+{
+	Graph Union(const Graph& a, const Graph& b, float balancer); // linear
+	Graph Intersection(const Graph& a, const Graph& b, float balancer); // linear
+	Graph Difference(const Graph& a, const Graph& b); // linear
+	float ContainmentSimilarity(const Graph& a, const Graph& b); // linear
+	float SizeSimilarity(const Graph& a, const Graph& b); // constant
+	float ValueSimilarity(const Graph& a, const Graph& b); // linear
+	float NormalizedValueSimilarity(const Graph& a, const Graph& b); // linear
+}

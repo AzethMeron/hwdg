@@ -6,84 +6,107 @@
 #include "node_in_graph.hpp"
 #include "graph.hpp"
 
-// balancer = 0..1
-Graph Union(const Graph& a, const Graph& b, float balancer)
+namespace Graphs
 {
-	Graph output = a;
-	// adding nodes from b
-	for(auto pair : b)
+	// balancer = 0..1
+	Graph Union(const Graph& a, const Graph& b, float balancer)
 	{
-		output.add_node((const Node&)pair.second);
-	}
-	// adding edges
-	for(auto pair : b.edges())
-	{
-		if(a.has_edge(pair.second))
-		{
-			float weight_from_a = balancer * a.fetch_edge(pair.second).weight();
-			float weight_from_b = (1.0 - balancer) * pair.second.weight();
-			output.remove_edge(pair.second);
-			output.add_edge(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
-		}
-		else
-		{
-			output.add_edge(pair.second);
-		}
-	}
-	return output;
-}
-
-Graph Intersection(const Graph& a, const Graph& b, float balancer)
-{
-	Graph output;
-	for(auto pair : a.nodes())
-	{
-		if(b.has_node(pair.second))
+		Graph output = a;
+		// adding nodes from b
+		for(auto pair : b)
 		{
 			output.add_node((const Node&)pair.second);
 		}
-	}
-	for(auto pair : a.edges())
-	{
-		if(b.has_edge(pair.second))
+		// adding edges
+		for(auto pair : b.edges())
 		{
-			float weight_from_a = balancer * pair.second.weight();
-			float weight_from_b = (1.0 - balancer) * b.fetch_edge(pair.second).weight();
-			output.add_edge(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+			if(a.has_edge(pair.second))
+			{
+				float weight_from_a = balancer * a.fetch_edge(pair.second).weight();
+				float weight_from_b = (1.0 - balancer) * pair.second.weight();
+				output.remove_edge(pair.second);
+				output.add_edge(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+			}
+			else
+			{
+				output.add_edge(pair.second);
+			}
 		}
+		return output;
 	}
-	return output;
-}
 
-Graph Difference(const Graph& a, const Graph& b)
-{
-	Graph output;
-	for(auto pair : a.nodes())
+	Graph Intersection(const Graph& a, const Graph& b, float balancer)
 	{
-		if(!b.has_node(pair.second))
+		Graph output;
+		for(auto pair : a.nodes())
 		{
-			output.add_node((const Node&)pair.second);
+			if(b.has_node(pair.second))
+			{
+				output.add_node((const Node&)pair.second);
+			}
 		}
+		for(auto pair : a.edges())
+		{
+			if(b.has_edge(pair.second))
+			{
+				float weight_from_a = balancer * pair.second.weight();
+				float weight_from_b = (1.0 - balancer) * b.fetch_edge(pair.second).weight();
+				output.add_edge(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+			}
+		}
+		return output;
 	}
-	for(auto pair : a.edges())
+
+	Graph Difference(const Graph& a, const Graph& b)
 	{
-		if(!b.has_edge(pair.second))
+		Graph output;
+		for(auto pair : a.nodes())
 		{
-			output.add_edge(pair.second);
+			if(!b.has_node(pair.second))
+			{
+				output.add_node((const Node&)pair.second);
+			}
 		}
+		for(auto pair : a.edges())
+		{
+			if(!b.has_edge(pair.second))
+			{
+				output.add_edge(pair.second);
+			}
+		}
+		return output;
 	}
-	return output;
-}
 
-float SizeSimilarity(const Graph& a, const Graph& b)
-{
-	float size_a = a.size_edges();
-	float size_b = b.size_edges();
-	return std::min(size_a, size_b) / std::max(size_a, size_b);
-}
+	float SizeSimilarity(const Graph& a, const Graph& b)
+	{
+		float size_a = a.size_edges();
+		float size_b = b.size_edges();
+		return std::min(size_a, size_b) / std::max(size_a, size_b);
+	}
 
-float ContainmentSimilarity(const Graph& a, const Graph& b)
-{
-	float common_edges = Intersection(a,b,0.5).size_edges();
-	return common_edges / std::min(a.size_edges(), b.size_edges());
+	float ContainmentSimilarity(const Graph& a, const Graph& b)
+	{
+		float common_edges = Intersection(a,b,0.5).size_edges();
+		return common_edges / std::min(a.size_edges(), b.size_edges());
+	}
+	
+	float ValueSimilarity(const Graph& a, const Graph& b)
+	{
+		float output = 0;
+		for(auto pair : a.edges())
+		{
+			if(b.has_edge(pair.second))
+			{
+				float tmp_nom = std::min(pair.second.weight(), b.fetch_edge(pair.second).weight());
+				float tmp_denom = std::max(pair.second.weight(), b.fetch_edge(pair.second).weight());
+				output = output + tmp_nom / tmp_denom;
+			}
+		}
+		return output / std::max(a.size_edges(), b.size_edges());
+	}
+	
+	float NormalizedValueSimilarity(const Graph& a, const Graph& b)
+	{
+		return ValueSimilarity(a,b) / SizeSimilarity(a,b);
+	}
 }
