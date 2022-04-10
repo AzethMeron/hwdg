@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <cstdint>
 #include <string>
+#include <initializer_list>
+		
 
 #include "node.hpp"
 #include "edge.hpp"
@@ -40,5 +42,8 @@ namespace Graphs
 			
 			float density(void) const;
 			Graph();
+			Graph(const std::initializer_list<Edge>& l);
+			Graph(const std::initializer_list<Node>& l);
+			Graph(const std::initializer_list<Node>& nodes, const std::initializer_list<Edge>& edges);
 	};
 }

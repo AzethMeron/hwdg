@@ -152,4 +152,34 @@ namespace Graphs
 		return this->_nodes;
 	}
 
+	Graph::Graph(const std::initializer_list<Edge>& l)
+	{
+		this->_weight_sum = 0;
+		for(const Edge& edge : l)
+		{
+			this->add_edge(edge);
+		}
+	}
+	
+	Graph::Graph(const std::initializer_list<Node>& l)
+	{
+		this->_weight_sum = 0;
+		for(const Node& node : l)
+		{
+			this->add_node(node);
+		}
+	}
+	
+	Graph::Graph(const std::initializer_list<Node>& nodes, const std::initializer_list<Edge>& edges)
+	{
+		this->_weight_sum = 0;
+		for(const Node& node : nodes)
+		{
+			this->add_node(node);
+		}
+		for(const Edge& edge : edges)
+		{
+			this->add_edge(edge);
+		}
+	}
 }
