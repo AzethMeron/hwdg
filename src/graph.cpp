@@ -26,7 +26,7 @@ namespace Graphs
 		return this->_nodes.cend();
 	}
 
-	bool Graph::has_edge(const Edge& edge) const
+	bool Graph::has(const Edge& edge) const
 	{
 		std::unordered_map<uint64_t, Edge>::const_iterator iter = this->_edges.find(edge.id());
 		if(iter == this->_edges.cend())
@@ -36,7 +36,7 @@ namespace Graphs
 		return true;
 	}
 
-	bool Graph::has_node(const Node& node) const
+	bool Graph::has(const Node& node) const
 	{
 		std::unordered_map<uint32_t, NodeInGraph>::const_iterator iter = this->_nodes.find(node.id());
 		if(iter == this->_nodes.cend())
@@ -56,49 +56,49 @@ namespace Graphs
 		return this->_edges.find(edge.id());
 	}
 
-	const NodeInGraph& Graph::fetch_node(const Node& node) const
+	const NodeInGraph& Graph::fetch(const Node& node) const
 	{
 		auto iter = this->get_node(node);
 		if(iter == this->end()) throw std::out_of_range(string_format("No such node: %s", node.str().c_str()));
 		return iter->second;
 	}
 
-	const Edge& Graph::fetch_edge(const Edge& edge) const
+	const Edge& Graph::fetch(const Edge& edge) const
 	{
 		auto iter = this->get_edge(edge);
 		if(iter == this->_edges.cend()) throw std::out_of_range(string_format("No such edge: %s", edge.str().c_str()));
 		return iter->second;
 	}
 
-	bool Graph::add_node(const Node& node)
+	bool Graph::add(const Node& node)
 	{
-		if(this->has_node(node)) return false;
+		if(this->has(node)) return false;
 		NodeInGraph n = node;
 		this->_nodes.insert({node.id(), n});
 		return true;
 	}
 
-	bool Graph::add_edge(const Edge& edge)
+	bool Graph::add(const Edge& edge)
 	{
-		if(this->has_edge(edge)) return false;
+		if(this->has(edge)) return false;
 		this->_edges.insert({edge.id(), edge});
 		this->_weight_sum = this->_weight_sum + edge.weight();
 		const Node& src = edge.source();
-		if(!this->has_node(src)) this->add_node(src);
+		if(!this->has(src)) this->add(src);
 		std::unordered_map<uint32_t, NodeInGraph>::iterator iter = this->_nodes.find(src.id());
-		iter->second.add_edge(edge);
-		this->add_node(edge.target()); 
+		iter->second.add(edge);
+		this->add(edge.target()); 
 		return true;
 	}
 
-	bool Graph::remove_edge(const Edge& edge)
+	bool Graph::remove(const Edge& edge)
 	{
-		if(!this->has_edge(edge)) return false;
-		this->_weight_sum = this->_weight_sum - this->fetch_edge(edge).weight();
+		if(!this->has(edge)) return false;
+		this->_weight_sum = this->_weight_sum - this->fetch(edge).weight();
 		this->_edges.erase(edge.id());
 		const Node& src = edge.source();
 		std::unordered_map<uint32_t, NodeInGraph>::iterator iter = this->_nodes.find(src.id());
-		iter->second.remove_edge(edge);
+		iter->second.remove(edge);
 		return true;
 	}
 
@@ -157,7 +157,7 @@ namespace Graphs
 		this->_weight_sum = 0;
 		for(const Edge& edge : l)
 		{
-			this->add_edge(edge);
+			this->add(edge);
 		}
 	}
 	
@@ -166,7 +166,7 @@ namespace Graphs
 		this->_weight_sum = 0;
 		for(const Node& node : l)
 		{
-			this->add_node(node);
+			this->add(node);
 		}
 	}
 	
@@ -175,11 +175,11 @@ namespace Graphs
 		this->_weight_sum = 0;
 		for(const Node& node : nodes)
 		{
-			this->add_node(node);
+			this->add(node);
 		}
 		for(const Edge& edge : edges)
 		{
-			this->add_edge(edge);
+			this->add(edge);
 		}
 	}
 }

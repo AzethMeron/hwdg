@@ -9,6 +9,7 @@ namespace py = pybind11;
 // może zawierać tylko jeden edge prowadzacy z node A do node B (1-graf, NIE JEST TO MULTIGRAF)
 // moze zawierac sciezki z node A prowadzace do node A
 
+
 PYBIND11_MODULE(graphs, m) {
 	
 	#ifdef VERSION_INFO

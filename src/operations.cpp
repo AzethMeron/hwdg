@@ -14,21 +14,21 @@ namespace Graphs
 		// adding nodes from b
 		for(auto pair : b)
 		{
-			output.add_node((const Node&)pair.second);
+			output.add((const Node&)pair.second);
 		}
 		// adding edges
 		for(auto pair : b.edges())
 		{
-			if(a.has_edge(pair.second))
+			if(a.has(pair.second))
 			{
-				float weight_from_a = a.fetch_edge(pair.second).weight();
+				float weight_from_a = a.fetch(pair.second).weight();
 				float weight_from_b = pair.second.weight();
-				output.remove_edge(pair.second);
-				output.add_edge(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+				output.remove(pair.second);
+				output.add(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
 			}
 			else
 			{
-				output.add_edge(pair.second);
+				output.add(pair.second);
 			}
 		}
 		return output;
@@ -41,21 +41,21 @@ namespace Graphs
 		// adding nodes from b
 		for(auto pair : b)
 		{
-			output.add_node((const Node&)pair.second);
+			output.add((const Node&)pair.second);
 		}
 		// adding edges
 		for(auto pair : b.edges())
 		{
-			if(a.has_edge(pair.second))
+			if(a.has(pair.second))
 			{
-				float weight_from_a = balancer * a.fetch_edge(pair.second).weight();
+				float weight_from_a = balancer * a.fetch(pair.second).weight();
 				float weight_from_b = (1.0 - balancer) * pair.second.weight();
-				output.remove_edge(pair.second);
-				output.add_edge(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+				output.remove(pair.second);
+				output.add(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
 			}
 			else
 			{
-				output.add_edge(pair.second);
+				output.add(pair.second);
 			}
 		}
 		return output;
@@ -66,18 +66,18 @@ namespace Graphs
 		Graph output;
 		for(auto pair : a.nodes())
 		{
-			if(b.has_node(pair.second))
+			if(b.has(pair.second))
 			{
-				output.add_node((const Node&)pair.second);
+				output.add((const Node&)pair.second);
 			}
 		}
 		for(auto pair : a.edges())
 		{
-			if(b.has_edge(pair.second))
+			if(b.has(pair.second))
 			{
 				float weight_from_a = balancer * pair.second.weight();
-				float weight_from_b = (1.0 - balancer) * b.fetch_edge(pair.second).weight();
-				output.add_edge(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+				float weight_from_b = (1.0 - balancer) * b.fetch(pair.second).weight();
+				output.add(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
 			}
 		}
 		return output;
@@ -88,16 +88,16 @@ namespace Graphs
 		Graph output;
 		for(auto pair : a.nodes())
 		{
-			if(!b.has_node(pair.second))
+			if(!b.has(pair.second))
 			{
-				output.add_node((const Node&)pair.second);
+				output.add((const Node&)pair.second);
 			}
 		}
 		for(auto pair : a.edges())
 		{
-			if(!b.has_edge(pair.second))
+			if(!b.has(pair.second))
 			{
-				output.add_edge(pair.second);
+				output.add(pair.second);
 			}
 		}
 		return output;
@@ -121,10 +121,10 @@ namespace Graphs
 		float output = 0;
 		for(auto pair : a.edges())
 		{
-			if(b.has_edge(pair.second))
+			if(b.has(pair.second))
 			{
-				float tmp_nom = std::min(pair.second.weight(), b.fetch_edge(pair.second).weight());
-				float tmp_denom = std::max(pair.second.weight(), b.fetch_edge(pair.second).weight());
+				float tmp_nom = std::min(pair.second.weight(), b.fetch(pair.second).weight());
+				float tmp_denom = std::max(pair.second.weight(), b.fetch(pair.second).weight());
 				output = output + tmp_nom / tmp_denom;
 			}
 		}
