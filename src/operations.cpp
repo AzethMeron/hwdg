@@ -5,7 +5,7 @@
 #include "edge.hpp"
 #include "node_in_graph.hpp"
 #include "graph.hpp"
-#include "map.hpp"
+#include "custom_map.hpp"
 
 namespace Graphs
 {

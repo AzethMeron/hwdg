@@ -4,7 +4,7 @@
 #include <string>
 #include <initializer_list>
 		
-#include "map.hpp"
+#include "custom_map.hpp"
 #include "node.hpp"
 #include "edge.hpp"
 #include "node_in_graph.hpp"

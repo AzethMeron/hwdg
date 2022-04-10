@@ -6,7 +6,7 @@ namespace Graphs
 {
 	bool NodeInGraph::has(const Edge& edge) const
 	{
-		std::unordered_map<uint64_t, Edge>::const_iterator iter = this->_edges.find(edge.id());
+		auto iter = this->_edges.find(edge.id());
 		if(iter == this->_edges.cend()) return false;
 		return true;
 	}

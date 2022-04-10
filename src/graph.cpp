@@ -86,7 +86,7 @@ namespace Graphs
 		const Node& src = edge.source();
 		if(!this->has(src)) this->add(src);
 		auto iter = this->_nodes.find(src.id());
-		iter->add(edge);
+		(*iter).add(edge);
 		this->add(edge.target()); 
 		return true;
 	}
@@ -105,7 +105,7 @@ namespace Graphs
 		this->_edges.erase(edge.id());
 		const Node& src = edge.source();
 		auto iter = this->_nodes.find(src.id());
-		iter->remove(edge);
+		(*iter).remove(edge);
 		return true;
 	}
 

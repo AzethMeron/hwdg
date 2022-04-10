@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <string>
-#include "map.hpp"
+#include "custom_map.hpp"
 #include "node.hpp"
 #include "edge.hpp"
 
