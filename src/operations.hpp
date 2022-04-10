@@ -3,6 +3,7 @@
 
 namespace Graphs
 {
+	Graph Union(const Graph& a, const Graph& b); // linear
 	Graph Union(const Graph& a, const Graph& b, float balancer); // linear
 	Graph Intersection(const Graph& a, const Graph& b, float balancer); // linear
 	Graph Difference(const Graph& a, const Graph& b); // linear

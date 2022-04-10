@@ -8,6 +8,32 @@
 
 namespace Graphs
 {
+	Graph Union(const Graph& a, const Graph& b)
+	{
+		Graph output = a;
+		// adding nodes from b
+		for(auto pair : b)
+		{
+			output.add_node((const Node&)pair.second);
+		}
+		// adding edges
+		for(auto pair : b.edges())
+		{
+			if(a.has_edge(pair.second))
+			{
+				float weight_from_a = a.fetch_edge(pair.second).weight();
+				float weight_from_b = pair.second.weight();
+				output.remove_edge(pair.second);
+				output.add_edge(Edge(pair.second.source(), pair.second.target(), weight_from_a + weight_from_b));
+			}
+			else
+			{
+				output.add_edge(pair.second);
+			}
+		}
+		return output;
+	}
+	
 	// balancer = 0..1
 	Graph Union(const Graph& a, const Graph& b, float balancer)
 	{
