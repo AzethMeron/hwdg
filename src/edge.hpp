@@ -13,6 +13,7 @@ namespace Graphs
 			Node _tgt_node;
 			float _weight;
 			uint64_t _id;
+			static uint64_t calculate_id(const Node& src, const Node& tgt, float weight);
 		public:
 			static constexpr float DUMMY_WEIGHT = 1;
 		public:

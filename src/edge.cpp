@@ -8,6 +8,11 @@
 
 namespace Graphs
 {
+	uint64_t Edge::calculate_id(const Node& src, const Node& tgt, float weight)
+	{
+		uint64_t limit32 = std::numeric_limits<uint32_t>::max();
+		return src.id() + tgt.id()*limit32;
+	}
 
 	float Edge::weight(void) const
 	{
@@ -53,8 +58,7 @@ namespace Graphs
 	Edge::Edge(const Node& src, const Node& tgt, float weight) : _src_node(src), _tgt_node(tgt)
 	{
 		this->_weight = weight;
-		uint64_t limit32 = std::numeric_limits<uint32_t>::max();
-		this->_id = src.id() + tgt.id()*limit32;
+		this->_id = Edge::calculate_id(src, tgt, weight);
 	}
 
 	Edge::Edge(const Node& src, const Node& tgt) : _src_node(src), _tgt_node(tgt)
