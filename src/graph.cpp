@@ -90,6 +90,13 @@ namespace Graphs
 		this->add(edge.target()); 
 		return true;
 	}
+	
+	void Graph::update(const Edge& edge)
+	{
+		this->remove(edge);
+		this->add(edge);
+	}
+	
 
 	bool Graph::remove(const Edge& edge)
 	{
@@ -155,31 +162,35 @@ namespace Graphs
 	Graph::Graph(const std::initializer_list<Edge>& l)
 	{
 		this->_weight_sum = 0;
+		this->add(l);
+	}
+	
+	Graph::Graph(const std::initializer_list<Node>& l)
+	{
+		this->_weight_sum = 0;
+		this->add(l);
+	}
+	
+	Graph::Graph(const std::initializer_list<Node>& nodes, const std::initializer_list<Edge>& edges)
+	{
+		this->_weight_sum = 0;
+		this->add(nodes);
+		this->add(edges);
+	}
+	
+	void Graph::add(const std::initializer_list<Edge>& l)
+	{
 		for(const Edge& edge : l)
 		{
 			this->add(edge);
 		}
 	}
 	
-	Graph::Graph(const std::initializer_list<Node>& l)
+	void Graph::add(const std::initializer_list<Node>& l)
 	{
-		this->_weight_sum = 0;
 		for(const Node& node : l)
 		{
 			this->add(node);
-		}
-	}
-	
-	Graph::Graph(const std::initializer_list<Node>& nodes, const std::initializer_list<Edge>& edges)
-	{
-		this->_weight_sum = 0;
-		for(const Node& node : nodes)
-		{
-			this->add(node);
-		}
-		for(const Edge& edge : edges)
-		{
-			this->add(edge);
 		}
 	}
 }

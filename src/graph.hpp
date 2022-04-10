@@ -36,6 +36,7 @@ namespace Graphs
 			bool add(const Node& node); // constant
 			bool add(const Edge& edge); // constant
 			bool remove(const Edge& edge); // constant
+			void update(const Edge& edge); // constant
 			
 			const std::unordered_map<uint64_t, Edge>& edges(void) const;
 			const std::unordered_map<uint32_t, NodeInGraph>& nodes(void) const;
@@ -45,5 +46,7 @@ namespace Graphs
 			Graph(const std::initializer_list<Edge>& l);
 			Graph(const std::initializer_list<Node>& l);
 			Graph(const std::initializer_list<Node>& nodes, const std::initializer_list<Edge>& edges);
+			void add(const std::initializer_list<Edge>& l);
+			void add(const std::initializer_list<Node>& l);
 	};
 }
