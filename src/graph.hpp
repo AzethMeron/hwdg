@@ -17,6 +17,7 @@ namespace Graphs
 			unordered_map<uint32_t, NodeInGraph> _nodes;
 			unordered_map<uint64_t, Edge> _edges;
 			double _weight_sum;
+			unsigned int _negative_edges;
 		public:
 			double weight_sum(void) const; // constant
 			unsigned int size_edges(void) const; // constant 
@@ -47,5 +48,7 @@ namespace Graphs
 			Graph(const std::initializer_list<Node>& nodes, const std::initializer_list<Edge>& edges);
 			void add(const std::initializer_list<Edge>& l);
 			void add(const std::initializer_list<Node>& l);
+
+			bool valid_for_dijkstra(void) const;
 	};
 }

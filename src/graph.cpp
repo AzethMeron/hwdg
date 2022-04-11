@@ -80,7 +80,8 @@ namespace Graphs
 
 	bool Graph::add(const Edge& edge)
 	{
-		if(this->has(edge)) return false;
+		if (this->has(edge)) return false;
+		if (edge.weight() < 0) { this->_negative_edges++; }
 		this->_edges.insert({edge.id(), edge});
 		this->_weight_sum = this->_weight_sum + edge.weight();
 		const Node& src = edge.source();
@@ -101,6 +102,7 @@ namespace Graphs
 	bool Graph::remove(const Edge& edge)
 	{
 		if(!this->has(edge)) return false;
+		if (edge.weight() < 0) { this->_negative_edges--; }
 		this->_weight_sum = this->_weight_sum - this->fetch(edge).weight();
 		this->_edges.erase(edge.id());
 		const Node& src = edge.source();
@@ -142,6 +144,7 @@ namespace Graphs
 	Graph::Graph()
 	{
 		this->_weight_sum = 0;
+		this->_negative_edges = 0;
 	}
 
 	double Graph::weight_sum(void) const
@@ -159,21 +162,18 @@ namespace Graphs
 		return this->_nodes;
 	}
 
-	Graph::Graph(const std::initializer_list<Edge>& l)
+	Graph::Graph(const std::initializer_list<Edge>& l) : Graph()
 	{
-		this->_weight_sum = 0;
 		this->add(l);
 	}
 	
-	Graph::Graph(const std::initializer_list<Node>& l)
+	Graph::Graph(const std::initializer_list<Node>& l) : Graph()
 	{
-		this->_weight_sum = 0;
 		this->add(l);
 	}
 	
-	Graph::Graph(const std::initializer_list<Node>& nodes, const std::initializer_list<Edge>& edges)
+	Graph::Graph(const std::initializer_list<Node>& nodes, const std::initializer_list<Edge>& edges) : Graph()
 	{
-		this->_weight_sum = 0;
 		this->add(nodes);
 		this->add(edges);
 	}
@@ -192,5 +192,10 @@ namespace Graphs
 		{
 			this->add(node);
 		}
+	}
+
+	bool Graph::valid_for_dijkstra(void) const
+	{
+		return this->_negative_edges > 0;
 	}
 }
