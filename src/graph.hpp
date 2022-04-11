@@ -52,5 +52,7 @@ namespace Graphs
 
 			bool has_negative_weights(void) const;
 			bool has_loops(void) const;
+			
+			Graph Transpose(void) const;
 	};
 }

@@ -209,4 +209,18 @@ namespace Graphs
 	{
 		return this->_loops > 0;
 	}
+	
+	Graph Graph::Transpose(void) const
+	{
+		Graph output;
+		for(const Node& node : *this)
+		{
+			output.add(node);
+		}
+		for(const Edge& edge : this->edges())
+		{
+			output.add(Edge(edge.target(), edge.source(), edge.weight()));
+		}
+		return output;
+	}
 }
