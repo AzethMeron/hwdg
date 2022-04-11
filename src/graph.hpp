@@ -18,6 +18,7 @@ namespace Graphs
 			unordered_map<uint64_t, Edge> _edges;
 			double _weight_sum;
 			unsigned int _negative_edges;
+			unsigned int _loops;
 		public:
 			double weight_sum(void) const; // constant
 			unsigned int size_edges(void) const; // constant 
@@ -41,7 +42,7 @@ namespace Graphs
 			const unordered_map<uint64_t, Edge>& edges(void) const;
 			const unordered_map<uint32_t, NodeInGraph>& nodes(void) const;
 			
-			float density(void) const;
+			double density(void) const;
 			Graph();
 			Graph(const std::initializer_list<Edge>& l);
 			Graph(const std::initializer_list<Node>& l);
@@ -49,6 +50,7 @@ namespace Graphs
 			void add(const std::initializer_list<Edge>& l);
 			void add(const std::initializer_list<Node>& l);
 
-			bool valid_for_dijkstra(void) const;
+			bool has_negative_weights(void) const;
+			bool has_loops(void) const;
 	};
 }

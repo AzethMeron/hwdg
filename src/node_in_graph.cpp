@@ -1,6 +1,6 @@
 
 #include "node_in_graph.hpp"
-#include "string_format.hpp"
+#include "tools.hpp"
 
 namespace Graphs
 {

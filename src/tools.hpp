@@ -4,6 +4,8 @@
 #include <string>
 #include <stdexcept>
 
+#include "graph.hpp"
+
 namespace Graphs
 {
 	// Source: https://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf
@@ -19,4 +21,10 @@ namespace Graphs
 		std::snprintf( buf.get(), size, format.c_str(), args ... );
 		return std::string( buf.get(), buf.get() + size - 1 ); // We don't want the '\0' inside
 	}
+	
+	// size - number of nodes
+	// density - value from 0 to 1, describes density of graph. Result graph won't be precisely of this value
+	// weight_min, weight_max - weights for edges
+	// loops - are loops allowed?
+	Graph RandGraph(unsigned int size, float density, float weight_min, float weight_max, bool loops); 
 }

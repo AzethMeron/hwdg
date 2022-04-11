@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <limits>
 #include <string>
-#include "string_format.hpp"
+#include "tools.hpp"
 #include "node.hpp"
 #include "edge.hpp"
 

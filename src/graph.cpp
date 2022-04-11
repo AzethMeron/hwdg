@@ -1,6 +1,6 @@
 
 #include <string>
-#include "string_format.hpp"
+#include "tools.hpp"
 #include "graph.hpp"
 
 namespace Graphs
@@ -82,6 +82,7 @@ namespace Graphs
 	{
 		if (this->has(edge)) return false;
 		if (edge.weight() < 0) { this->_negative_edges++; }
+		if (edge.source() == edge.target()) { this->_loops++; }
 		this->_edges.insert({edge.id(), edge});
 		this->_weight_sum = this->_weight_sum + edge.weight();
 		const Node& src = edge.source();
@@ -106,6 +107,7 @@ namespace Graphs
 	{
 		if(!this->has(edge)) return false;
 		if (edge.weight() < 0) { this->_negative_edges--; }
+		if (edge.source() == edge.target()) { this->_loops--; }
 		this->_weight_sum = this->_weight_sum - this->fetch(edge).weight();
 		this->_edges.erase(edge.id());
 		const Node& src = edge.source();
@@ -137,10 +139,10 @@ namespace Graphs
 		return output;
 	}
 
-	float Graph::density(void) const
+	double Graph::density(void) const
 	{
-		float max_edges = this->size_nodes()*this->size_nodes();
-		float edges = this->size_edges();
+		double max_edges = this->size_nodes()*this->size_nodes();
+		double edges = this->size_edges();
 		return edges / max_edges;
 	}
 
@@ -148,6 +150,7 @@ namespace Graphs
 	{
 		this->_weight_sum = 0;
 		this->_negative_edges = 0;
+		this->_loops = 0;
 	}
 
 	double Graph::weight_sum(void) const
@@ -197,8 +200,13 @@ namespace Graphs
 		}
 	}
 
-	bool Graph::valid_for_dijkstra(void) const
+	bool Graph::has_negative_weights(void) const
 	{
 		return this->_negative_edges == 0;
+	}
+	
+	bool Graph::has_loops(void) const
+	{
+		return this->_loops > 0;
 	}
 }
