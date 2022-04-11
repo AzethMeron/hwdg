@@ -94,7 +94,10 @@ namespace Graphs
 	
 	void Graph::update(const Edge& edge)
 	{
-		this->remove(edge);
+		if(this->has(edge))
+		{
+			this->remove(this->fetch(edge));
+		}
 		this->add(edge);
 	}
 	
@@ -196,6 +199,6 @@ namespace Graphs
 
 	bool Graph::valid_for_dijkstra(void) const
 	{
-		return this->_negative_edges > 0;
+		return this->_negative_edges == 0;
 	}
 }

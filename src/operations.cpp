@@ -104,35 +104,35 @@ namespace Graphs
 		return output;
 	}
 
-	float SizeSimilarity(const Graph& a, const Graph& b)
+	double SizeSimilarity(const Graph& a, const Graph& b)
 	{
-		float size_a = a.size_edges();
-		float size_b = b.size_edges();
+		double size_a = a.size_edges();
+		double size_b = b.size_edges();
 		return std::min(size_a, size_b) / std::max(size_a, size_b);
 	}
 
-	float ContainmentSimilarity(const Graph& a, const Graph& b)
+	double ContainmentSimilarity(const Graph& a, const Graph& b)
 	{
-		float common_edges = Intersection(a,b,0.5).size_edges();
+		double common_edges = Intersection(a,b,0.5).size_edges();
 		return common_edges / std::min(a.size_edges(), b.size_edges());
 	}
 	
-	float ValueSimilarity(const Graph& a, const Graph& b)
+	double ValueSimilarity(const Graph& a, const Graph& b)
 	{
-		float output = 0;
+		double output = 0;
 		for(auto& edge : a.edges())
 		{
 			if(b.has(edge))
 			{
-				float tmp_nom = std::min(edge.weight(), b.fetch(edge).weight());
-				float tmp_denom = std::max(edge.weight(), b.fetch(edge).weight());
+				double tmp_nom = std::min(edge.weight(), b.fetch(edge).weight());
+				double tmp_denom = std::max(edge.weight(), b.fetch(edge).weight());
 				output = output + tmp_nom / tmp_denom;
 			}
 		}
 		return output / std::max(a.size_edges(), b.size_edges());
 	}
 	
-	float NormalizedValueSimilarity(const Graph& a, const Graph& b)
+	double NormalizedValueSimilarity(const Graph& a, const Graph& b)
 	{
 		return ValueSimilarity(a,b) / SizeSimilarity(a,b);
 	}
