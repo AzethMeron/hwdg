@@ -54,5 +54,6 @@ namespace Graphs
 			bool has_loops(void) const;
 			
 			Graph Transpose(void) const;
+			Graph ScaleWeight(float factor) const;
 	};
 }

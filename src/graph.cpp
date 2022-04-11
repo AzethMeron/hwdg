@@ -95,10 +95,7 @@ namespace Graphs
 	
 	void Graph::update(const Edge& edge)
 	{
-		if(this->has(edge))
-		{
-			this->remove(this->fetch(edge));
-		}
+		this->remove(edge);
 		this->add(edge);
 	}
 	
@@ -106,7 +103,7 @@ namespace Graphs
 	bool Graph::remove(const Edge& edge)
 	{
 		if(!this->has(edge)) return false;
-		if (edge.weight() < 0) { this->_negative_edges--; }
+		if (this->fetch(edge).weight() < 0) { this->_negative_edges--; }
 		if (edge.source() == edge.target()) { this->_loops--; }
 		this->_weight_sum = this->_weight_sum - this->fetch(edge).weight();
 		this->_edges.erase(edge.id());
@@ -220,6 +217,20 @@ namespace Graphs
 		for(const Edge& edge : this->edges())
 		{
 			output.add(Edge(edge.target(), edge.source(), edge.weight()));
+		}
+		return output;
+	}
+	
+	Graph Graph::ScaleWeight(float factor) const
+	{
+		Graph output;
+		for(const Node& node : *this)
+		{
+			output.add(node);
+		}
+		for(const Edge& edge : this->edges())
+		{
+			output.add(Edge(edge.source(), edge.target(), edge.weight()*factor));
 		}
 		return output;
 	}
