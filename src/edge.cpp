@@ -29,9 +29,9 @@ namespace Graphs
 		return this->_tgt_node;
 	}
 
-	const uint64_t& Edge::id(void) const
+	uint64_t Edge::id(void) const
 	{
-		return this->_id;
+		return Edge::calculate_id(this->source(), this->target(), this->weight());
 	}
 
 	Edge& Edge::operator = (const Edge& to_copy)
@@ -39,14 +39,12 @@ namespace Graphs
 		this->_src_node = to_copy.source();
 		this->_tgt_node = to_copy.target();
 		this->_weight = to_copy.weight();
-		this->_id = to_copy.id();
 		return *this;
 	}
 
 	Edge::Edge(const Node& src, const Node& tgt, float weight) : _src_node(src), _tgt_node(tgt)
 	{
 		this->_weight = weight;
-		this->_id = Edge::calculate_id(src, tgt, weight);
 	}
 
 	Edge::Edge(const Node& src, const Node& tgt) : _src_node(src), _tgt_node(tgt)
