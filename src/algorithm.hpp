@@ -7,10 +7,7 @@
 
 namespace Graphs
 {
-	struct ResultCell;
-	class Results;
-
-	Results Dijkstra(const Graph& graph, const Node& start);
+	
 }
 
 #endif

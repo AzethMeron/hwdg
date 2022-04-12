@@ -51,11 +51,11 @@ namespace Graphs
 			void add(const std::initializer_list<Edge>& l);
 			void add(const std::initializer_list<Node>& l);
 
-			bool has_negative_weights(void) const;
-			bool has_loops(void) const;
+			bool has_negative_weights(void) const; // constant
+			bool has_loops(void) const; // constant
 			
-			Graph Transpose(void) const;
-			Graph ScaleWeight(float factor) const;
+			Graph Transpose(void) const; // linear
+			Graph ScaleWeight(float factor) const; // linear
 	};
 }
 

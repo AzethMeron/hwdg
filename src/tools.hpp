@@ -28,6 +28,8 @@ namespace Graphs
 	// weight_min, weight_max - weights for edges
 	// loops - are loops allowed?
 	Graph RandGraph(unsigned int size, float density, float weight_min, float weight_max, bool loops); 
+	double RandDouble(const double& min, const double& max);
+	int RandInt(const int& min, const int& max);
 }
 
 #endif
