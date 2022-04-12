@@ -199,7 +199,7 @@ namespace Graphs
 
 	bool Graph::has_negative_weights(void) const
 	{
-		return this->_negative_edges == 0;
+		return this->_negative_edges > 0;
 	}
 	
 	bool Graph::has_loops(void) const
