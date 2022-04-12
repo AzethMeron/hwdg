@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHS_LEGEND_HPP
+#define GRAPHS_LEGEND_HPP
 
 #include <unordered_map>
 #include <cstdint>
@@ -41,3 +42,5 @@ namespace Graphs
 		this->_map.insert_or_assign(node.id(), object);
 	}
 }
+
+#endif

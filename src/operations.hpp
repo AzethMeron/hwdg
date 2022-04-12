@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GRAPHS_OPERATIONS_HPP
+#define GRAPHS_OPERATIONS_HPP
+
 #include "graph.hpp"
 
 namespace Graphs
@@ -12,3 +14,5 @@ namespace Graphs
 	double ValueSimilarity(const Graph& a, const Graph& b); // linear
 	double NormalizedValueSimilarity(const Graph& a, const Graph& b); // linear
 }
+
+#endif

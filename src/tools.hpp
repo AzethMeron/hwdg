@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHS_TOOLS_HPP
+#define GRAPHS_TOOLS_HPP
 
 #include <memory>
 #include <string>
@@ -28,3 +29,5 @@ namespace Graphs
 	// loops - are loops allowed?
 	Graph RandGraph(unsigned int size, float density, float weight_min, float weight_max, bool loops); 
 }
+
+#endif

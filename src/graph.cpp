@@ -138,7 +138,7 @@ namespace Graphs
 
 	double Graph::density(void) const
 	{
-		double max_edges = this->size_nodes()*this->size_nodes();
+		double max_edges = (double)this->size_nodes()*(double)this->size_nodes();
 		double edges = this->size_edges();
 		return edges / max_edges;
 	}

@@ -38,7 +38,7 @@ namespace Graphs
 					double chance = RandDouble(0,1);
 					if(chance <= density)
 					{
-						float weight = RandDouble(weight_min, weight_max);
+						float weight = (float)RandDouble(weight_min, weight_max);
 						output.add(Edge(a,b,weight));
 					}
 				}

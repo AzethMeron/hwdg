@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHS_NODE_IN_GRAPH_HPP
+#define GRAPHS_NODE_IN_GRAPH_HPP
 
 #include <cstdint>
 #include <string>
@@ -28,3 +29,5 @@ namespace Graphs
 	};
 
 }
+
+#endif

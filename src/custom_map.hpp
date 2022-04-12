@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHS_CUSTOM_MAP_HPP
+#define GRAPHS_CUSTOM_MAP_HPP
 
 #include <unordered_map>
 
@@ -44,3 +45,5 @@ namespace Graphs
 			const_iterator<keytype, valuetype> find(const keytype& id) const { return const_iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::find(id)); }
 	};
 }
+
+#endif

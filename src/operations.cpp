@@ -50,7 +50,7 @@ namespace Graphs
 			if(a.has(edge))
 			{
 				float weight_from_a = balancer * a.fetch(edge).weight();
-				float weight_from_b = (1.0 - balancer) * edge.weight();
+				float weight_from_b = ((float)1.0 - balancer) * edge.weight();
 				output.remove(edge);
 				output.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
 			}
@@ -77,7 +77,7 @@ namespace Graphs
 			if(b.has(edge))
 			{
 				float weight_from_a = balancer * edge.weight();
-				float weight_from_b = (1.0 - balancer) * b.fetch(edge).weight();
+				float weight_from_b = ((float)1.0 - balancer) * b.fetch(edge).weight();
 				output.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
 			}
 		}

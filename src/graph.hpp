@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHS_GRAPH_HPP
+#define GRAPHS_GRAPH_HPP
 
 #include <cstdint>
 #include <string>
@@ -57,3 +58,5 @@ namespace Graphs
 			Graph ScaleWeight(float factor) const;
 	};
 }
+
+#endif

@@ -1,7 +1,9 @@
-#pragma once
+#ifndef GRAPHS_EDGE_HPP
+#define GRAPHS_EDGE_HPP
 
 #include <cstdint>
 #include <string>
+#include <limits>
 #include "node.hpp"
 
 namespace Graphs
@@ -15,6 +17,8 @@ namespace Graphs
 			static uint64_t calculate_id(const Node& src, const Node& tgt, float weight);
 		public:
 			static constexpr float DUMMY_WEIGHT = 1;
+			static constexpr float MAX_WEIGHT = std::numeric_limits<float>::max();
+			static constexpr float MIN_WEIGHT = std::numeric_limits<float>::min();
 		public:
 			float weight(void) const;
 			const Node& source(void) const;
@@ -28,3 +32,5 @@ namespace Graphs
 			std::string str(void) const;
 	};
 }
+
+#endif
