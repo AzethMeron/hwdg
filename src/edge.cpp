@@ -60,5 +60,14 @@ namespace Graphs
 	{
 		return string_format("(%s, %s, %f)", this->source().str().c_str(), this->target().str().c_str(), this->weight());
 	}
+	
+	Edge Edge::Scale(const float& factor) const
+	{
+		return Edge(this->source(), this->target(), this->weight() * factor);
+	}
 
+	Edge Edge::Reverse(void) const
+	{
+		return Edge(this->target(), this->source(), this->weight());
+	}
 }

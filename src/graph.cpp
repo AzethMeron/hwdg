@@ -216,7 +216,7 @@ namespace Graphs
 		}
 		for(const Edge& edge : this->edges())
 		{
-			output.add(Edge(edge.target(), edge.source(), edge.weight()));
+			output.add(edge.Reverse());
 		}
 		return output;
 	}
@@ -230,7 +230,7 @@ namespace Graphs
 		}
 		for(const Edge& edge : this->edges())
 		{
-			output.add(Edge(edge.source(), edge.target(), edge.weight()*factor));
+			output.add(edge.Scale(factor));
 		}
 		return output;
 	}

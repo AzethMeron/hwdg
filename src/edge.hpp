@@ -30,6 +30,8 @@ namespace Graphs
 			uint64_t id(void) const;
 			bool operator == (const Edge& edge) const;
 			std::string str(void) const;
+			Edge Scale(const float& factor) const;
+			Edge Reverse(void) const;
 	};
 }
 
