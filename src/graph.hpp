@@ -12,6 +12,10 @@
 
 namespace Graphs
 {
+	// 20000 nodes, density 0.1, 9,6 GB
+	// 10000 nodes, density 0.2, 5,1 GB
+	// 5000 nodes, density 0.5, 3,3 GB
+	// 1000 nodes, density 1, 250 MB
 	class Graph
 	{
 		private:

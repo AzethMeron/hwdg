@@ -32,6 +32,11 @@ namespace Graphs
 			std::string str(void) const;
 			Edge Scale(const float& factor) const;
 			Edge Reverse(void) const;
+
+			struct HashFunction
+			{
+				uint64_t operator()(const Edge& node) const;
+			};
 	};
 }
 

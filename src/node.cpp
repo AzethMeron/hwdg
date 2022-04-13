@@ -11,6 +11,11 @@ namespace Graphs
 		return this->_id;
 	}
 
+	uint32_t Node::HashFunction::operator()(const Node& node) const
+	{
+		return node.id();
+	}
+
 	Node::Node(const uint32_t& id)
 	{
 		 this->_id = id;

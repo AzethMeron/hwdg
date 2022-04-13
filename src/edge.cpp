@@ -70,4 +70,9 @@ namespace Graphs
 	{
 		return Edge(this->target(), this->source(), this->weight());
 	}
+
+	uint64_t Edge::HashFunction::operator()(const Edge& node) const
+	{
+		return node.id();
+	}
 }

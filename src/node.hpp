@@ -18,6 +18,11 @@ namespace Graphs
 
 			static constexpr uint32_t MIN_ID = std::numeric_limits<uint32_t>::min();
 			static constexpr uint32_t MAX_ID = std::numeric_limits<uint32_t>::max();
+
+			struct HashFunction
+			{
+				uint32_t operator()(const Node& node) const;
+			};
 	};
 }
 

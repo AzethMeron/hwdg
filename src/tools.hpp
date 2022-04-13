@@ -26,7 +26,7 @@ namespace Graphs
 	// density - value from 0 to 1, describes density of graph. Result graph won't be precisely of this value
 	// weight_min, weight_max - weights for edges
 	// loops - are loops allowed?
-	Graph RandGraph(unsigned int size, float density, float weight_min, float weight_max, bool loops); 
+	Graph RandGraph(unsigned int size, float density, float weight_min, float weight_max, bool loops); // O(n^2)
 	double RandDouble(const double& min, const double& max);
 	int RandInt(const int& min, const int& max);
 }
