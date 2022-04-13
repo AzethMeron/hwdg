@@ -20,7 +20,7 @@ namespace Graphs
 				double pathweight;
 				int64_t prev_id;
 				size_t heap_position;
-				Cell(const Node& n);
+				Cell(const Node& n, const Node& src);
 			};
 			unordered_map<uint32_t, Cell> results;
 			std::vector<Node> heap; // effectively, Q set
@@ -41,6 +41,7 @@ namespace Graphs
 			Cell& getCell(const size_t& pos_in_heap);
 			const Cell& getCell(const size_t& pos_in_heap) const;
 		private:
+			const Cell& getCell(const Node& node) const;
 			void UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight);
 			void Algorithm(const Graph& graph);
 		public:

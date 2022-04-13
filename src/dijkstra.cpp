@@ -10,10 +10,11 @@
 
 namespace Graphs
 {
-	Dijkstra::Cell::Cell(const Node& n) : node(n)
+	Dijkstra::Cell::Cell(const Node& n, const Node& src) : node(n)
 	{
 		this->prev_id = -1;
-		this->pathweight = RandInt(1, 100);;//std::numeric_limits<double>::max();
+		this->pathweight = std::numeric_limits<double>::max();
+		if (n == src) this->pathweight = 0;
 		this->heap_position = -1;
 	}
 	Dijkstra::Dijkstra(const Graph& graph, const Node& src) : _source(src)
@@ -28,11 +29,29 @@ namespace Graphs
 		// Initialisation
 		for (const Node& node : graph)
 		{
-			this->results.insert({node.id(), Dijkstra::Cell(node)});
+			this->results.insert({node.id(), Dijkstra::Cell(node, this->_source)});
 			this->heap.push_back(node);
 		}
-		(*this->results.find(this->_source.id())).pathweight = 0;
+		// Convert vector to heap. From this point, both results and heap are synchronized
 		this->MakeHeap();
+		// Dijkstra Algorithm
+		while (this->heap.size())
+		{
+			NodeInGraph current = graph.fetch(this->PopHeap());
+			const Cell& current_cell = this->getCell(current);
+
+			for (const Edge& edge : current)
+			{
+				const Node& neighbour = edge.target();
+				const Cell& neighbour_cell = this->getCell(neighbour);
+				double pathweight_from_current = current_cell.pathweight + edge.weight();
+				if (neighbour_cell.pathweight > pathweight_from_current)
+				{
+					this->UpdateWeight(neighbour, current, pathweight_from_current);
+				}
+			}
+		}
+		/* this was used to test heap
 		for (auto& node : this->heap)
 		{
 			const Cell& c1 = (*this->results.find(node.id()));
@@ -43,7 +62,7 @@ namespace Graphs
 		{
 			const Cell& c1 = (*this->results.find(this->PopHeap().id()));
 			std::cout << c1.pathweight << " ";
-		}
+		}*/
 	}
 
 	void Dijkstra::MakeHeap()
@@ -170,14 +189,16 @@ namespace Graphs
 		return out;
 	}
 
+	const Dijkstra::Cell& Dijkstra::getCell(const Node& node) const
+	{
+		return (*this->results.find(node.id()));
+	}
+
 	void Dijkstra::UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight)
 	{
 		Cell& c = (*this->results.find(node.id()));
-		if (pathweight < c.pathweight)
-		{
-			c.pathweight = pathweight;
-			c.prev_id = prev_node.id();
-			this->RestoreHeap(c.heap_position);
-		}
+		c.pathweight = pathweight;
+		c.prev_id = prev_node.id();
+		if(c.heap_position >= 0) this->RestoreHeap(c.heap_position);
 	}
 }
