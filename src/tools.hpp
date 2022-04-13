@@ -4,7 +4,6 @@
 #include <memory>
 #include <string>
 #include <stdexcept>
-
 #include "graph.hpp"
 
 namespace Graphs

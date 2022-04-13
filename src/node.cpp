@@ -15,22 +15,6 @@ namespace Graphs
 	{
 		 this->_id = id;
 	}
-	 
-	Node::Node(const Node& to_copy)
-	{
-		 *this = to_copy;
-	}
-	 
-	Node::Node(const Node&& to_move)
-	{
-		 *this = to_move;
-	} 
-
-	Node& Node::operator = (const Node& to_copy)
-	{
-		this->_id = to_copy.id();
-		return *this;
-	}
 
 	bool Node::operator == (const Node& rval) const
 	{
