@@ -16,7 +16,7 @@ namespace Graphs
 			const Node _source;
 			struct Cell
 			{
-				Node node;
+				const Node node;
 				double pathweight;
 				int64_t prev_id;
 				size_t heap_position;
@@ -26,17 +26,22 @@ namespace Graphs
 			std::vector<Node> heap; // effectively, Q set
 			//std::unordered_set<Node, Node::HashFunction> Q;
 			//std::unordered_set<Node, Node::HashFunction> S;
-		private:
-			void PushHeap(Node);
+		private: // Heap functions. It's a mess.
+			void PushHeap(const Node& node);
 			Node PopHeap();
-			void RestoreHeap(size_t position);
+			void RestoreHeap(const size_t& position); // similar to heapify, but it checks parent too
+			void Heapify(const size_t& position); 
 			void MakeHeap();
-			bool HeapCompare(size_t index1, size_t index2) const;
-			size_t leftChild(size_t index) const;
-			size_t rightChild(size_t index) const;
-			bool has(size_t index) const;
-			size_t parent(size_t index) const;
+			bool HeapCompare(const size_t& index1, const size_t& index2) const;
+			inline size_t leftChild(const size_t& index) const;
+			inline size_t rightChild(const size_t& index) const;
+			inline bool exist(const size_t& index) const;
+			inline size_t parent(const size_t& index) const;
+			inline void swap(const size_t& l, const size_t& r);
+			Cell& getCell(const size_t& pos_in_heap);
+			const Cell& getCell(const size_t& pos_in_heap) const;
 		private:
+			void UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight);
 			void Algorithm(const Graph& graph);
 		public:
 			Dijkstra() = delete;
