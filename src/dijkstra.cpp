@@ -219,4 +219,9 @@ namespace Graphs
 		if (iter == this->_results.end()) return false;
 		return true;
 	}
+
+	const unordered_map<uint32_t, Dijkstra::Cell>& Dijkstra::RawResults(void) const
+	{
+		return this->_results;
+	}
 }

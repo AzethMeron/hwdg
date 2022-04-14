@@ -13,8 +13,7 @@ namespace Graphs
 {
 	class Dijkstra
 	{
-		private:
-			const Node _source;
+		public:
 			struct Cell
 			{
 				const Node node;
@@ -23,6 +22,8 @@ namespace Graphs
 				size_t heap_position;
 				Cell(const Node& n, const Node& src);
 			};
+		private:
+			const Node _source;
 			unordered_map<uint32_t, Cell> _results;
 			std::vector<Node> _heap; // effectively, Q set
 			//std::unordered_set<Node, Node::HashFunction> Q;
@@ -50,6 +51,7 @@ namespace Graphs
 			Dijkstra() = delete;
 			Dijkstra(const Graph& graph, const Node& src);
 			Path Path(const Node& target) const;
+			const unordered_map<uint32_t, Cell>& RawResults(void) const;
 	};
 }
 
