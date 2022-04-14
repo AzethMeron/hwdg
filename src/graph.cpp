@@ -294,6 +294,7 @@ namespace Graphs
 		for (size_t i = 0; i < size_nodes; ++i)
 		{
 			Node src = Node::LoadBin(file);
+			graph.add(src);
 			size_t size_edges = 0;
 			file.read((char*)&size_edges, sizeof(size_edges));
 			graph.reserve_edges_in_node(src, size_edges);
