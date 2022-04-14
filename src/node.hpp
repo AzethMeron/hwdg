@@ -2,6 +2,7 @@
 #define GRAPHS_NODE_HPP
 
 #include <cstdint>
+#include <string>
 
 namespace Graphs
 {

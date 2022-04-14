@@ -26,8 +26,8 @@ namespace Graphs
 			unsigned int _loops;
 		public:
 			double weight_sum(void) const; // constant
-			unsigned int size_edges(void) const; // constant 
-			unsigned int size_nodes(void) const; // constant
+			size_t size_edges(void) const; // constant 
+			size_t size_nodes(void) const; // constant
 			const_iterator<uint32_t, NodeInGraph> begin() const;
 			const_iterator<uint32_t, NodeInGraph> end() const;
 			bool has(const Edge& edge) const; // constant

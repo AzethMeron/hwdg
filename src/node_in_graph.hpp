@@ -21,7 +21,7 @@ namespace Graphs
 			
 			const_iterator<uint64_t, Edge> begin() const;
 			const_iterator<uint64_t, Edge> end() const;
-			unsigned int size_edges(void) const; // constant
+			size_t size_edges(void) const; // constant
 			std::string str(void) const; // linear
 			
 			NodeInGraph() = delete;

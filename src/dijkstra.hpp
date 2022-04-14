@@ -7,6 +7,7 @@
 #include "node.hpp"
 #include "graph.hpp"
 #include "custom_map.hpp"
+#include "path.hpp"
 
 namespace Graphs
 {
@@ -22,8 +23,8 @@ namespace Graphs
 				size_t heap_position;
 				Cell(const Node& n, const Node& src);
 			};
-			unordered_map<uint32_t, Cell> results;
-			std::vector<Node> heap; // effectively, Q set
+			unordered_map<uint32_t, Cell> _results;
+			std::vector<Node> _heap; // effectively, Q set
 			//std::unordered_set<Node, Node::HashFunction> Q;
 			//std::unordered_set<Node, Node::HashFunction> S;
 		private: // Heap functions. It's a mess.
@@ -47,6 +48,7 @@ namespace Graphs
 		public:
 			Dijkstra() = delete;
 			Dijkstra(const Graph& graph, const Node& src);
+			Path Path(const Node& target) const;
 	};
 }
 

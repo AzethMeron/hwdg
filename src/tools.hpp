@@ -29,6 +29,10 @@ namespace Graphs
 	Graph RandGraph(unsigned int size, float density, float weight_min, float weight_max, bool loops); // O(n^2)
 	double RandDouble(const double& min, const double& max);
 	int RandInt(const int& min, const int& max);
+
+	// Temporary (?) functions for tests
+	Graph LoadGraph(const std::string& filename);
+	void SaveGraph(const Graph& graph, const std::string& filename);
 }
 
 #endif

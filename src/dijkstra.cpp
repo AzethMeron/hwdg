@@ -2,17 +2,19 @@
 #include <cstdint>
 #include <iostream>
 #include <limits>
-#include <queue>
 #include <vector>
+#include <algorithm>
 #include "dijkstra.hpp"
 #include "custom_map.hpp"
 #include "tools.hpp"
+#include "path.hpp"
 
 namespace Graphs
 {
 	Dijkstra::Cell::Cell(const Node& n, const Node& src) : node(n)
 	{
 		this->prev_id = -1;
+		if (n == src) this->prev_id = -2;
 		this->pathweight = std::numeric_limits<double>::max();
 		if (n == src) this->pathweight = 0;
 		this->heap_position = -1;
@@ -29,13 +31,13 @@ namespace Graphs
 		// Initialisation
 		for (const Node& node : graph)
 		{
-			this->results.insert({node.id(), Dijkstra::Cell(node, this->_source)});
-			this->heap.push_back(node);
+			this->_results.insert({node.id(), Dijkstra::Cell(node, this->_source)});
+			this->_heap.push_back(node);
 		}
 		// Convert vector to heap. From this point, both results and heap are synchronized
 		this->MakeHeap();
 		// Dijkstra Algorithm
-		while (this->heap.size())
+		while (this->_heap.size())
 		{
 			NodeInGraph current = graph.fetch(this->PopHeap());
 			const Cell& current_cell = this->getCell(current);
@@ -50,6 +52,11 @@ namespace Graphs
 					this->UpdateWeight(neighbour, current, pathweight_from_current);
 				}
 			}
+		}
+		// Tests
+		for (auto& cell : this->_results)
+		{
+			std::cout << cell.node.id() << " " << cell.pathweight << " " << cell.prev_id << std::endl;
 		}
 		/* this was used to test heap
 		for (auto& node : this->heap)
@@ -67,11 +74,11 @@ namespace Graphs
 
 	void Dijkstra::MakeHeap()
 	{
-		for (int64_t i = parent(this->heap.size()-1); i >= 0; --i)
+		for (int64_t i = parent(this->_heap.size()-1); i >= 0; --i)
 		{
 			this->Heapify(i);
 		}
-		for (size_t i = 0; i < this->heap.size(); ++i)
+		for (size_t i = 0; i < this->_heap.size(); ++i)
 		{
 			Cell& c = this->getCell(i);
 			c.heap_position = i;
@@ -80,16 +87,17 @@ namespace Graphs
 
 	void Dijkstra::PushHeap(const Node& node)
 	{
-		this->heap.push_back(node);
-		this->RestoreHeap(this->heap.size()-1);
+		this->_heap.push_back(node);
+		this->RestoreHeap(this->_heap.size()-1);
 	}
 
 	Node Dijkstra::PopHeap()
 	{
-		Node output = this->heap.at(0);
-		this->swap(0, this->heap.size() - 1);
-		this->heap.pop_back();
+		Node output = this->_heap.at(0);
+		this->swap(0, this->_heap.size() - 1);
+		this->_heap.pop_back();
 		this->Heapify(0);
+		(*this->_results.find(output.id())).heap_position = -1;
 		return output;
 	}
 
@@ -118,7 +126,7 @@ namespace Graphs
 
 	inline bool Dijkstra::exist(const size_t& index) const
 	{
-		return index >= 0 && index < this->heap.size();
+		return index >= 0 && index < this->_heap.size();
 	}
 
 	void Dijkstra::RestoreHeap(const size_t& position)
@@ -166,9 +174,9 @@ namespace Graphs
 
 	void Dijkstra::swap(const size_t& l, const size_t& r)
 	{
-		std::swap(this->heap.at(l), this->heap.at(r));
-		const Node& n1 = this->heap.at(l);
-		const Node& n2 = this->heap.at(r);
+		std::swap(this->_heap.at(l), this->_heap.at(r));
+		const Node& n1 = this->_heap.at(l);
+		const Node& n2 = this->_heap.at(r);
 		Cell& c1 = this->getCell(l);
 		Cell& c2 = this->getCell(r);
 		c1.heap_position = l;
@@ -177,28 +185,46 @@ namespace Graphs
 
 	Dijkstra::Cell& Dijkstra::getCell(const size_t& pos_in_heap)
 	{
-		const Node& n = this->heap.at(pos_in_heap);
-		Cell& out = (*this->results.find(n.id()));
+		const Node& n = this->_heap.at(pos_in_heap);
+		Cell& out = (*this->_results.find(n.id()));
 		return out;
 	}
 
 	const Dijkstra::Cell& Dijkstra::getCell(const size_t& pos_in_heap) const
 	{
-		const Node& n = this->heap.at(pos_in_heap);
-		const Cell& out = (*this->results.find(n.id()));
+		const Node& n = this->_heap.at(pos_in_heap);
+		const Cell& out = (*this->_results.find(n.id()));
 		return out;
 	}
 
 	const Dijkstra::Cell& Dijkstra::getCell(const Node& node) const
 	{
-		return (*this->results.find(node.id()));
+		return (*this->_results.find(node.id()));
 	}
 
 	void Dijkstra::UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight)
 	{
-		Cell& c = (*this->results.find(node.id()));
+		Cell& c = (*this->_results.find(node.id()));
 		c.pathweight = pathweight;
 		c.prev_id = prev_node.id();
 		if(c.heap_position >= 0) this->RestoreHeap(c.heap_position);
+	}
+
+	Path Dijkstra::Path(const Node& target) const
+	{
+		std::vector<Node> nodes;
+		const double weight = this->getCell(target).pathweight;
+		const bool exists = this->getCell(target).prev_id != -1;
+		Node analysing = target;
+		nodes.push_back(analysing);
+		while (true)
+		{
+			const Cell& c = this->getCell(analysing);
+			if (c.prev_id < 0) break;
+			analysing = Node(c.prev_id);
+			nodes.push_back(analysing);
+		}
+		std::reverse(nodes.begin(), nodes.end());
+		return Path::Path(nodes, weight, exists);
 	}
 }

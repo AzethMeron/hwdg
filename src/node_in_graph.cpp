@@ -44,7 +44,7 @@ namespace Graphs
 		return this->_edges.cend();
 	}
 
-	unsigned int NodeInGraph::size_edges(void) const
+	size_t NodeInGraph::size_edges(void) const
 	{
 		return this->_edges.size();
 	}

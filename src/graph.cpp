@@ -6,12 +6,12 @@
 namespace Graphs
 {
 	
-	unsigned int Graph::size_edges(void) const
+	size_t Graph::size_edges(void) const
 	{
 		return this->_edges.size();
 	}
 
-	unsigned int Graph::size_nodes(void) const
+	size_t Graph::size_nodes(void) const
 	{
 		return this->_nodes.size();
 	}
