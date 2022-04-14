@@ -42,6 +42,7 @@ namespace Graphs
 			Cell& getCell(const size_t& pos_in_heap);
 			const Cell& getCell(const size_t& pos_in_heap) const;
 		private:
+			bool has(const Node& node) const;
 			const Cell& getCell(const Node& node) const;
 			void UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight);
 			void Algorithm(const Graph& graph);

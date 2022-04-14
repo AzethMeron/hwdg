@@ -70,6 +70,7 @@ namespace Graphs
 				file >> tgt >> weight;
 				graph.add(Edge(Node(node_id), tgt, weight));
 			}
+			if (file.good() == false) throw std::ios_base::failure(string_format("Malformed data in file: %s", filename.c_str()));
 		}
 		return graph;
 	}
@@ -78,7 +79,7 @@ namespace Graphs
 	{
 		std::ofstream file(filename);
 		if (file.good() == false) throw std::ios_base::failure(string_format("Failed to open file: %s", filename.c_str()));
-		file << graph.size_nodes() << " ";
+		file << graph.size_nodes() << "\n";
 		for (const NodeInGraph& node : graph)
 		{
 			file << node.id() << " " << node.size_edges() << " ";
@@ -86,6 +87,8 @@ namespace Graphs
 			{
 				file << edge.target().id() << " " << edge.weight() << " ";
 			}
+			file << "\n";
 		}
+		if (file.good() == false) throw std::ios_base::failure(string_format("Error happened during saving of a graph to file: %s", filename.c_str()));
 	}
 }

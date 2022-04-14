@@ -28,6 +28,7 @@ namespace Graphs
 	{
 		// Condition check
 		if (graph.has_negative_weights()) throw std::invalid_argument("Dijkstra algorithm cannot be used for graphs with negative weights of edges.");
+		if (!graph.has(this->_source)) throw std::invalid_argument(string_format("Node %s doesn't belong to given graph", this->_source.str().c_str()));
 		// Initialisation
 		for (const Node& node : graph)
 		{
@@ -212,6 +213,7 @@ namespace Graphs
 
 	Path Dijkstra::Path(const Node& target) const
 	{
+		if (!this->has(target)) throw std::invalid_argument(string_format("No node %s in graph this algorithm was used on", target.str()));
 		std::vector<Node> nodes;
 		const double weight = this->getCell(target).pathweight;
 		const bool exists = this->getCell(target).prev_id != -1;
@@ -226,5 +228,12 @@ namespace Graphs
 		}
 		std::reverse(nodes.begin(), nodes.end());
 		return Path::Path(nodes, weight, exists);
+	}
+
+	bool Dijkstra::has(const Node& node) const
+	{
+		auto iter = this->_results.find(node.id());
+		if (iter == this->_results.end()) return false;
+		return true;
 	}
 }
