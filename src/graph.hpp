@@ -60,6 +60,11 @@ namespace Graphs
 			
 			Graph Transpose(void) const; // linear
 			Graph ScaleWeight(float factor) const; // linear
+
+			// to improve performance
+			void reserve_nodes(const size_t& count);
+			void reserve_edges(const size_t& count);
+			void reserve_edges_in_node(const Node& node, const size_t& count);
 	};
 }
 

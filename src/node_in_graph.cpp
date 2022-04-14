@@ -62,4 +62,12 @@ namespace Graphs
 		std::string output = string_format("(%s, %s)", Node::str().c_str(), list_of_next.c_str());
 		return output;
 	}
+
+	void NodeInGraph::reserve_edges(const size_t& count)
+	{
+		if (count > this->size_edges())
+		{
+			this->_edges.reserve(count);
+		}
+	}
 }

@@ -234,4 +234,27 @@ namespace Graphs
 		}
 		return output;
 	}
+
+	void Graph::reserve_nodes(const size_t& count)
+	{
+		if (count > this->size_nodes())
+		{
+			this->_nodes.reserve(count);
+		}
+	}
+
+	void Graph::reserve_edges(const size_t& count)
+	{
+		if (count > this->size_edges())
+		{
+			this->_edges.reserve(count);
+		}
+	}
+
+	void Graph::reserve_edges_in_node(const Node& node, const size_t& count)
+	{
+		auto iter = this->_nodes.find(node.id());
+		if (iter == this->_nodes.end()) return;
+		(*iter).reserve_edges(count);
+	}
 }

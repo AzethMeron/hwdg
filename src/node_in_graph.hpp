@@ -26,6 +26,8 @@ namespace Graphs
 			
 			NodeInGraph() = delete;
 			NodeInGraph(const Node& n);
+
+			void reserve_edges(const size_t& count);
 	};
 
 }

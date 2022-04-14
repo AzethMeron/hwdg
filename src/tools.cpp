@@ -16,7 +16,6 @@ namespace Graphs
 	constexpr char HEADER_SAVE[] = "JDWGSAV";
 	constexpr char HEADER_SAVE_REV[] = "VASGWDJ";
 
-
 	int RandInt(const int& min, const int& max) {
 		static thread_local std::random_device rd;
 		static thread_local std::mt19937 generator(rd());
@@ -68,6 +67,10 @@ namespace Graphs
 		Graph graph;
 		size_t size_nodes;
 		file >> size_nodes;
+		graph.reserve_nodes(size_nodes);
+		size_t size_edges;
+		file >> size_edges;
+		graph.reserve_edges(size_edges);
 		for (size_t i = 0; i < size_nodes; ++i)
 		{
 			uint32_t node_id;
@@ -75,6 +78,7 @@ namespace Graphs
 			graph.add(Node(node_id));
 			size_t size_edges;
 			file >> size_edges;
+			graph.reserve_edges_in_node(Node(node_id), size_edges);
 			for (size_t j = 0; j < size_edges; ++j)
 			{
 				uint32_t tgt;
@@ -96,6 +100,7 @@ namespace Graphs
 		if (file.good() == false) throw std::ios_base::failure(string_format("Failed to open file: %s", filename.c_str()));
 		file << HEADER_SAVE << "\n";
 		file << graph.size_nodes() << "\n";
+		file << graph.size_edges() << "\n";
 		for (const NodeInGraph& node : graph)
 		{
 			file << node.id() << " " << node.size_edges() << " ";
@@ -123,6 +128,10 @@ namespace Graphs
 		Graph graph;
 		size_t size_nodes = 0;
 		file.read((char*)&size_nodes, sizeof(size_nodes));
+		graph.reserve_nodes(size_nodes);
+		size_t size_edges = 0;
+		file.read((char*)&size_edges, sizeof(size_edges));
+		graph.reserve_edges(size_edges);
 		for (size_t i = 0; i < size_nodes; ++i)
 		{
 			uint32_t node_id = 0;
@@ -130,6 +139,7 @@ namespace Graphs
 			graph.add(Node(node_id));
 			size_t size_edges = 0;
 			file.read((char*)&size_edges, sizeof(size_edges));
+			graph.reserve_edges_in_node(Node(node_id), size_edges);
 			for (size_t  j = 0; j < size_edges; ++j)
 			{
 				uint32_t tgt = 0;
@@ -157,6 +167,8 @@ namespace Graphs
 		// data
 		size_t size = graph.size_nodes();
 		file.write((const char*)&size, sizeof(size));
+		size_t size_edges = graph.size_edges();
+		file.write((const char*)&size_edges, sizeof(size_edges));
 		for (const NodeInGraph& node : graph)
 		{
 			uint32_t id = node.id();
