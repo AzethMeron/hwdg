@@ -161,8 +161,6 @@ namespace Graphs
 	void Dijkstra::swap(const size_t& l, const size_t& r)
 	{
 		std::swap(this->_heap.at(l), this->_heap.at(r));
-		const Node& n1 = this->_heap.at(l);
-		const Node& n2 = this->_heap.at(r);
 		Cell& c1 = this->getCell(l);
 		Cell& c2 = this->getCell(r);
 		c1.heap_position = l;
