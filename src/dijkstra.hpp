@@ -50,7 +50,7 @@ namespace Graphs
 		public:
 			Dijkstra() = delete;
 			Dijkstra(const Graph& graph, const Node& src);
-			Path Path(const Node& target) const;
+			Path GetPath(const Node& target) const;
 			const unordered_map<uint32_t, Cell>& RawResults(void) const;
 	};
 }

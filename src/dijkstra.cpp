@@ -196,7 +196,7 @@ namespace Graphs
 		if(c.heap_position >= 0) this->RestoreHeap(c.heap_position);
 	}
 
-	Path Dijkstra::Path(const Node& target) const
+	Path Dijkstra::GetPath(const Node& target) const
 	{
 		if (!this->has(target)) throw std::invalid_argument(string_format("No node %s in graph this algorithm was used on", target.str()));
 		std::vector<Node> nodes;
@@ -212,7 +212,7 @@ namespace Graphs
 			nodes.push_back(analysing);
 		}
 		std::reverse(nodes.begin(), nodes.end());
-		return Path::Path(nodes, weight, exists);
+		return Path(nodes, weight, exists);
 	}
 
 	bool Dijkstra::has(const Node& node) const
