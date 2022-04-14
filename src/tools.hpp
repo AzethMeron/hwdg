@@ -30,9 +30,11 @@ namespace Graphs
 	double RandDouble(const double& min, const double& max);
 	int RandInt(const int& min, const int& max);
 
-	// Temporary (?) functions for tests
+	// Serialisation. Allows to store graph in files. Binary form is actual serialisation that can be used to pickle later. Plain text save/load is good for manual creation of graphs
 	Graph LoadGraph(const std::string& filename);
 	void SaveGraph(const Graph& graph, const std::string& filename);
+	Graph LoadGraphBin(const std::string& filename);
+	void SaveGraphBin(const Graph& graph, const std::string& filename);
 }
 
 #endif
