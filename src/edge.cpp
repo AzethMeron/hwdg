@@ -75,4 +75,33 @@ namespace Graphs
 	{
 		return node.id();
 	}
+
+	void Edge::SaveBin(std::ostream& file, const Edge& edge)
+	{
+		Node::SaveBin(file, edge.target());
+		float weight = edge.weight();
+		file.write((const char*)&weight, sizeof(weight));
+	}
+
+	Edge Edge::LoadBin(std::istream& file, const Node& src)
+	{
+		uint32_t tgt = 0;
+		file.read((char*)&tgt,sizeof(tgt));
+		float weight = 0;
+		file.read((char*)&weight, sizeof(weight));
+		return Edge(src, Node(tgt), weight);
+	}
+
+	void Edge::SaveTxt(std::ostream& file, const Edge& edge)
+	{
+		file << edge.target().id() << ' ' << edge.weight();
+	}
+
+	Edge Edge::LoadTxt(std::istream& file, const Node& src)
+	{
+		uint32_t tgt = 0;
+		float weight = 0;
+		file >> tgt >> weight;
+		return Edge(src, Node(tgt), weight);
+	}
 }

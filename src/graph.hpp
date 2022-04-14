@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include <initializer_list>
+#include <iostream>
 		
 #include "custom_map.hpp"
 #include "node.hpp"
@@ -65,6 +66,11 @@ namespace Graphs
 			void reserve_nodes(const size_t& count);
 			void reserve_edges(const size_t& count);
 			void reserve_edges_in_node(const Node& node, const size_t& count);
+
+			static void SaveBin(std::ostream& file, const Graph& graph);
+			static Graph LoadBin(std::istream& file);
+			static void SaveTxt(std::ostream& file, const Graph& graph);
+			static Graph LoadTxt(std::istream& file);
 	};
 }
 

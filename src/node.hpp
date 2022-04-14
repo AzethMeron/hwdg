@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include <limits>
+#include <iostream>
 
 namespace Graphs
 {
@@ -25,6 +26,11 @@ namespace Graphs
 			{
 				uint32_t operator()(const Node& node) const;
 			};
+
+			static void SaveBin(std::ostream& file, const Node& node);
+			static Node LoadBin(std::istream& file);
+			static void SaveTxt(std::ostream& file, const Node& node);
+			static Node LoadTxt(std::istream& file);
 	};
 }
 

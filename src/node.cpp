@@ -30,4 +30,29 @@ namespace Graphs
 	{
 		return string_format("%lu", this->id());
 	}
+
+	void Node::SaveBin(std::ostream& file, const Node& node)
+	{
+		uint32_t id = node.id();
+		file.write((const char*)&id, sizeof(id));
+	}
+
+	Node Node::LoadBin(std::istream& file)
+	{
+		uint32_t id = 0;
+		file.read((char*)&id, sizeof(id));
+		return Node(id);
+	}
+
+	void Node::SaveTxt(std::ostream& file, const Node& node)
+	{
+		file << node.id();
+	}
+
+	Node Node::LoadTxt(std::istream& file)
+	{
+		uint32_t id = 0;
+		file >> id;
+		return Node(id);
+	}
 }

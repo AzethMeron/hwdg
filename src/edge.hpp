@@ -1,6 +1,7 @@
 #ifndef GRAPHS_EDGE_HPP
 #define GRAPHS_EDGE_HPP
 
+#include <iostream>
 #include <cstdint>
 #include <string>
 #include <limits>
@@ -32,6 +33,11 @@ namespace Graphs
 			std::string str(void) const;
 			Edge Scale(const float& factor) const;
 			Edge Reverse(void) const;
+
+			static void SaveBin(std::ostream& file, const Edge& edge);
+			static Edge LoadBin(std::istream& file, const Node& src);
+			static void SaveTxt(std::ostream& file, const Edge& edge);
+			static Edge LoadTxt(std::istream& file, const Node& src);
 
 			struct HashFunction
 			{

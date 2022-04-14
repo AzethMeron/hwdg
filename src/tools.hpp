@@ -26,13 +26,13 @@ namespace Graphs
 	// density - value from 0 to 1, describes density of graph. Result graph won't be precisely of this value
 	// weight_min, weight_max - weights for edges
 	// loops - are loops allowed?
-	Graph RandGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2)
-	double RandDouble(const double& min, const double& max);
-	int RandInt(const int& min, const int& max);
+	Graph RandomGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2)
+	double RandomDouble(const double& min, const double& max);
+	int RandomInt(const int& min, const int& max);
 
 	// Serialisation. Allows to store graph in files. Binary form is actual serialisation that can be used to pickle later. Plain text save/load is good for manual creation of graphs
-	Graph LoadGraph(const std::string& filename);
-	void SaveGraph(const Graph& graph, const std::string& filename);
+	Graph LoadGraphTxt(const std::string& filename);
+	void SaveGraphTxt(const Graph& graph, const std::string& filename);
 	Graph LoadGraphBin(const std::string& filename);
 	void SaveGraphBin(const Graph& graph, const std::string& filename);
 }
