@@ -210,9 +210,12 @@ namespace Graphs
 	Graph Graph::Transpose(void) const
 	{
 		Graph output;
-		for(const Node& node : *this)
+		output.reserve_nodes(this->size_nodes());
+		output.reserve_edges(this->size_edges());
+		for(const NodeInGraph& node : *this)
 		{
 			output.add(node);
+			output.reserve_edges_in_node(node, node.size_edges());
 		}
 		for(const Edge& edge : this->edges())
 		{
@@ -224,9 +227,12 @@ namespace Graphs
 	Graph Graph::ScaleWeight(float factor) const
 	{
 		Graph output;
-		for(const Node& node : *this)
+		output.reserve_nodes(this->size_nodes());
+		output.reserve_edges(this->size_edges());
+		for(const NodeInGraph& node : *this)
 		{
 			output.add(node);
+			output.reserve_edges_in_node(node, node.size_edges());
 		}
 		for(const Edge& edge : this->edges())
 		{

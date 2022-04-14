@@ -30,12 +30,16 @@ namespace Graphs
 		return distribution(generator);
 	}
 
-	Graph RandGraph(unsigned int size, float density, float weight_min, float weight_max, bool loops)
+	Graph RandGraph(size_t size, float density, float weight_min, float weight_max, bool loops)
 	{
 		Graph output;
-		for (unsigned int i = 0; i < size; ++i)
+		output.reserve_nodes(size);
+		output.reserve_edges(size * size * density);
+		for (size_t i = 0; i < size; ++i)
 		{
-			output.add(Node(i));
+			Node n = Node(i);
+			output.add(n);
+			output.reserve_edges_in_node(n, size * density);
 		}
 		for (const Node& a : output)
 		{
