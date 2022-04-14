@@ -11,10 +11,10 @@
 
 namespace Graphs
 {
-	constexpr char HEADER_BIN[] = "JDWGBIN";
-	constexpr char HEADER_BIN_REV[] = "NIBGWDJ";
-	constexpr char HEADER_SAVE[] = "JDWGSAV";
-	constexpr char HEADER_SAVE_REV[] = "VASGWDJ";
+	constexpr char HEADER_BIN[] = "HDWGBIN";
+	constexpr char HEADER_BIN_REV[] = "NIBGWDH";
+	constexpr char HEADER_SAVE[] = "HDWGSAV";
+	constexpr char HEADER_SAVE_REV[] = "VASGWDH";
 
 	int RandInt(const int& min, const int& max) {
 		static thread_local std::random_device rd;
