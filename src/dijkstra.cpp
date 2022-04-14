@@ -30,6 +30,8 @@ namespace Graphs
 		// Condition check
 		if (graph.has_negative_weights()) throw std::invalid_argument("Dijkstra algorithm cannot be used for graphs with negative weights of edges.");
 		// Initialisation
+		this->_results.reserve(graph.size_nodes());
+		this->_heap.reserve(graph.size_nodes());
 		for (const Node& node : graph)
 		{
 			this->_results.insert({node.id(), Dijkstra::Cell(node, this->_source)});

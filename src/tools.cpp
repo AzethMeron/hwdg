@@ -39,7 +39,6 @@ namespace Graphs
 		{
 			Node n = Node(i);
 			output.add(n);
-			output.reserve_edges_in_node(n, size * density);
 		}
 		for (const Node& a : output)
 		{
