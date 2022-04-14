@@ -21,6 +21,7 @@ namespace Graphs
 	}
 	Dijkstra::Dijkstra(const Graph& graph, const Node& src) : _source(src)
 	{
+		if (!graph.has(src)) throw std::invalid_argument(string_format("Node %s doesn't belong to given graph", src.str().c_str()));
 		Algorithm(graph);
 	}
 
@@ -28,7 +29,6 @@ namespace Graphs
 	{
 		// Condition check
 		if (graph.has_negative_weights()) throw std::invalid_argument("Dijkstra algorithm cannot be used for graphs with negative weights of edges.");
-		if (!graph.has(this->_source)) throw std::invalid_argument(string_format("Node %s doesn't belong to given graph", this->_source.str().c_str()));
 		// Initialisation
 		for (const Node& node : graph)
 		{
@@ -40,7 +40,7 @@ namespace Graphs
 		// Dijkstra Algorithm
 		while (this->_heap.size())
 		{
-			NodeInGraph current = graph.fetch(this->PopHeap());
+			const NodeInGraph& current = graph.fetch(this->PopHeap());
 			const Cell& current_cell = this->getCell(current);
 
 			for (const Edge& edge : current)
@@ -54,23 +54,6 @@ namespace Graphs
 				}
 			}
 		}
-		// Tests
-		for (auto& cell : this->_results)
-		{
-			std::cout << cell.node.id() << " " << cell.pathweight << " " << cell.prev_id << std::endl;
-		}
-		/* this was used to test heap
-		for (auto& node : this->heap)
-		{
-			const Cell& c1 = (*this->results.find(node.id()));
-			std::cout << c1.pathweight << " ";
-		}
-		std::cout << std::endl;
-		while (this->heap.size())
-		{
-			const Cell& c1 = (*this->results.find(this->PopHeap().id()));
-			std::cout << c1.pathweight << " ";
-		}*/
 	}
 
 	void Dijkstra::MakeHeap()
