@@ -8,6 +8,15 @@
 
 namespace Graphs
 {
+	struct PathtableCell
+	{
+		const Node node;
+		double pathweight;
+		int64_t prev_id;
+		PathtableCell() = delete;
+		PathtableCell(const Node& n, const Node& src);
+	};
+
 	class Path
 	{
 		private:

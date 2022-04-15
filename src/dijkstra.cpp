@@ -11,12 +11,8 @@
 
 namespace Graphs
 {
-	Dijkstra::Cell::Cell(const Node& n, const Node& src) : node(n)
+	Dijkstra::Cell::Cell(const Node& n, const Node& src) : PathtableCell(n,src)
 	{
-		this->prev_id = -1;
-		if (n == src) this->prev_id = -2;
-		this->pathweight = std::numeric_limits<double>::max();
-		if (n == src) this->pathweight = 0;
 		this->heap_position = -1;
 	}
 	Dijkstra::Dijkstra(const Graph& graph, const Node& src) : _source(src)
@@ -60,7 +56,7 @@ namespace Graphs
 
 	void Dijkstra::MakeHeap()
 	{
-		for (int64_t i = parent(this->_heap.size()-1); i >= 0; --i)
+		for (int64_t i = HeapParent(this->_heap.size()-1); i >= 0; --i)
 		{
 			this->Heapify(i);
 		}
@@ -80,24 +76,24 @@ namespace Graphs
 	Node Dijkstra::PopHeap()
 	{
 		Node output = this->_heap.at(0);
-		this->swap(0, this->_heap.size() - 1);
+		this->HeapSwap(0, this->_heap.size() - 1);
 		this->_heap.pop_back();
 		this->Heapify(0);
 		(*this->_results.find(output.id())).heap_position = -1;
 		return output;
 	}
 
-	inline size_t Dijkstra::parent(const size_t& index) const
+	inline size_t Dijkstra::HeapParent(const size_t& index) const
 	{
 		if (index == 0) return 0;
 		return (index - 1) / 2;
 	}
 
-	inline size_t Dijkstra::leftChild(const size_t& index) const
+	inline size_t Dijkstra::HeapLeftChild(const size_t& index) const
 	{
 		return index * 2 + 1;
 	}
-	inline size_t Dijkstra::rightChild(const size_t& index) const
+	inline size_t Dijkstra::HeapRightChild(const size_t& index) const
 	{
 		return index * 2 + 2;
 	}
@@ -110,7 +106,7 @@ namespace Graphs
 		return c1.pathweight > c2.pathweight;
 	}
 
-	inline bool Dijkstra::exist(const size_t& index) const
+	inline bool Dijkstra::HeapExist(const size_t& index) const
 	{
 		return index >= 0 && index < this->_heap.size();
 	}
@@ -118,7 +114,7 @@ namespace Graphs
 	void Dijkstra::RestoreHeap(const size_t& position)
 	{
 		this->Heapify(position);
-		size_t parent = this->parent(position);
+		size_t parent = this->HeapParent(position);
 		if (parent != position)
 		{
 			RestoreHeap(parent);
@@ -127,38 +123,38 @@ namespace Graphs
 
 	void Dijkstra::Heapify(const size_t& position)
 	{
-		size_t r_child_ind = this->rightChild(position);
-		size_t l_child_ind = this->leftChild(position);
+		size_t r_child_ind = this->HeapRightChild(position);
+		size_t l_child_ind = this->HeapLeftChild(position);
 		bool r_child_smaller_than_parent = false;
 		bool l_child_smaller_than_parent = false;
-		if (this->exist(r_child_ind)) r_child_smaller_than_parent = this->HeapCompare(position, r_child_ind);
-		if (this->exist(l_child_ind)) l_child_smaller_than_parent = this->HeapCompare(position, l_child_ind);
+		if (this->HeapExist(r_child_ind)) r_child_smaller_than_parent = this->HeapCompare(position, r_child_ind);
+		if (this->HeapExist(l_child_ind)) l_child_smaller_than_parent = this->HeapCompare(position, l_child_ind);
 		if (r_child_smaller_than_parent && l_child_smaller_than_parent)
 		{
 			if (this->HeapCompare(r_child_ind, l_child_ind))
 			{
-				this->swap(position, l_child_ind);
+				this->HeapSwap(position, l_child_ind);
 				this->Heapify(l_child_ind);
 			}
 			else
 			{
-				this->swap(position, r_child_ind);
+				this->HeapSwap(position, r_child_ind);
 				this->Heapify(r_child_ind);
 			}
 		}
 		else if(r_child_smaller_than_parent)
 		{
-			this->swap(position, r_child_ind);
+			this->HeapSwap(position, r_child_ind);
 			this->Heapify(r_child_ind);
 		}
 		else if (l_child_smaller_than_parent)
 		{
-			this->swap(position, l_child_ind);
+			this->HeapSwap(position, l_child_ind);
 			this->Heapify(l_child_ind);
 		}
 	}
 
-	void Dijkstra::swap(const size_t& l, const size_t& r)
+	void Dijkstra::HeapSwap(const size_t& l, const size_t& r)
 	{
 		std::swap(this->_heap.at(l), this->_heap.at(r));
 		Cell& c1 = this->getCell(l);

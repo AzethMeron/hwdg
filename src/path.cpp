@@ -1,6 +1,7 @@
 
 #include <vector>
 #include <string>
+#include <limits>
 #include "node.hpp"
 #include "edge.hpp"
 #include "path.hpp"
@@ -8,6 +9,14 @@
 
 namespace Graphs
 {
+	PathtableCell::PathtableCell(const Node& n, const Node& src) : node(n)
+	{
+		this->prev_id = -1;
+		if (n == src) this->prev_id = -2;
+		this->pathweight = std::numeric_limits<double>::max();
+		if (n == src) this->pathweight = 0;
+	}
+
 	size_t Path::size(void) const
 	{
 		return this->_nodes.size();

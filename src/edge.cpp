@@ -97,7 +97,7 @@ namespace Graphs
 	{
 		Node::SaveTxt(file, edge.source());
 		Node::SaveTxt(file, edge.target());
-		file << edge.weight();
+		file << edge.weight() << ' ';
 	}
 
 	Edge Edge::LoadTxt(std::istream& file)

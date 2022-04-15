@@ -1,24 +1,22 @@
-#ifndef GRAPHS_ALGORITHM_HPP
-#define GRAPHS_ALGORITHM_HPP
+#ifndef GRAPHS_DIJKSTRA_HPP
+#define GRAPHS_DIJKSTRA_HPP
 
 #include <cstdint>
 #include <vector>
-#include <unordered_set>
 #include "node.hpp"
 #include "graph.hpp"
 #include "custom_map.hpp"
 #include "path.hpp"
+#include "bellmanford.hpp"
 
 namespace Graphs
 {
-	class Dijkstra
+	class Dijkstra // could be improved by making Heap class, then making Dijkstra inherit on it and overloading certain functions.
+		// it would improve readability, but I'm not going to do it right now since it wouldn't change efficiency and this implementation DOES work
 	{
 		public:
-			struct Cell
+			struct Cell : public PathtableCell
 			{
-				const Node node;
-				double pathweight;
-				int64_t prev_id;
 				size_t heap_position;
 				Cell(const Node& n, const Node& src);
 			};
@@ -26,20 +24,18 @@ namespace Graphs
 			const Node _source;
 			unordered_map<uint32_t, Cell> _results;
 			std::vector<Node> _heap; // effectively, Q set
-			//std::unordered_set<Node, Node::HashFunction> Q;
-			//std::unordered_set<Node, Node::HashFunction> S;
 		private: // Heap functions. It's a mess.
 			void PushHeap(const Node& node);
 			Node PopHeap();
-			void RestoreHeap(const size_t& position); // similar to heapify, but it checks parent too
-			void Heapify(const size_t& position); 
+			void RestoreHeap(const size_t& position); // Heapify node, then call RestoreHeap for parent of it
+			void Heapify(const size_t& position); // Check & swap with children of given position. Doesn't check parent
 			void MakeHeap();
 			bool HeapCompare(const size_t& index1, const size_t& index2) const;
-			inline size_t leftChild(const size_t& index) const;
-			inline size_t rightChild(const size_t& index) const;
-			inline bool exist(const size_t& index) const;
-			inline size_t parent(const size_t& index) const;
-			inline void swap(const size_t& l, const size_t& r);
+			inline size_t HeapLeftChild(const size_t& index) const;
+			inline size_t HeapRightChild(const size_t& index) const;
+			inline bool HeapExist(const size_t& index) const;
+			inline size_t HeapParent(const size_t& index) const;
+			inline void HeapSwap(const size_t& l, const size_t& r);
 			Cell& getCell(const size_t& pos_in_heap);
 			const Cell& getCell(const size_t& pos_in_heap) const;
 		private:
@@ -51,7 +47,7 @@ namespace Graphs
 			Dijkstra() = delete;
 			Dijkstra(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
-			const unordered_map<uint32_t, Cell>& RawResults(void) const;
+			const unordered_map<uint32_t, Dijkstra::Cell>& RawResults(void) const;
 	};
 }
 

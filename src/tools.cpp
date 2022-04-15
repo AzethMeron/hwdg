@@ -58,7 +58,7 @@ namespace Graphs
 		return output;
 	}
 
-	Graph LoadGraphTxt(const std::string& filename)
+	Graph LoadGraphTxtFile(const std::string& filename)
 	{
 		std::ifstream file(filename);
 		if (file.good() == false) throw std::ios_base::failure(string_format("Failed to open file: %s", filename.c_str()));
@@ -74,7 +74,7 @@ namespace Graphs
 		return graph;
 	}
 
-	void SaveGraphTxt(const Graph& graph, const std::string& filename)
+	void SaveGraphTxtFile(const Graph& graph, const std::string& filename)
 	{
 		std::ofstream file(filename);
 		if (file.good() == false) throw std::ios_base::failure(string_format("Failed to open file: %s", filename.c_str()));
@@ -84,7 +84,7 @@ namespace Graphs
 		if (file.good() == false) throw std::ios_base::failure(string_format("Error happened during saving of a graph to file: %s", filename.c_str()));
 	}
 
-	Graph LoadGraphBin(const std::string& filename)
+	Graph LoadGraphBinFile(const std::string& filename)
 	{
 		std::ifstream file;
 		file.open(filename, std::ios::in | std::ios::binary);
@@ -102,7 +102,7 @@ namespace Graphs
 		return graph;
 	}
 
-	void SaveGraphBin(const Graph& graph, const std::string& filename)
+	void SaveGraphBinFile(const Graph& graph, const std::string& filename)
 	{
 		std::ofstream file;
 		file.open( filename, std::ios::out | std::ios::binary);

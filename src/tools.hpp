@@ -30,11 +30,13 @@ namespace Graphs
 	double RandomDouble(const double& min, const double& max);
 	int RandomInt(const int& min, const int& max);
 
-	// Serialisation. Allows to store graph in files. Binary form is actual serialisation that can be used to pickle later. Plain text save/load is good for manual creation of graphs
-	Graph LoadGraphTxt(const std::string& filename);
-	void SaveGraphTxt(const Graph& graph, const std::string& filename);
-	Graph LoadGraphBin(const std::string& filename);
-	void SaveGraphBin(const Graph& graph, const std::string& filename);
+	// Serialisation. Allows to store graph in files. 
+	// Binary form is actual serialisation that can be used to pickle later. Fast and compact, but platform dependant and unreadable for humans
+	// Plain text save/load is good for manual creation of graphs. Slow and takes more space, but platform independant and human readable
+	Graph LoadGraphTxtFile(const std::string& filename);
+	void SaveGraphTxtFile(const Graph& graph, const std::string& filename);
+	Graph LoadGraphBinFile(const std::string& filename);
+	void SaveGraphBinFile(const Graph& graph, const std::string& filename);
 }
 
 #endif
