@@ -16,6 +16,9 @@ namespace Graphs
 			const Node _source;
 			unordered_map<uint32_t, PathtableCell> _results;
 		private:
+			bool has(const Node& node) const;
+			const PathtableCell& getCell(const Node& node) const;
+			void UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight);
 			void Algorithm(const Graph& graph);
 		public:
 			BellmanFord() = delete;

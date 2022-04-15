@@ -62,7 +62,7 @@ namespace Graphs
 			Graph Transpose(void) const; // linear
 			Graph ScaleWeight(float factor) const; // linear
 
-			// to improve performance
+			// to improve performance. Use only if you know what you're doing
 			void reserve_nodes(const size_t& count);
 			void reserve_edges(const size_t& count);
 			void reserve_edges_in_node(const Node& node, const size_t& count);

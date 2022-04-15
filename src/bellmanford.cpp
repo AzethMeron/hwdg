@@ -31,4 +31,22 @@ namespace Graphs
 	{
 		return this->_results;
 	}
+
+	bool BellmanFord::has(const Node& node) const
+	{
+		auto iter = this->_results.find(node.id());
+		if (iter == this->_results.end()) return false;
+		return true;
+	}
+	const PathtableCell& BellmanFord::getCell(const Node& node) const
+	{
+		return (*this->_results.find(node.id()));
+	}
+
+	void BellmanFord::UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight)
+	{
+		PathtableCell& c = (*this->_results.find(node.id()));
+		c.pathweight = pathweight;
+		c.prev_id = prev_node.id();
+	}
 }
