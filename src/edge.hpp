@@ -35,9 +35,9 @@ namespace Graphs
 			Edge Reverse(void) const;
 
 			static void SaveBin(std::ostream& file, const Edge& edge);
-			static Edge LoadBin(std::istream& file, const Node& src);
+			static Edge LoadBin(std::istream& file);
 			static void SaveTxt(std::ostream& file, const Edge& edge);
-			static Edge LoadTxt(std::istream& file, const Node& src);
+			static Edge LoadTxt(std::istream& file);
 
 			struct HashFunction
 			{

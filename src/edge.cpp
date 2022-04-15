@@ -78,30 +78,34 @@ namespace Graphs
 
 	void Edge::SaveBin(std::ostream& file, const Edge& edge)
 	{
+		Node::SaveBin(file, edge.source());
 		Node::SaveBin(file, edge.target());
 		float weight = edge.weight();
 		file.write((const char*)&weight, sizeof(weight));
 	}
 
-	Edge Edge::LoadBin(std::istream& file, const Node& src)
+	Edge Edge::LoadBin(std::istream& file)
 	{
-		uint32_t tgt = 0;
-		file.read((char*)&tgt,sizeof(tgt));
+		Node src = Node::LoadBin(file);
+		Node tgt = Node::LoadBin(file);
 		float weight = 0;
 		file.read((char*)&weight, sizeof(weight));
-		return Edge(src, Node(tgt), weight);
+		return Edge(src, tgt, weight);
 	}
 
 	void Edge::SaveTxt(std::ostream& file, const Edge& edge)
 	{
-		file << edge.target().id() << ' ' << edge.weight();
+		Node::SaveTxt(file, edge.source());
+		Node::SaveTxt(file, edge.target());
+		file << edge.weight();
 	}
 
-	Edge Edge::LoadTxt(std::istream& file, const Node& src)
+	Edge Edge::LoadTxt(std::istream& file)
 	{
-		uint32_t tgt = 0;
+		Node src = Node::LoadTxt(file);
+		Node tgt = Node::LoadTxt(file);
 		float weight = 0;
-		file >> tgt >> weight;
-		return Edge(src, Node(tgt), weight);
+		file >> weight;
+		return Edge(src, tgt, weight);
 	}
 }

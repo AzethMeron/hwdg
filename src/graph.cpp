@@ -277,7 +277,9 @@ namespace Graphs
 			file.write((const char*)&edges, sizeof(edges));
 			for (const Edge& edge : node)
 			{
-				Edge::SaveBin(file, edge);
+				Node::SaveBin(file, edge.target());
+				float weight = edge.weight();
+				file.write((const char*)&weight, sizeof(weight));
 			}
 		}
 	}
@@ -300,7 +302,10 @@ namespace Graphs
 			graph.reserve_edges_in_node(src, size_edges);
 			for (size_t j = 0; j < size_edges; ++j)
 			{
-				graph.add(Edge::LoadBin(file, src));
+				Node tgt = Node::LoadBin(file);
+				float weight = 0;
+				file.read((char*)&weight, sizeof(weight));
+				graph.add(Edge(src, tgt, weight));
 			}
 		}
 		return graph;
@@ -313,11 +318,12 @@ namespace Graphs
 		for (const NodeInGraph& node : graph)
 		{
 			Node::SaveTxt(file, node);
-			file << ' ' << node.size_edges();
+			file << node.size_edges();
 			for (const Edge& edge : node)
 			{
 				file << ' ';
-				Edge::SaveTxt(file, edge);
+				Node::SaveTxt(file, edge.target());
+				file << edge.weight();
 			}
 			file << std::endl;
 		}
@@ -341,7 +347,10 @@ namespace Graphs
 			graph.reserve_edges_in_node(src, size_edges);
 			for (size_t j = 0; j < size_edges; ++j)
 			{
-				Edge edge = Edge::LoadTxt(file, src);
+				Node tgt = Node::LoadTxt(file);
+				float weight = 0;
+				file >> weight;
+				Edge edge = Edge(src, tgt, weight);
 				graph.add(edge);
 			}
 		}

@@ -46,7 +46,7 @@ namespace Graphs
 
 	void Node::SaveTxt(std::ostream& file, const Node& node)
 	{
-		file << node.id();
+		file << node.id() << ' ';
 	}
 
 	Node Node::LoadTxt(std::istream& file)
