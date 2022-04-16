@@ -26,13 +26,9 @@ namespace Graphs
 		// Condition check
 		if (graph.has_negative_weights()) throw std::invalid_argument("Dijkstra algorithm cannot be used for graphs with negative weights of edges.");
 		// Initialisation
-		this->_results.reserve(graph.size_nodes());
+		this->_results.Initialise(graph, this->_source);
 		this->_heap.reserve(graph.size_nodes());
-		for (const Node& node : graph)
-		{
-			this->_results.insert({node.id(), Dijkstra::Cell(node, this->_source)});
-			this->_heap.push_back(node);
-		}
+		for (const Node& node : graph) { this->_heap.push_back(node); }
 		// Convert vector to heap. From this point, both results and heap are synchronized
 		this->MakeHeap();
 		// Dijkstra Algorithm
@@ -166,57 +162,38 @@ namespace Graphs
 	Dijkstra::Cell& Dijkstra::getCell(const size_t& pos_in_heap)
 	{
 		const Node& n = this->_heap.at(pos_in_heap);
-		Cell& out = (*this->_results.find(n.id()));
-		return out;
+		return this->_results.getCell(n);
 	}
 
 	const Dijkstra::Cell& Dijkstra::getCell(const size_t& pos_in_heap) const
 	{
 		const Node& n = this->_heap.at(pos_in_heap);
-		const Cell& out = (*this->_results.find(n.id()));
-		return out;
+		return this->_results.getCell(n);
 	}
 
 	const Dijkstra::Cell& Dijkstra::getCell(const Node& node) const
 	{
-		return (*this->_results.find(node.id()));
+		return this->_results.getCell(node);
 	}
 
 	void Dijkstra::UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight)
 	{
-		Cell& c = (*this->_results.find(node.id()));
-		c.pathweight = pathweight;
-		c.prev_id = prev_node.id();
+		this->_results.UpdateWeight(node, prev_node, pathweight);
+		Cell& c = this->_results.getCell(node);
 		if(c.heap_position >= 0) this->RestoreHeap(c.heap_position);
 	}
 
 	Path Dijkstra::GetPath(const Node& target) const
 	{
-		if (!this->has(target)) throw std::invalid_argument(string_format("No node %s in graph this algorithm was used on", target.str()));
-		std::vector<Node> nodes;
-		const double weight = this->getCell(target).pathweight;
-		const bool exists = this->getCell(target).prev_id != -1;
-		Node analysing = target;
-		nodes.push_back(analysing);
-		while (true)
-		{
-			const Cell& c = this->getCell(analysing);
-			if (c.prev_id < 0) break;
-			analysing = Node(c.prev_id);
-			nodes.push_back(analysing);
-		}
-		std::reverse(nodes.begin(), nodes.end());
-		return Path(nodes, weight, exists);
+		return this->_results.GetPath(target);
 	}
 
 	bool Dijkstra::has(const Node& node) const
 	{
-		auto iter = this->_results.find(node.id());
-		if (iter == this->_results.end()) return false;
-		return true;
+		return this->_results.has(node);
 	}
 
-	const unordered_map<uint32_t, Dijkstra::Cell>& Dijkstra::RawResults(void) const
+	const Pathtable<Dijkstra::Cell>& Dijkstra::RawResults(void) const
 	{
 		return this->_results;
 	}

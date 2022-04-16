@@ -14,7 +14,7 @@ namespace Graphs
 	{
 		private:
 			const Node _source;
-			unordered_map<uint32_t, PathtableCell> _results;
+			Pathtable<PathtableCell> _results;
 		private:
 			bool has(const Node& node) const;
 			const PathtableCell& getCell(const Node& node) const;
@@ -24,7 +24,7 @@ namespace Graphs
 			BellmanFord() = delete;
 			BellmanFord(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
-			const unordered_map<uint32_t, PathtableCell>& RawResults(void) const;
+			const Pathtable<PathtableCell>& RawResults(void) const;
 	};
 }
 

@@ -22,7 +22,7 @@ namespace Graphs
 			};
 		private:
 			const Node _source;
-			unordered_map<uint32_t, Cell> _results;
+			Pathtable<Cell> _results;
 			std::vector<Node> _heap; // effectively, Q set
 		private: // Heap functions. It's a mess.
 			void PushHeap(const Node& node);
@@ -47,7 +47,7 @@ namespace Graphs
 			Dijkstra() = delete;
 			Dijkstra(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
-			const unordered_map<uint32_t, Dijkstra::Cell>& RawResults(void) const;
+			const Pathtable<Dijkstra::Cell>& RawResults(void) const;
 	};
 }
 
