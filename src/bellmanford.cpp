@@ -11,7 +11,7 @@
 
 namespace Graphs
 {
-	BellmanFord::BellmanFord(const Graph& graph, const Node& src) : _source(src)
+	BellmanFord::BellmanFord(const Graph& graph, const Node& src) : _results(src)
 	{
 		if (!graph.has(src)) throw std::invalid_argument(string_format("Node %s doesn't belong to given graph", src.str().c_str()));
 		Algorithm(graph);
@@ -20,7 +20,7 @@ namespace Graphs
 	void BellmanFord::Algorithm(const Graph& graph)
 	{
 		// Initialisation
-		this->_results.Initialise(graph, this->_source);
+		this->_results.Initialise(graph, this->_results.source);
 		// Algorithm
 		for (int i = 0; i < graph.size_nodes() - 1; ++i)
 		{

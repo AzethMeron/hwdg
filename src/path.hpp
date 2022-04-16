@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <iostream>
 #include "custom_map.hpp"
 #include "node.hpp"
 #include "edge.hpp"
@@ -18,6 +19,12 @@ namespace Graphs
 		int64_t prev_id;
 		PathtableCell() = delete;
 		PathtableCell(const Node& n, const Node& src);
+		PathtableCell(const Node& n, const double& weight, int64_t prev_id);
+
+		static void SaveTxt(std::ostream& file, const PathtableCell& cell);
+		static PathtableCell LoadTxt(std::istream& file);
+		static void SaveBin(std::ostream& file, const PathtableCell& cell);
+		static PathtableCell LoadBin(std::istream& file);
 	};
 
 	class Path
@@ -36,11 +43,20 @@ namespace Graphs
 		std::string str(void) const;
 		Path() = delete;
 		Path(const std::vector<Node>& nodes, const double& weight, bool exists);
+
+		static void SaveTxt(std::ostream& file, const Path& path);
+		static Path LoadTxt(std::istream& file);
+		static void SaveBin(std::ostream& file, const Path& path);
+		static Path LoadBin(std::istream& file);
 	};
 
 	template<typename TYPE>
 	struct Pathtable : public unordered_map<uint32_t, TYPE>
 	{
+		const Node source;
+		Pathtable() = delete;
+		Pathtable(const Node& src) : source(src) {}
+
 		bool has(const Node& node) const
 		{
 			auto iter = this->find(node.id());
@@ -91,6 +107,25 @@ namespace Graphs
 			{
 				this->insert({ node.id(), TYPE(node, src) });
 			}
+		}
+		static void SaveTxt(std::ostream& file, const PathtableCell& table)
+		{
+
+		}
+
+		static PathtableCell LoadTxt(std::istream& file)
+		{
+
+		}
+
+		static void SaveBin(std::ostream& file, const PathtableCell& table)
+		{
+
+		}
+
+		static PathtableCell LoadBin(std::istream& file)
+		{
+
 		}
 	};
 }

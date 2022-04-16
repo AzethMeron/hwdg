@@ -13,7 +13,6 @@ namespace Graphs
 	class BellmanFord
 	{
 		private:
-			const Node _source;
 			Pathtable<PathtableCell> _results;
 		private:
 			bool has(const Node& node) const;

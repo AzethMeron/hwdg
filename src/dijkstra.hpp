@@ -21,7 +21,6 @@ namespace Graphs
 				Cell(const Node& n, const Node& src);
 			};
 		private:
-			const Node _source;
 			Pathtable<Cell> _results;
 			std::vector<Node> _heap; // effectively, Q set
 		private: // Heap functions. It's a mess.
