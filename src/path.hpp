@@ -108,9 +108,21 @@ namespace Graphs
 				this->insert({ node.id(), TYPE(node, src) });
 			}
 		}
+
+		std::string str(void) const
+		{
+			std::string output = "";
+			for (const auto& cell : *this)
+			{
+				output = output + string_format("%d %f %d\n", cell.node.id(), cell.pathweight, cell.prev_id);
+			}
+			return output;
+		}
+
 		static void SaveTxt(std::ostream& file, const Pathtable<TYPE>& table)
 		{
-			file << table.source.id() << ' ' << table.size() << ' ';
+			Node::SaveTxt(file, table.source);
+			file << table.size() << ' ';
 			for (const auto& cell : table)
 			{
 				TYPE::SaveTxt(file, cell);
@@ -134,12 +146,28 @@ namespace Graphs
 
 		static void SaveBin(std::ostream& file, const Pathtable<TYPE>& table)
 		{
-
+			Node::SaveBin(file, table.source);
+			size_t size = table.size();
+			file.write((const char*)&size, sizeof(size));
+			for (const auto& cell : table)
+			{
+				TYPE::SaveBin(file, cell);
+			}
 		}
 
 		static Pathtable<TYPE> LoadBin(std::istream& file)
 		{
-
+			Node source = Node::LoadBin(file);
+			Pathtable<TYPE> output(source);
+			size_t size;
+			file.read((char*)&size, sizeof(size));
+			output.reserve(size);
+			for (size_t i = 0; i < size; ++i)
+			{
+				TYPE cell = TYPE::LoadBin(file);
+				output.insert({ cell.node.id(), cell });
+			}
+			return output;
 		}
 	};
 }
