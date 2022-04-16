@@ -24,7 +24,9 @@ namespace Graphs
 			BellmanFord(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
 			const Pathtable<PathtableCell>& RawResults(void) const;
-	};
+	}; 
+
+	typedef Pathtable<PathtableCell> BellmanTable;
 }
 
 #endif

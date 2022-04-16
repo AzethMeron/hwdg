@@ -19,6 +19,7 @@ namespace Graphs
 			{
 				size_t heap_position;
 				Cell(const Node& n, const Node& src);
+				Cell(const PathtableCell& cell);
 			};
 		private:
 			Pathtable<Cell> _results;
@@ -48,6 +49,8 @@ namespace Graphs
 			Path GetPath(const Node& target) const;
 			const Pathtable<Dijkstra::Cell>& RawResults(void) const;
 	};
+
+	typedef Pathtable<Dijkstra::Cell> DijkstraTable;
 }
 
 #endif

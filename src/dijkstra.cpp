@@ -20,6 +20,10 @@ namespace Graphs
 		if (!graph.has(src)) throw std::invalid_argument(string_format("Node %s doesn't belong to given graph", src.str().c_str()));
 		Algorithm(graph);
 	}
+	Dijkstra::Cell::Cell(const PathtableCell& cell) : PathtableCell(cell)
+	{
+		this->heap_position = -1;
+	}
 
 	void Dijkstra::Algorithm(const Graph& graph)
 	{

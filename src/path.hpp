@@ -108,22 +108,36 @@ namespace Graphs
 				this->insert({ node.id(), TYPE(node, src) });
 			}
 		}
-		static void SaveTxt(std::ostream& file, const PathtableCell& table)
+		static void SaveTxt(std::ostream& file, const Pathtable<TYPE>& table)
+		{
+			file << table.source.id() << ' ' << table.size() << ' ';
+			for (const auto& cell : table)
+			{
+				TYPE::SaveTxt(file, cell);
+			}
+		}
+
+		static Pathtable<TYPE> LoadTxt(std::istream& file)
+		{
+			Node node = Node::LoadTxt(file);
+			Pathtable<TYPE> output(node);
+			size_t size;
+			file >> size;
+			output.reserve(size);
+			for (size_t i = 0; i < size; ++i)
+			{
+				TYPE cell = TYPE::LoadTxt(file);
+				output.insert({ cell.node.id(), cell });
+			}
+			return output;
+		}
+
+		static void SaveBin(std::ostream& file, const Pathtable<TYPE>& table)
 		{
 
 		}
 
-		static PathtableCell LoadTxt(std::istream& file)
-		{
-
-		}
-
-		static void SaveBin(std::ostream& file, const PathtableCell& table)
-		{
-
-		}
-
-		static PathtableCell LoadBin(std::istream& file)
+		static Pathtable<TYPE> LoadBin(std::istream& file)
 		{
 
 		}
