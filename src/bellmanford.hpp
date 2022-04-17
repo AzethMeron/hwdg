@@ -1,5 +1,5 @@
-#ifndef GRAPHS_BELLMANFORD_HPP
-#define GRAPHS_BELLMANFORD_HPP
+#ifndef HWDG_BELLMANFORD_HPP
+#define HWDG_BELLMANFORD_HPP
 
 #include <cstdint>
 #include <vector>
@@ -23,7 +23,7 @@ namespace HWDG
 			BellmanFord() = delete;
 			BellmanFord(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
-			const Pathtable<PathtableCell>& RawResults(void) const;
+			const Pathtable<PathtableCell>& Results(void) const;
 	}; 
 
 	typedef Pathtable<PathtableCell> BellmanTable;

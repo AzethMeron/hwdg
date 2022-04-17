@@ -1,5 +1,5 @@
-#ifndef GRAPHS_PATH_HPP
-#define GRAPHS_PATH_HPP
+#ifndef HWDG_PATH_HPP
+#define HWDG_PATH_HPP
 
 #include <vector>
 #include <string>

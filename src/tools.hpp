@@ -1,5 +1,5 @@
-#ifndef GRAPHS_TOOLS_HPP
-#define GRAPHS_TOOLS_HPP
+#ifndef HWDG_TOOLS_HPP
+#define HWDG_TOOLS_HPP
 
 #include <memory>
 #include <string>

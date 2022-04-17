@@ -1,5 +1,5 @@
-#ifndef GRAPHS_OPERATIONS_HPP
-#define GRAPHS_OPERATIONS_HPP
+#ifndef HWDG_OPERATIONS_HPP
+#define HWDG_OPERATIONS_HPP
 
 #include "graph.hpp"
 

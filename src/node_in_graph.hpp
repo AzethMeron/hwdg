@@ -1,5 +1,5 @@
-#ifndef GRAPHS_NODE_IN_GRAPH_HPP
-#define GRAPHS_NODE_IN_GRAPH_HPP
+#ifndef HWDG_NODE_IN_GRAPH_HPP
+#define HWDG_NODE_IN_GRAPH_HPP
 
 #include <cstdint>
 #include <string>

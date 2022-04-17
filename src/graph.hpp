@@ -1,5 +1,5 @@
-#ifndef GRAPHS_GRAPH_HPP
-#define GRAPHS_GRAPH_HPP
+#ifndef HWDG_GRAPH_HPP
+#define HWDG_GRAPH_HPP
 
 #include <cstdint>
 #include <string>

@@ -1,5 +1,5 @@
-#ifndef GRAPHS_DIJKSTRA_HPP
-#define GRAPHS_DIJKSTRA_HPP
+#ifndef HWDG_DIJKSTRA_HPP
+#define HWDG_DIJKSTRA_HPP
 
 #include <cstdint>
 #include <vector>
@@ -47,7 +47,7 @@ namespace HWDG
 			Dijkstra() = delete;
 			Dijkstra(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
-			const Pathtable<Dijkstra::Cell>& RawResults(void) const;
+			const Pathtable<Dijkstra::Cell>& Results(void) const;
 	};
 
 	typedef Pathtable<Dijkstra::Cell> DijkstraTable;

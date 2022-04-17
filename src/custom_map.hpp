@@ -1,5 +1,5 @@
-#ifndef GRAPHS_CUSTOM_MAP_HPP
-#define GRAPHS_CUSTOM_MAP_HPP
+#ifndef HWDG_CUSTOM_MAP_HPP
+#define HWDG_CUSTOM_MAP_HPP
 
 #include <unordered_map>
 

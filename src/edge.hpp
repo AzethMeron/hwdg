@@ -1,5 +1,5 @@
-#ifndef GRAPHS_EDGE_HPP
-#define GRAPHS_EDGE_HPP
+#ifndef HWDG_EDGE_HPP
+#define HWDG_EDGE_HPP
 
 #include <iostream>
 #include <cstdint>

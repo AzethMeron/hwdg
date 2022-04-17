@@ -1,5 +1,5 @@
-#ifndef GRAPHS_LEGEND_HPP
-#define GRAPHS_LEGEND_HPP
+#ifndef HWDG_LEGEND_HPP
+#define HWDG_LEGEND_HPP
 
 #include <unordered_map>
 #include <cstdint>

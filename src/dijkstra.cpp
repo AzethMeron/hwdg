@@ -197,7 +197,7 @@ namespace HWDG
 		return this->_results.has(node);
 	}
 
-	const Pathtable<Dijkstra::Cell>& Dijkstra::RawResults(void) const
+	const Pathtable<Dijkstra::Cell>& Dijkstra::Results(void) const
 	{
 		return this->_results;
 	}

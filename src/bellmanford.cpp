@@ -49,7 +49,7 @@ namespace HWDG
 		}
 	}
 
-	const Pathtable<PathtableCell>& BellmanFord::RawResults(void) const
+	const Pathtable<PathtableCell>& BellmanFord::Results(void) const
 	{
 		return this->_results;
 	}
