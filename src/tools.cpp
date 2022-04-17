@@ -9,7 +9,7 @@
 #include "edge.hpp"
 #include "graph.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	constexpr char HEADER_BIN[] = "HDWGBIN";
 	constexpr char HEADER_BIN_REV[] = "NIBGWDH";

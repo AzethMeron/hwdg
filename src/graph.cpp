@@ -3,7 +3,7 @@
 #include "tools.hpp"
 #include "graph.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 
 	size_t Graph::size_edges(void) const
@@ -16,19 +16,19 @@ namespace Graphs
 		return this->_nodes.size();
 	}
 
-	const_iterator<uint32_t, NodeInGraph> Graph::begin() const
+	Map::const_iterator<uint32_t, NodeInGraph> Graph::begin() const
 	{
 		return this->_nodes.cbegin();
 	}
 
-	const_iterator<uint32_t, NodeInGraph> Graph::end() const
+	Map::const_iterator<uint32_t, NodeInGraph> Graph::end() const
 	{
 		return this->_nodes.cend();
 	}
 
 	bool Graph::has(const Edge& edge) const
 	{
-		const_iterator<uint64_t, Edge> iter = this->_edges.find(edge.id());
+		Map::const_iterator<uint64_t, Edge> iter = this->_edges.find(edge.id());
 		if (iter == this->_edges.cend())
 		{
 			return false;
@@ -38,7 +38,7 @@ namespace Graphs
 
 	bool Graph::has(const Node& node) const
 	{
-		const_iterator<uint32_t, NodeInGraph> iter = this->_nodes.find(node.id());
+		Map::const_iterator<uint32_t, NodeInGraph> iter = this->_nodes.find(node.id());
 		if (iter == this->_nodes.cend())
 		{
 			return false;
@@ -46,12 +46,12 @@ namespace Graphs
 		return true;
 	}
 
-	const_iterator<uint32_t, NodeInGraph> Graph::get_node(const Node& node) const
+	Map::const_iterator<uint32_t, NodeInGraph> Graph::get_node(const Node& node) const
 	{
 		return this->_nodes.find(node.id());
 	}
 
-	const_iterator<uint64_t, Edge> Graph::get_edge(const Edge& edge) const
+	Map::const_iterator<uint64_t, Edge> Graph::get_edge(const Edge& edge) const
 	{
 		return this->_edges.find(edge.id());
 	}
@@ -155,12 +155,12 @@ namespace Graphs
 		return this->_weight_sum;
 	}
 
-	const unordered_map<uint64_t, Edge>& Graph::edges(void) const
+	const Map::unordered_map<uint64_t, Edge>& Graph::edges(void) const
 	{
 		return this->_edges;
 	}
 
-	const unordered_map<uint32_t, NodeInGraph>& Graph::nodes(void) const
+	const Map::unordered_map<uint32_t, NodeInGraph>& Graph::nodes(void) const
 	{
 		return this->_nodes;
 	}

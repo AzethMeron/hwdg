@@ -7,20 +7,20 @@
 #include "node.hpp"
 #include "edge.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	class NodeInGraph : public Node
 	{
 		private:
-			unordered_map<uint64_t, Edge> _edges;
+			Map::unordered_map<uint64_t, Edge> _edges;
 		public:
 			bool has(const Edge& edge) const; // true - zawiera, constant
 			bool add(const Edge& edge); // false - nie udalo sie dodac (juz istnieje taki edge), constant
 			bool add(const Node& tgt_node, float weight); // constant
 			bool remove(const Edge& edge); // constant
 			
-			const_iterator<uint64_t, Edge> begin() const;
-			const_iterator<uint64_t, Edge> end() const;
+			Map::const_iterator<uint64_t, Edge> begin() const;
+			Map::const_iterator<uint64_t, Edge> end() const;
 			size_t size_edges(void) const; // constant
 			std::string str(void) const; // linear
 			

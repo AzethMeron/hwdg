@@ -10,13 +10,14 @@
 #include "edge.hpp"
 #include "tools.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	struct PathtableCell
 	{
 		const Node node;
 		double pathweight;
 		int64_t prev_id;
+		std::string str(void) const;
 		PathtableCell() = delete;
 		PathtableCell(const Node& n, const Node& src);
 		PathtableCell(const Node& n, const double& weight, int64_t prev_id);
@@ -51,7 +52,7 @@ namespace Graphs
 	};
 
 	template<typename TYPE>
-	struct Pathtable : public unordered_map<uint32_t, TYPE>
+	struct Pathtable : public Map::unordered_map<uint32_t, TYPE>
 	{
 		const Node source;
 		Pathtable() = delete;
@@ -114,7 +115,7 @@ namespace Graphs
 			std::string output = "";
 			for (const auto& cell : *this)
 			{
-				output = output + string_format("%d %f %d\n", cell.node.id(), cell.pathweight, cell.prev_id);
+				output = output + cell.str() + "\n";
 			}
 			return output;
 		}

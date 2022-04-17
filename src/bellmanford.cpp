@@ -9,7 +9,7 @@
 #include "tools.hpp"
 #include "path.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	BellmanFord::BellmanFord(const Graph& graph, const Node& src) : _results(src)
 	{

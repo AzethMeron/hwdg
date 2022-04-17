@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include "graph.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	// Source: https://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf
 	// licensed under CC0 1.0

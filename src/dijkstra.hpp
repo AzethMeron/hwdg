@@ -9,7 +9,7 @@
 #include "path.hpp"
 #include "bellmanford.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	class Dijkstra // could be improved by making Heap class, then making Dijkstra inherit on it and overloading certain functions.
 		// it would improve readability, but I'm not going to do it right now since it wouldn't change efficiency and this implementation DOES work

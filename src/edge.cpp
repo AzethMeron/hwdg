@@ -6,7 +6,7 @@
 #include "node.hpp"
 #include "edge.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	uint64_t Edge::calculate_id(const Node& src, const Node& tgt, float weight)
 	{

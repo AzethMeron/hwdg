@@ -6,7 +6,7 @@
 #include <limits>
 #include <iostream>
 
-namespace Graphs
+namespace HWDG
 {
 	class Node 
 	{

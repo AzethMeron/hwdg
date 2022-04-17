@@ -7,7 +7,7 @@
 #include "tools.hpp"
 #include "node.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	template<typename TYPE>
 	class Legend

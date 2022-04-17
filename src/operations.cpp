@@ -7,7 +7,7 @@
 #include "graph.hpp"
 #include "custom_map.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	Graph Union(const Graph& a, const Graph& b)
 	{

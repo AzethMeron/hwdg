@@ -2,7 +2,7 @@
 #include "node_in_graph.hpp"
 #include "tools.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	bool NodeInGraph::has(const Edge& edge) const
 	{
@@ -34,12 +34,12 @@ namespace Graphs
 		return false;
 	}
 
-	const_iterator<uint64_t, Edge> NodeInGraph::begin() const
+	Map::const_iterator<uint64_t, Edge> NodeInGraph::begin() const
 	{
 		return this->_edges.cbegin();
 	}
 
-	const_iterator<uint64_t, Edge> NodeInGraph::end() const
+	Map::const_iterator<uint64_t, Edge> NodeInGraph::end() const
 	{
 		return this->_edges.cend();
 	}

@@ -3,7 +3,7 @@
 
 #include "graph.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	Graph Union(const Graph& a, const Graph& b); // linear
 	Graph Union(const Graph& a, const Graph& b, float balancer); // linear

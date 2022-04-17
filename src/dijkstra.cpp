@@ -9,7 +9,7 @@
 #include "tools.hpp"
 #include "path.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	Dijkstra::Cell::Cell(const Node& n, const Node& src) : PathtableCell(n,src)
 	{

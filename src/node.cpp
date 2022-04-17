@@ -4,7 +4,7 @@
 #include "tools.hpp"
 #include "node.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	const uint32_t& Node::id(void) const
 	{

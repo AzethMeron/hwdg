@@ -7,7 +7,7 @@
 #include "path.hpp"
 #include "tools.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	PathtableCell::PathtableCell(const Node& n, const Node& src) : node(n)
 	{
@@ -15,6 +15,11 @@ namespace Graphs
 		if (n == src) this->prev_id = -2;
 		this->pathweight = std::numeric_limits<double>::max();
 		if (n == src) this->pathweight = 0;
+	}
+
+	std::string PathtableCell::str(void) const
+	{
+		return string_format("%d %f %d", this->node.id(), this->pathweight, this->prev_id);
 	}
 
 	size_t Path::size(void) const

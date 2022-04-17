@@ -7,7 +7,7 @@
 #include <limits>
 #include "node.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	class Edge
 	{

@@ -8,7 +8,7 @@
 #include "custom_map.hpp"
 #include "path.hpp"
 
-namespace Graphs
+namespace HWDG
 {
 	class BellmanFord
 	{
