@@ -1,6 +1,15 @@
 #ifndef HWDG_NODE_HPP
 #define HWDG_NODE_HPP
 
+/**
+* @file node.hpp
+* @author Jakub Grzana
+* @date March 2022
+* @brief Representation of Node (Vertex) detached from graph
+* 
+* This file contains Node class, which is representation of node/vertex outside of Graph context.
+*/
+
 #include <cstdint>
 #include <string>
 #include <limits>

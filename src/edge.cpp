@@ -71,9 +71,9 @@ namespace HWDG
 		return Edge(this->target(), this->source(), this->weight());
 	}
 
-	uint64_t Edge::HashFunction::operator()(const Edge& node) const
+	uint64_t Edge::HashFunction::operator()(const Edge& edge) const
 	{
-		return node.id();
+		return edge.id();
 	}
 
 	void Edge::SaveBin(std::ostream& file, const Edge& edge)
