@@ -250,14 +250,12 @@ namespace HWDG
 	//////////////////////////////////////////////////////////////////////////
 
 	template<typename ALGORITHM>
-	void FixedEdgesTest(std::string filename, std::ostream& out, std::string timename,
+	void FixedEdgesTest(std::ostream& out, std::string timename,
 		int fixed_edges, float weight_min, float weight_max,
 		int start, int base, int power,
 		int limit,  // if you want to stop at some number of nodes, type it here
 		int times) // how many graphs are generated and tested (resulting time is average of those
 	{
-		std::ofstream file;
-		file.open(filename, std::ios::out | std::ios::binary);
 		std::ofstream time(timename); // CSV file for time output
 		time << "nodes, average, standard deviation" << std::endl;
 		Timer Time;
@@ -284,7 +282,6 @@ namespace HWDG
 				time << size << ',' << timeseries.Average() << ',' << standarddeviation << std::endl;
 			}
 		}
-		file.close();
 		time.close();
 	}
 }
