@@ -27,6 +27,7 @@ namespace HWDG
 	// weight_min, weight_max - weights for edges
 	// loops - are loops allowed?
 	Graph RandomGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2)
+	Graph RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2*density) for very small density, for dense it will be O(n^3)? It is hard to determine
 	double RandomDouble(const double& min, const double& max);
 	int RandomInt(const int& min, const int& max);
 

@@ -12,26 +12,7 @@ namespace HWDG
 	Graph Union(const Graph& a, const Graph& b)
 	{
 		Graph output = a;
-		// adding nodes from b
-		for(auto& node : b)
-		{
-			output.add((const Node&)node);
-		}
-		// adding edges
-		for(auto& edge : b.edges())
-		{
-			if(a.has(edge))
-			{
-				float weight_from_a = a.fetch(edge).weight();
-				float weight_from_b = edge.weight();
-				output.remove(edge);
-				output.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
-			}
-			else
-			{
-				output.add(edge);
-			}
-		}
+		MergeUnion(output, b);
 		return output;
 	}
 	
@@ -39,27 +20,55 @@ namespace HWDG
 	Graph Union(const Graph& a, const Graph& b, float balancer)
 	{
 		Graph output = a;
-		// adding nodes from b
-		for(auto& node : b)
+		MergeUnion(output, b, balancer);
+		return output;
+	}
+
+	void MergeUnion(Graph& a, const Graph& b)
+	{
+		// adding nodes
+		for (auto& node : b)
 		{
-			output.add((const Node&)node);
+			a.add((const Node&)node);
 		}
 		// adding edges
-		for(auto& edge : b.edges())
+		for (auto& edge : b.edges())
 		{
-			if(a.has(edge))
+			if (a.has(edge))
 			{
-				float weight_from_a = balancer * a.fetch(edge).weight();
-				float weight_from_b = ((float)1.0 - balancer) * edge.weight();
-				output.remove(edge);
-				output.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
+				float weight_from_a = a.fetch(edge).weight();
+				float weight_from_b = edge.weight();
+				a.remove(edge);
+				a.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
 			}
 			else
 			{
-				output.add(edge);
+				a.add(edge);
 			}
 		}
-		return output;
+	}
+	void MergeUnion(Graph& a, const Graph& b, float balancer)
+	{
+		// adding nodes from b
+		for (auto& node : b)
+		{
+			a.add((const Node&)node);
+		}
+		// adding edges
+		for (auto& edge : b.edges())
+		{
+			if (a.has(edge))
+			{
+				float weight_from_a = balancer * a.fetch(edge).weight();
+				float weight_from_b = ((float)1.0 - balancer) * edge.weight();
+				a.remove(edge);
+				a.add(Edge(edge.source(), edge.target(), weight_from_a + weight_from_b));
+			}
+			else
+			{
+				a.add(edge);
+			}
+		}
 	}
 
 	Graph Intersection(const Graph& a, const Graph& b, float balancer)

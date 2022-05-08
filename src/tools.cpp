@@ -58,6 +58,38 @@ namespace HWDG
 		return output;
 	}
 
+	Graph RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops)
+	{
+		if (density > 1.0) density = 1;
+		Graph output;
+		output.reserve_nodes(size);
+		output.reserve_edges(size * size * density);
+		for (size_t i = 0; i < size; ++i)
+		{
+			Node n = Node(i);
+			output.add(n);
+		}
+		for (const Node& a : output)
+		{
+			size_t edges_per_node = size * density;
+			output.reserve_edges_in_node(a, edges_per_node);
+			for (size_t i = 0; i < edges_per_node; ++i)
+			{
+				while (true)
+				{
+					Node b = Node(RandomInt(0, size - 1));
+					float weight = (float)RandomDouble(weight_min, weight_max);
+					Edge potential_edge = Edge(a, b, weight);
+					if (output.has(potential_edge)) continue;
+					if (!loops && a == b) continue;
+					output.add(potential_edge);
+					break;
+				}
+			}
+		}
+		return output;
+	}
+
 	Graph LoadGraphTxtFile(const std::string& filename)
 	{
 		std::ifstream file(filename);
