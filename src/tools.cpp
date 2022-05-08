@@ -60,7 +60,10 @@ namespace HWDG
 
 	Graph RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops)
 	{
-		if (density > 1.0) density = 1;
+		// Manage density, because contrary to previous algorithm, it matters here
+		if (density > 1.0) density = 1.0;
+		if (density < 0) density = 0;
+		// Algorithm
 		Graph output;
 		output.reserve_nodes(size);
 		output.reserve_edges(size * size * density);
@@ -75,13 +78,15 @@ namespace HWDG
 			output.reserve_edges_in_node(a, edges_per_node);
 			for (size_t i = 0; i < edges_per_node; ++i)
 			{
-				while (true)
+				for(size_t j = 0; j < size; ++j) // if the edge isn't generate in "size" tries, it is most likely impossible to create
 				{
 					Node b = Node(RandomInt(0, size - 1));
 					float weight = (float)RandomDouble(weight_min, weight_max);
 					Edge potential_edge = Edge(a, b, weight);
-					if (output.has(potential_edge)) continue;
-					if (!loops && a == b) continue;
+					// conditions
+					if (output.has(potential_edge)) continue; // if exists, try again
+					if (!loops && a == b) continue; // if it is loop and loops aren't enabled, try again
+					// Success, go to next edge
 					output.add(potential_edge);
 					break;
 				}
