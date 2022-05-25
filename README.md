@@ -13,6 +13,9 @@ HWDG is graph implementation written in C++ with heavy emphasis on time complexi
 - Graph union, intersection, difference, several algorithms for graph similarity check.
 - and more.
 
+# Few notes about terms
+Graphs are built using Nodes (also called Vertices in literature) and weighted Edges that points from source Node to target Node. Two edges are considered identical if their source and target nodes have the same ID - weight is omitted during comparison. Nodes are identified by ID - unsigned 32bit integer. If you want to store some other datatype inside your graph, like strings, you can use externally implemented dictionary and hashing functions to do so. For any node A and B, within graph there can be only one edge with source node A and target node B.
+
 # Brief introduction
 Given there's no documentation yet, I've decided to make quick instruction on how-to-use.
 
@@ -47,3 +50,40 @@ int main()
 ```
 
 And now, let's create graph manually:
+```c++
+#include <iostream>
+#include "hwdg.hpp"
+
+int main()
+{
+	// Creating blank graph
+	HWDG::Graph graph;
+	// Creating list of nodes (vertices)
+	HWDG::Node n[6] = { HWDG::Node(0), HWDG::Node(1), HWDG::Node(2), HWDG::Node(3), HWDG::Node(4), HWDG::Node(5) };
+	// Adding nodes to graph
+	graph.add(n[0]);
+	// It supports initializer list too
+	graph.add({ n[1], n[2], n[3], n[4], n[5] });
+	// Adding edges
+	graph.add(HWDG::Edge(n[0], n[1], 3)); // Creating edge from n[0] to n[1] with weight=3
+	graph.add({ // initializer list is supported here too
+		HWDG::Edge(n[0], n[4], 3), 
+		HWDG::Edge(n[1], n[2]), // if weight isn't specified, it defaults to 1
+		HWDG::Edge(n[2], n[3], 3),
+		HWDG::Edge(n[2], n[5], 1),
+		HWDG::Edge(n[3], n[1], 3),
+		HWDG::Edge(n[4], n[5], 2),
+		HWDG::Edge(n[5], n[0], 6),
+		HWDG::Edge(n[5], n[3], 1)
+		});
+	// Getting some information
+	std::cout << "Density: " << graph.density() << std::endl
+		<< "Nodes: " << graph.size_nodes() << std::endl
+		<< "Edges: " << graph.size_edges() << std::endl
+		<< "Sum of weights: " << graph.weight_sum() << std::endl
+		<< "Has negative weights: " << graph.has_negative_weights() << std::endl;
+	// Saving to file in text form
+	HWDG::SaveGraphTxtFile(graph, "manual.txt");
+	return 0;
+}
+```
