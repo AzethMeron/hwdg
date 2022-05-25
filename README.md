@@ -16,6 +16,8 @@ HWDG is graph implementation written in C++ with heavy emphasis on time complexi
 # Few notes about terms
 Graphs are built using Nodes (also called Vertices in literature) and weighted Edges that points from source Node to target Node. Two edges are considered identical if their source and target nodes have the same ID - weight is omitted during comparison. Nodes are identified by ID - unsigned 32bit integer. If you want to store some other datatype inside your graph, like strings, you can use externally implemented dictionary and hashing functions to do so. For any node A and B, within graph there can be only one edge with source node A and target node B.
 
+Nodes DOESN'T have to have consecutive ID numbers, i've been using such in examples only for simplicity. It's unordered map, so ID can be any unsigned 32bit integer.
+
 # Brief introduction
 Given there's no documentation yet, I've decided to make quick instruction on how-to-use.
 
