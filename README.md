@@ -194,4 +194,5 @@ While time complexity of my implementation is good, space complexity is not. Her
 - 10000 nodes, density 0.2 -> 5.1 GB of RAM occupied
 - 5000 nodes, density 0.5 -> 3.3 GB of RAM occupied
 - 1000 nodes, denisty 1.0 -> 250 MB of RAM occupied
+
 This is because I'm using hashtables, not only to store nodes in graph, but also to store edges for each node. Note that for 20k nodes and denisty 0.1, it still means there're 2000 edges per node, totaling to 4 mln edges. 
