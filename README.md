@@ -187,7 +187,8 @@ int main()
 Operating on graphs is fast. All basic operations are implemented properly, with constant/linear complexity. Pathfinding algorithms are also well-implemented, with Dijkstra complexity equal nodes\*ln(nodes). Below I've attached performance results of performance test:
 ![bellman](https://user-images.githubusercontent.com/41695668/170328332-fa909703-aaa1-4d0f-a250-e31807a516e8.png)
 ![dijkstra](https://user-images.githubusercontent.com/41695668/170328336-b6d431b6-7957-46ab-90af-294691d01677.png)
-Test was conducted for fixed amount of edges per node (100), minimal weight of edge (50) and maximal weight (500), repeated for 10 different, randomly generated graphs. Standard deviation for Dijkstra algorithm was negligible and isn't included in chart.
+
+Test were conducted for fixed amount of edges per node (100), minimal weight of edge (50) and maximal weight (500), repeated for 10 different, randomly generated graphs. Standard deviation for Dijkstra algorithm was negligible and isn't included in chart.
 
 While time complexity of my implementation is good, space complexity is not. Here're some graph sizes I've tested:
 - 20000 nodes, density 0.1 -> 9.6 GB of RAM occupied
