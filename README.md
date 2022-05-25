@@ -132,3 +132,30 @@ int main()
 	return 0;
 }
 ```
+
+# Serialization
+You could see in examples above Save/LoadGraphTxtFile functions. Those are wrappers for more raw functions that allows you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful. 
+
+SaveTxt stores datatype with basic string representation that can be viewed in any text editor, and it's actually viable way to create small graphs. Txt representation also works the same for any computer architecture, regardless of big endian / little endian. Downsides are: it's slower and wasteful when it comes to space.
+
+SaveBin stores as little data as necessary, representing attributes with their binary form. It's fast and space efficient, but you can't even safely open such files, and it depends on computer architecture.
+```c++
+#include <iostream>
+#include <fstream>
+#include "hwdg.hpp"
+
+int main()
+{
+	std::ofstream txt_file; txt_file.open("serial.txt"); // File to save TXT representation
+	std::ofstream bin_file;	bin_file.open("serial", std::ios::out | std::ios::binary); // File to save BIN representation
+
+	HWDG::Node node(420);
+	HWDG::Node::SaveTxt(txt_file, node); // Readable and platform-independant, but slow and spaceful way of serialization
+	HWDG::Node::SaveBin(bin_file, node); // Unreadable and platform-dependant, but fast and compact way of serialization
+
+	HWDG::Edge edge(HWDG::Node(0), HWDG::Node(1));
+	HWDG::Edge::SaveTxt(txt_file, edge);
+	HWDG::Edge::SaveBin(bin_file, edge);
+	return 0;
+}
+```
