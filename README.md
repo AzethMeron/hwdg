@@ -178,3 +178,6 @@ int main()
 	return 0;
 }
 ```
+
+# Performance
+Operating on graphs is very fast, 
