@@ -89,3 +89,46 @@ int main()
 	return 0;
 }
 ```
+
+Now, Dijkstra algorithm. I'll use graph from previous example (which was saved in manual.txt)
+```c++
+#include <iostream>
+#include "hwdg.hpp"
+
+int main()
+{
+	HWDG::Graph graph = HWDG::LoadGraphTxtFile("manual.txt");
+	try {
+		HWDG::Dijkstra vessel(graph, HWDG::Node(0)); // Dijkstra algorithm is executed in constructor
+		auto pathtable = vessel.Results();
+		std::cout << "Pathtable: node_id path_weight previous_node" << std::endl << pathtable.str() << std::endl;
+		HWDG::Path path_to_node_3 = pathtable.GetPath(HWDG::Node(3));
+		std::cout << "Path to node 3: " << path_to_node_3.str() << std::endl;
+	}
+	catch (const std::invalid_argument& e)
+	{
+		// This section will be triggered if graph contains negative edges
+		std::cout << "Exception occured: " << e.what() << std::endl;
+	}
+	return 0;
+}
+```
+
+Traversing graph (through nodes and edges originating from each node)
+```c++
+#include <iostream>
+#include "hwdg.hpp"
+
+int main()
+{
+	HWDG::Graph graph = HWDG::LoadGraphTxtFile("manual.txt");
+	for (const auto& node : graph)
+	{
+		for (const auto& edge : node)
+		{
+			std::cout << "Traversing: " << node.id() << " - " << edge.str() << std::endl;
+		}
+	}
+	return 0;
+}
+```
