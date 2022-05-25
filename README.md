@@ -159,3 +159,22 @@ int main()
 	return 0;
 }
 ```
+```c++
+#include <iostream>
+#include <fstream>
+#include "hwdg.hpp"
+
+int main()
+{
+	std::ifstream txt_file; txt_file.open("serial.txt");
+	std::ifstream bin_file;	bin_file.open("serial", std::ios::in | std::ios::binary);
+
+	HWDG::Node n1 = HWDG::Node::LoadTxt(txt_file);
+	HWDG::Node n2 = HWDG::Node::LoadBin(bin_file);
+
+	HWDG::Edge e1 = HWDG::Edge::LoadTxt(txt_file);
+	HWDG::Edge e2 = HWDG::Edge::LoadBin(bin_file);
+
+	return 0;
+}
+```
