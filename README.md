@@ -1,27 +1,27 @@
-# HWDG - Hashtable-based Weighted Directed Graphs
+# HWDG - Hashtable–based Weighted Directed Graphs
 This is WIP. For now, it's C++ library without documentation, but when I finish it should have Doxygen comments and Python bindings (using pybind)  
 
 # What is it?
-HWDG is graph implementation written in C++ with heavy emphasis on time complexity. Internally, it uses unordered maps from STL to store nodes and edges. Because of this, it is very efficent when it comes to adding new nodes/edges, or checking if edge exists within a graph (constant time complexity for each). Downside of this approach is space-complexity.
+HWDG is a graph implementation written in C++ with heavy emphasis on time complexity. Internally, it uses unordered maps from STL to store nodes and edges. Because of this, it is very efficient when it comes to adding new nodes/edges, or checking if an edge exists within a graph (constant time complexity for each). The downside of this approach is space-complexity.
 
 # Features
 - Graph representation using list of successors (except list is replaced with map)
 - Serialization of graphs (and most of other types)
-- Addition of edge, removal or check of existance has constant time complexity.
+- Addition of edge, removal or check of existence has constant time complexity.
 - Heap-based Dijkstra algorithm.
 - Bellman-Ford algorithm.
 - Graph union, intersection, difference, several algorithms for graph similarity check.
 - and more.
 
 # Few notes about terms
-Graphs are built using Nodes (also called Vertices in literature) and weighted Edges that points from source Node to target Node. Two edges are considered identical if their source and target nodes have the same ID - weight is omitted during comparison. Nodes are identified by ID - unsigned 32bit integer. If you want to store some other datatype inside your graph, like strings, you can use externally implemented dictionary and hashing functions to do so. For any node A and B, within graph there can be only one edge with source node A and target node B.
+Graphs are built using Nodes (also called Vertices in literature) and weighted Edges that points from source Node to target Node. Two edges are considered identical if their source and target nodes have the same ID - weight is omitted during comparison. Nodes are identified by ID - unsigned 32bit integer. If you want to store some other datatype inside your graph, like strings, you can use externally implemented dictionary and hashing functions to do so. For any node A and B, within the graph, there can be only one edge with source node A and target node B.
 
-Nodes DOESN'T have to have consecutive ID numbers, i've been using such in examples only for simplicity. It's unordered map, so ID can be any unsigned 32bit integer.
+Nodes DO NOT have to have consecutive ID numbers, I've been using such in examples only for simplicity. It's an unordered map, so ID can be any unsigned 32bit integer.
 
 # Brief introduction
 Given there's no documentation yet, I've decided to make quick instruction on how-to-use.
 
-Following code generates random graph of size 10 with density=50%, minimal weight of edge=10 and maximal=400, with loops allowed. Then, string representation of this graph is displayed to standard output. Finally, graph is saved to file "graph" in binary form.
+Following code generates a random graph of size 10 with density=50%, minimal weight of edge=10 and maximal=400, with loops allowed. Then, a string representation of this graph is displayed to standard output. Finally, the graph is saved to file "graph" in binary form.
 ```c++
 #include <iostream>
 #include "hwdg.hpp"
@@ -35,7 +35,7 @@ int main()
 }
 ```
 
-Let's load previously generated graph, generate new one, and try some basic operations: union, difference, instersection
+Let's load previously generated graph, generate new one, and try some basic operations: union, difference, intersection
 ```c++
 #include <iostream>
 #include "hwdg.hpp"
@@ -51,7 +51,7 @@ int main()
 }
 ```
 
-And now, let's create graph manually:
+And now, let's create the graph manually:
 ```c++
 #include <iostream>
 #include "hwdg.hpp"
@@ -94,7 +94,7 @@ int main()
 }
 ```
 
-Now, Dijkstra algorithm. I'll use graph from previous example (which was saved in manual.txt)
+Now, Dijkstra algorithm. I'll use the graph from the previous example (which was saved in manual.txt)
 ```c++
 #include <iostream>
 #include "hwdg.hpp"
@@ -138,9 +138,9 @@ int main()
 ```
 
 # Serialization
-You could see in examples above Save/LoadGraphTxtFile functions. Those are wrappers for more raw functions that allows you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful. 
+You could see in examples above Save/LoadGraphTxtFile functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.
 
-SaveTxt stores datatype with basic string representation that can be viewed in any text editor, and it's actually viable way to create small graphs. Txt representation also works the same for any computer architecture, regardless of big endian / little endian. Downsides are: it's slower and wasteful when it comes to space.
+SaveTxt stores datatype with basic string representation that can be viewed in any text editor, and it's actually a viable way to create small graphs. Txt representation also works the same for any computer architecture, regardless of big endian / little endian. Downsides are: it's slower and wasteful when it comes to space.
 
 SaveBin stores as little data as necessary, representing attributes with their binary form. It's fast and space efficient, but you can't even safely open such files, and it depends on computer architecture.
 ```c++
@@ -184,17 +184,18 @@ int main()
 ```
 
 # Performance
-Operating on graphs is fast. All basic operations are implemented properly, with constant/linear complexity. Pathfinding algorithms are also well-implemented, with Dijkstra complexity equal nodes\*ln(nodes). Below I've attached results of performance test:
+Operating on graphs is fast. All basic operations are implemented properly, with constant/linear complexity. Pathfinding algorithms are also well-implemented, with Dijkstra complexity equal nodes*ln(nodes). Below I've attached results of the performance test:
 
 ![bellman](https://user-images.githubusercontent.com/41695668/170328332-fa909703-aaa1-4d0f-a250-e31807a516e8.png)
 ![dijkstra](https://user-images.githubusercontent.com/41695668/170328336-b6d431b6-7957-46ab-90af-294691d01677.png)
 
-Test were conducted for fixed amount of edges per node (100), minimal weight of edge (50) and maximal weight (500), repeated for 10 different, randomly generated graphs. Standard deviation for Dijkstra algorithm was negligible and isn't included in chart.
+Test were conducted for fixed amount of edges per node (100), minimal weight of edge (50) and maximal weight (500), repeated for 10 different, randomly generated graphs. Standard deviation for the Dijkstra algorithm was negligible and isn't included in the chart.
 
-While time complexity of my implementation is good, space complexity is not. Here're some graph sizes I've tested:
-- 20000 nodes, density 0.1 -> 9.6 GB of RAM occupied
-- 10000 nodes, density 0.2 -> 5.1 GB of RAM occupied
-- 5000 nodes, density 0.5 -> 3.3 GB of RAM occupied
-- 1000 nodes, denisty 1.0 -> 250 MB of RAM occupied
+While time complexity of my implementation is good, space complexity is not. Here are some graph sizes I've tested:
 
-This is because I'm using hashtables, not only to store nodes in graph, but also to store edges for each node. Note that for 20k nodes and denisty 0.1, it still means there're 2000 edges per node, totaling to 4 mln edges. 
+    20000 nodes, density 0.1 ⇾ 9.6 GB of RAM occupied
+    10000 nodes, density 0.2 ⇾ 5.1 GB of RAM occupied
+    5000 nodes, density 0.5 ⇾ 3.3 GB of RAM occupied
+    1000 nodes, density 1.0 ⇾ 250 MB of RAM occupied
+
+This is because I'm using hashtables, not only to store nodes in the graph, but also to store edges for each node. Note that for 20k nodes and density 0.1, it still means there are 2000 edges per node, totaling to 4 M edges.
