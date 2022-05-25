@@ -69,7 +69,7 @@ int main()
 	// Adding edges
 	graph.add(HWDG::Edge(n[0], n[1], 3)); // Creating edge from n[0] to n[1] with weight=3
 	graph.add({ // initializer list is supported here too
-		HWDG::Edge(n[0], n[4], 3), 
+		HWDG::Edge(n[0], n[4], 3),
 		HWDG::Edge(n[1], n[2]), // if weight isn't specified, it defaults to 1
 		HWDG::Edge(n[2], n[3], 3),
 		HWDG::Edge(n[2], n[5], 1),
@@ -84,6 +84,10 @@ int main()
 		<< "Edges: " << graph.size_edges() << std::endl
 		<< "Sum of weights: " << graph.weight_sum() << std::endl
 		<< "Has negative weights: " << graph.has_negative_weights() << std::endl;
+	// Check for nodes/edges
+	std::cout << "Has node 3? " << graph.has(n[3]) << std::endl
+		<< "Has edge 2->3? " << graph.has(HWDG::Edge(n[2], n[3])) << std::endl
+		<< "Has edge 3->2? " << graph.has(HWDG::Edge(n[3], n[2])) << std::endl;
 	// Saving to file in text form
 	HWDG::SaveGraphTxtFile(graph, "manual.txt");
 	return 0;
@@ -180,4 +184,14 @@ int main()
 ```
 
 # Performance
-Operating on graphs is very fast, 
+Operating on graphs is fast. All basic operations are implemented properly, with constant/linear complexity. Pathfinding algorithms are also well-implemented, with Dijkstra complexity equal nodes\*ln(nodes). Below I've attached performance results of performance test:
+![bellman](https://user-images.githubusercontent.com/41695668/170328332-fa909703-aaa1-4d0f-a250-e31807a516e8.png)
+![dijkstra](https://user-images.githubusercontent.com/41695668/170328336-b6d431b6-7957-46ab-90af-294691d01677.png)
+Test was conducted for fixed amount of edges per node (100), minimal weight of edge (50) and maximal weight (500), repeated for 10 different, randomly generated graphs. Standard deviation for Dijkstra algorithm was negligible and isn't included in chart.
+
+While time complexity of my implementation is good, space complexity is not. Here're some graph sizes I've tested:
+- 20000 nodes, density 0.1 -> 9.6 GB of RAM occupied
+- 10000 nodes, density 0.2 -> 5.1 GB of RAM occupied
+- 5000 nodes, density 0.5 -> 3.3 GB of RAM occupied
+- 1000 nodes, denisty 1.0 -> 250 MB of RAM occupied
+This is because I'm using hashtables, not only to store nodes in graph, but also to store edges for each node. Note that for 20k nodes and denisty 0.1, it still means there're 2000 edges per node, totaling to 4 mln edges. 
