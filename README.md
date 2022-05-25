@@ -184,7 +184,8 @@ int main()
 ```
 
 # Performance
-Operating on graphs is fast. All basic operations are implemented properly, with constant/linear complexity. Pathfinding algorithms are also well-implemented, with Dijkstra complexity equal nodes\*ln(nodes). Below I've attached performance results of performance test:
+Operating on graphs is fast. All basic operations are implemented properly, with constant/linear complexity. Pathfinding algorithms are also well-implemented, with Dijkstra complexity equal nodes\*ln(nodes). Below I've attached results of performance test:
+
 ![bellman](https://user-images.githubusercontent.com/41695668/170328332-fa909703-aaa1-4d0f-a250-e31807a516e8.png)
 ![dijkstra](https://user-images.githubusercontent.com/41695668/170328336-b6d431b6-7957-46ab-90af-294691d01677.png)
 
