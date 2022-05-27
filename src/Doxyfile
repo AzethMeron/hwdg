@@ -93,3 +93,6 @@ HIDE_UNDOC_RELATIONS = NO
 CLASS_GRAPH          = YES
 COLLABORATION_GRAPH  = YES
 UML_LOOK             = YES
+
+HTML_EXTRA_STYLESHEET  = "custom.css" \
+                         "custom_dark_theme.css"

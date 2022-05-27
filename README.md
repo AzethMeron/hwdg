@@ -13,6 +13,11 @@ HWDG is a graph implementation written in C++ with heavy emphasis on time comple
 - Graph union, intersection, difference, several algorithms for graph similarity check.
 - and more.
 
+# Third-party code used
+Doxygen dark theme by MaJerle: https://github.com/MaJerle/doxygen-dark-theme
+
+String formatting by iFreilicht: https://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf
+
 # Few notes about terms
 Graphs are built using Nodes (also called Vertices in literature) and weighted Edges that points from source Node to target Node. Two edges are considered identical if their source and target nodes have the same ID - weight is omitted during comparison. Nodes are identified by ID - unsigned 32bit integer. If you want to store some other datatype inside your graph, like strings, you can use externally implemented dictionary and hashing functions to do so. For any node A and B, within the graph, there can be only one edge with source node A and target node B.
 
