@@ -4,6 +4,15 @@ This is WIP. For now, it's C++ library without documentation, but when I finish 
 # What is it?
 HWDG is a graph implementation written in C++ with heavy emphasis on time complexity. Internally, it uses unordered maps from STL to store nodes and edges. Because of this, it is very efficient when it comes to adding new nodes/edges, or checking if an edge exists within a graph (constant time complexity for each). The downside of this approach is space-complexity.
 
+# What is Graph? Brief, rudimentary introduction
+Graph is mathematical representation of network and can be used to model numerous systems. Typical application of graph is "travelling salesman problem" (in other words, finding shortest path between two points on map, for example from town to town) although it can be used in many other fields, personally I've used graphs in my NLP-based thesis.
+
+Once you create graph model of your system, you can perform on it many operations and algorithms defined for graphs, like Union, Intersection and more, in similar fashion to any other mathematical model. Think about it this way: if you create quadratic equation (y=ax+^2+bx+c) that models your system, then you can extract some info about this system by using any mathematical tool, you can find minimal/maximal y or calculate derivative. Similarly, for graphs you can easily find shortest path between two states in network using f.e. Dijkstra algorithm. 
+
+This implementation features Weighted Directed Graphs, so Graphs consists of Nodes (also called Vertices in literature) and Edges pointing from Node A to Node B with weight W. Example of such simple graph:
+
+![ezgif-1-a456a8853e](https://user-images.githubusercontent.com/41695668/170822880-fc0ba747-e863-4aa3-b9a0-b695f782c32e.png)
+
 # Features
 - Graph representation using list of successors (except list is replaced with map)
 - Serialization of graphs (and most of other types)
