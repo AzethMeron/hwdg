@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 #compiler path
-set( CMAKE_CXX_COMPILER C:/MinGW/bin/g++.exe)
-set( CMAKE_C_COMPILER C:/MinGW/bin/gcc.exe)
+#set( CMAKE_CXX_COMPILER C:/MinGW/bin/g++.exe)
+#set( CMAKE_C_COMPILER C:/MinGW/bin/gcc.exe)
 
 
 #-O2 optimizations
@@ -24,13 +24,6 @@ add_library(path STATIC path.cpp)
 add_library(tools STATIC tools.cpp)
 
 
-
-
-install(TARGETS bellmanford DESTINATION lib)
 install(FILES custom_map.hpp DESTINATION include)
 install(FILES hwdg.hpp DESTINATION include)
 install(FILES legend.hpp DESTINATION include)
-
-
-
-
