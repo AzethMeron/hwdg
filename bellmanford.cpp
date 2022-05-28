@@ -72,4 +72,10 @@ namespace HWDG
 	{
 		return this->_results.GetPath(target);
 	}
+
+	BellmanTable BellmanFordResults(const Graph& graph, const Node& source)
+	{
+		BellmanFord vessel(graph, source);
+		return vessel.Results();
+	}
 }

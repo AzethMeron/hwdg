@@ -26,6 +26,9 @@ namespace HWDG
 		static PathtableCell LoadTxt(std::istream& file);
 		static void SaveBin(std::ostream& file, const PathtableCell& cell);
 		static PathtableCell LoadBin(std::istream& file);
+
+		static constexpr int64_t NO_PREVIOUS = -1;
+		static constexpr int64_t STARTING = -2;
 	};
 
 	class Path
@@ -87,7 +90,7 @@ namespace HWDG
 			if (!this->has(tgt)) throw std::invalid_argument(string_format("No node %s in graph this algorithm was used on", tgt.str()));
 			std::vector<Node> nodes;
 			const double weight = this->getCell(tgt).pathweight;
-			const bool exists = this->getCell(tgt).prev_id != -1;
+			const bool exists = this->getCell(tgt).prev_id != TYPE::NO_PREVIOUS;
 			Node analysing = tgt;
 			nodes.push_back(analysing);
 			while (true)

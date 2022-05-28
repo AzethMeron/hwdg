@@ -51,6 +51,7 @@ namespace HWDG
 	};
 
 	typedef Pathtable<Dijkstra::Cell> DijkstraTable;
+	DijkstraTable DijkstraResults(const Graph& graph, const Node& source);
 }
 
 #endif

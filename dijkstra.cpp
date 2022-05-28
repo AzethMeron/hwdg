@@ -201,4 +201,10 @@ namespace HWDG
 	{
 		return this->_results;
 	}
+
+	DijkstraTable DijkstraResults(const Graph& graph, const Node& source)
+	{
+		Dijkstra vessel(graph, source);
+		return vessel.Results();
+	}
 }

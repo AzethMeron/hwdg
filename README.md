@@ -1,5 +1,4 @@
 # HWDG - Hashtable–based Weighted Directed Graphs
-This is WIP. For now, it's C++ library without documentation, but when I finish it should have Doxygen comments and Python bindings (using pybind)  
 
 # What is it?
 HWDG is a graph implementation written in C++ with heavy emphasis on time complexity. Internally, it uses unordered maps from STL to store nodes and edges. Because of this, it is very efficient when it comes to adding new nodes/edges, or checking if an edge exists within a graph (constant time complexity for each). The downside of this approach is space-complexity.
@@ -126,6 +125,30 @@ int main()
 	catch (const std::invalid_argument& e)
 	{
 		// This section will be triggered if graph contains negative edges
+		std::cout << "Exception occured: " << e.what() << std::endl;
+	}
+	return 0;
+}
+```
+
+Dijkstra and Bellman-Ford algorithms are conducted within constructors of objects, which is bad practice but it's the way I've taken. However in your code you should use functions DijkstraResults() and BellmanFordResults() which returns DijkstraPathtable or BellmanPathtable.
+```c++
+#include <iostream>
+#include "hwdg.hpp"
+
+int main()
+{
+	HWDG::Graph graph = HWDG::LoadGraphTxtFile("manual.txt");
+	try {
+		auto dijkstra_path = HWDG::DijkstraResults(graph, HWDG::Node(0));
+		auto bellman_path = HWDG::BellmanFordResults(graph, HWDG::Node(0));
+		std::cout << dijkstra_path.str() << std::endl;
+		std::cout << bellman_path.str() << std::endl;
+	}
+	catch (const std::invalid_argument& e)
+	{
+		// This section will be triggered if graph contains negative edges
+		// or if there's negative cycle, in case of Bellman-Ford algorithm
 		std::cout << "Exception occured: " << e.what() << std::endl;
 	}
 	return 0;

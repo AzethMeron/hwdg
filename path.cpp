@@ -11,8 +11,8 @@ namespace HWDG
 {
 	PathtableCell::PathtableCell(const Node& n, const Node& src) : node(n)
 	{
-		this->prev_id = -1;
-		if (n == src) this->prev_id = -2;
+		this->prev_id = PathtableCell::NO_PREVIOUS;
+		if (n == src) this->prev_id = PathtableCell::STARTING;
 		this->pathweight = std::numeric_limits<double>::max();
 		if (n == src) this->pathweight = 0;
 	}
