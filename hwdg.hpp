@@ -1,6 +1,15 @@
 #ifndef HWDG_HWDG_HPP
 #define HWDG_HWDG_HPP
 
+/**
+* @file hwdg.hpp
+* @author Jakub Grzana
+* @date March 2022
+* @brief Combined header file for easier including into project.
+*
+* This file includes all parts of HWDG project with one go, as quality of life improvement. 
+*/
+
 #include "node.hpp"
 #include "edge.hpp"
 #include "node_in_graph.hpp"
