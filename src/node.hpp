@@ -27,49 +27,51 @@ namespace HWDG
 			uint32_t _id;
 		public:
 			/**
-			* @brief Get unique identifier.
+			* Get unique identifier.
 			* \return Identifier of node
 			* \par Time complexity: O(1)
 			*/
 			const uint32_t& id(void) const;
 
 			/**
-			* @brief Nodes cannot be initialised without identifier provided.
+			* Nodes cannot be initialised without identifier provided.
 			* Default constructor is removed to prohibit that.
 			*/
 			Node() = delete;
 
 			/**
-			* @brief Create new node with given identifier.
+			* Create new node with given identifier.
 			* ID must be unique: two objects of Node class with the same ID are considered the same node.
+			* \par Time complexity: O(1)
 			*/
 			Node(const uint32_t& id);
 
 			/** 
-			* @brief Compare nodes.
+			* Compare nodes.
 			* \return true if ID of lvalue is equal to ID of rvalue, false otherwise
 			* \par Time complexity: O(1)
 			*/
 			bool operator == (const Node& rval) const;
 
 			/** 
-			* @brief Get string representation.
+			* Get string representation.
 			* Useful during development and debugging.
+			* \par Time complexity: O(1)
 			*/
 			std::string str(void) const;
 
 			/**
-			* @brief Minimal value that can be used as identifier.
+			* Minimal value that can be used as identifier.
 			*/
 			static constexpr uint32_t MIN_ID = std::numeric_limits<uint32_t>::min();
 
 			/**
-			* @brief Maximal value that can be used as identifier.
+			* Maximal value that can be used as identifier.
 			*/
 			static constexpr uint32_t MAX_ID = std::numeric_limits<uint32_t>::max();
 
 			/**
-			* @brief Support for C++ STL hashing.
+			* Support for C++ STL hashing.
 			* Allows nodes to be stored in STL sets. Hash of Node is equal its' identifier.
 			*/
 			struct HashFunction
@@ -78,21 +80,35 @@ namespace HWDG
 			};
 
 			/**
-			* @brief Save to stream - binary form.
+			* Save to stream - binary form.
 			* \param file Reference to ostream-like object, opened in binary mode.
 			* \param node Node to be saved.
+			* \par Time complexity: O(1)
 			*/
 			static void SaveBin(std::ostream& file, const Node& node);
 			
 			/**
-			* @brief Load from stream - binary form
+			* Load from stream - binary form.
 			* \param file Reference to istream-like object, opened in binary mode.
 			* \return Node loaded from stream.
+			* \par Time complexity: O(1)
 			*/
 			static Node LoadBin(std::istream& file);
 			
+			/**
+			* Save to stream - text form.
+			* \param file Reference to ostream-like object.
+			* \param node Node to be saved.
+			* \par Time complexity: O(1)
+			*/
 			static void SaveTxt(std::ostream& file, const Node& node);
 			
+			/**
+			* Load from stream - text form.
+			* \param file Reference to istream-like object.
+			* \return Node loaded from stream.
+			* \par Time complexity: O(1)
+			*/
 			static Node LoadTxt(std::istream& file);
 	};
 }

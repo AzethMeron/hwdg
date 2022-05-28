@@ -11,24 +11,26 @@
 
 namespace HWDG
 {
-	constexpr char HEADER_BIN[] = "HDWGBIN";
-	constexpr char HEADER_BIN_REV[] = "NIBGWDH";
-	constexpr char HEADER_SAVE[] = "HDWGSAV";
-	constexpr char HEADER_SAVE_REV[] = "VASGWDH";
+	#ifndef DOXYGEN_SHOULD_SKIP_THIS
+		constexpr char HEADER_BIN[] = "HDWGBIN";
+		constexpr char HEADER_BIN_REV[] = "NIBGWDH";
+		constexpr char HEADER_SAVE[] = "HDWGSAV";
+		constexpr char HEADER_SAVE_REV[] = "VASGWDH";
 
-	int RandomInt(const int& min, const int& max) {
-		static thread_local std::random_device rd;
-		static thread_local std::mt19937 generator(rd());
-		std::uniform_int_distribution<int> distribution(min, max);
-		return distribution(generator);
-	}
+		int RandomInt(const int& min, const int& max) {
+			static thread_local std::random_device rd;
+			static thread_local std::mt19937 generator(rd());
+			std::uniform_int_distribution<int> distribution(min, max);
+			return distribution(generator);
+		}
 
-	double RandomDouble(const double& min, const double& max) {
-		static thread_local std::random_device rd;
-		static thread_local std::mt19937 generator(rd());
-		std::uniform_real_distribution<double> distribution(min, max);
-		return distribution(generator);
-	}
+		double RandomDouble(const double& min, const double& max) {
+			static thread_local std::random_device rd;
+			static thread_local std::mt19937 generator(rd());
+			std::uniform_real_distribution<double> distribution(min, max);
+			return distribution(generator);
+		}
+	#endif
 
 	Graph RandomGraph(size_t size, float density, float weight_min, float weight_max, bool loops)
 	{
