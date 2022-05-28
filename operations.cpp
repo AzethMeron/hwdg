@@ -1,5 +1,10 @@
 
 #include <algorithm>
+#include <unordered_set>
+#include <queue>
+#include <stack>
+#include <functional>
+
 #include "operations.hpp"
 #include "node.hpp"
 #include "edge.hpp"
@@ -144,5 +149,47 @@ namespace HWDG
 	double NormalizedValueSimilarity(const Graph& a, const Graph& b)
 	{
 		return ValueSimilarity(a,b) / SizeSimilarity(a,b);
+	}
+
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func)
+	{
+		std::unordered_set<Node, Node::HashFunction> visited;
+		std::queue<NodeInGraph> next;
+		if (!graph.has(starting_node)) { throw std::invalid_argument("BreadthFirstSearch: starting node isn't part of given graph"); }
+		next.push(graph.fetch(starting_node)); visited.insert(starting_node);
+		while (next.size())
+		{
+			NodeInGraph current = next.front(); next.pop();
+			for (const auto& edge : current)
+			{
+				auto iter = visited.find(edge.target());
+				if (iter == visited.end())
+				{
+					next.push(graph.fetch(edge.target()));
+					visited.insert(edge.target());
+					func(edge);
+				}
+			}
+		}
+	}
+
+	// This implementation is WRONG
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func)
+	{
+		std::unordered_set<Node, Node::HashFunction> visited; visited.insert(starting_node);
+		std::stack<Edge> next;
+		if (!graph.has(starting_node)) { throw std::invalid_argument("DepthFirstSearch: starting node isn't part of given graph"); }
+		for (const Edge& edge : graph.fetch(starting_node)) { next.push(edge); visited.insert(edge.target()); }
+		while (next.size())
+		{
+			Edge edge = next.top(); next.pop();
+			func(edge);
+			for (const Edge& new_edge : graph.fetch(edge.target())) 
+			{ 
+				auto iter = visited.find(new_edge.target());
+				if(iter == visited.end())
+				{ next.push(new_edge); visited.insert(new_edge.target()); }
+			}
+		}
 	}
 }

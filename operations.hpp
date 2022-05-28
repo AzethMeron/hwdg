@@ -8,6 +8,7 @@
 * @brief Operations that can be performed on Graph. 
 */
 
+#include <functional>
 #include "graph.hpp"
 
 namespace HWDG
@@ -153,6 +154,34 @@ namespace HWDG
 	* \par Time complexity: O(edges)
 	*/
 	double NormalizedValueSimilarity(const Graph& a, const Graph& b); // linear
+
+	/**
+	* Breadth First Search (BFS) of graph.
+	* BFS traverses graph's nodes in such a way that each Node is visited only once and with minimal number of traversals (weight isn't considered here, only number of traversals)
+	* 
+	* It starts at starting node and adds all of its neightbours before into to-be-visited queue. Then the same is done to each element in the queue.
+	* However if neighbour was visited already or is currently in queue, then it's ignored.
+	* Note that all of neighbours of Node are added into queue, but they're not processed immediately. It's FIFO queue. 
+	*
+	* \param graph Graph to be traversed, 
+	* \param starting_node Starting Node from which traversal will happen.
+	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed.
+	* \par Time complexity: O(edges)
+	*/
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func);
+	
+	/**
+	* Depth First Search (DFS) of graph.
+	* DFS traverses graph's nodes in such a way that each Node is visited only once.
+	*
+	* It starts at starting node and follows one neighbour as deep in graph as possible before moving on to next neighbour.
+	* 
+	* \param graph Graph to be traversed,
+	* \param starting_node Starting Node from which traversal will happen.
+	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed.
+	* \par Time complexity: O(edges)
+	*/
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func);
 }
 
 #endif
