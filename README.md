@@ -43,7 +43,7 @@ int main()
 {
 	HWDG::Graph graph = HWDG::RandomLowDensityGraph(10, 0.5, 10, 400, true);
 	std::cout << "Generated random graph: " << graph.str();
-	HWDG::SaveGraphBinFile(graph, "graph");
+	HWDG::SaveBin(graph, "graph");
 	return 0;
 }
 ```
@@ -56,7 +56,7 @@ Let's load previously generated graph, generate new one, and try some basic oper
 int main()
 {
 	HWDG::Graph graph_a = HWDG::RandomGraph(10, 0.5, 10, 400, true);
-	HWDG::Graph graph_b = HWDG::LoadGraphBinFile("graph.txt");
+	HWDG::Graph graph_b = HWDG::LoadBin<HWDG::Graph>("graph");
 	std::cout << "Union: " << HWDG::Union(graph_a, graph_b).str() << std::endl;
 	std::cout << "Difference: " << HWDG::Difference(graph_a, graph_b).str() << std::endl;
 	std::cout << "Intersection: " << HWDG::Intersection(graph_a, graph_b, 0.5).str() << std::endl;
@@ -102,7 +102,7 @@ int main()
 		<< "Has edge 2->3? " << graph.has(HWDG::Edge(n[2], n[3])) << std::endl
 		<< "Has edge 3->2? " << graph.has(HWDG::Edge(n[3], n[2])) << std::endl;
 	// Saving to file in text form
-	HWDG::SaveGraphTxtFile(graph, "manual.txt");
+	HWDG::SaveTxt(graph, "manual.txt");
 	return 0;
 }
 ```
@@ -114,7 +114,7 @@ Now, Dijkstra algorithm. I'll use the graph from the previous example (which was
 
 int main()
 {
-	HWDG::Graph graph = HWDG::LoadGraphTxtFile("manual.txt");
+	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
 	try {
 		HWDG::Dijkstra vessel(graph, HWDG::Node(0)); // Dijkstra algorithm is executed in constructor
 		auto pathtable = vessel.Results();
@@ -138,7 +138,7 @@ Dijkstra and Bellman-Ford algorithms are conducted within constructors of object
 
 int main()
 {
-	HWDG::Graph graph = HWDG::LoadGraphTxtFile("manual.txt");
+	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
 	try {
 		auto dijkstra_path = HWDG::DijkstraResults(graph, HWDG::Node(0));
 		auto bellman_path = HWDG::BellmanFordResults(graph, HWDG::Node(0));
@@ -162,7 +162,7 @@ Traversing graph (through nodes and edges originating from each node)
 
 int main()
 {
-	HWDG::Graph graph = HWDG::LoadGraphTxtFile("manual.txt");
+	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
 	for (const auto& node : graph)
 	{
 		for (const auto& edge : node)
@@ -175,7 +175,7 @@ int main()
 ```
 
 # Serialization
-You could see in examples above Save/LoadGraphTxtFile functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.
+You could see in examples above LoadTxt(), SaveTxt(), LoadBin(), SaveBin() functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.
 
 SaveTxt stores datatype with basic string representation that can be viewed in any text editor, and it's actually a viable way to create small graphs. Txt representation also works the same for any computer architecture, regardless of big endian / little endian. Downsides are: it's slower and wasteful when it comes to space.
 
