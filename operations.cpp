@@ -98,6 +98,16 @@ namespace HWDG
 		return output;
 	}
 
+	Graph InverseIntersection(const Graph& a, const Graph& b)
+	{
+		Graph output;
+		for (auto& node : a.nodes()) { if (!b.has(node)) { output.add((const Node&)node); } }
+		for (auto& node : b.nodes()) { if (!a.has(node)) { output.add((const Node&)node); } }
+		for (auto& edge : a.edges()) { if (!b.has(edge)) { output.add(edge); } }
+		for (auto& edge : b.edges()) { if (!a.has(edge)) { output.add(edge); } }
+		return output;
+	}
+
 	Graph Difference(const Graph& a, const Graph& b)
 	{
 		Graph output;

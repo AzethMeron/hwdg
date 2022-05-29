@@ -93,6 +93,17 @@ namespace HWDG
 	Graph Intersection(const Graph& a, const Graph& b, float balancer); // linear
 
 	/**
+	* Inverse of intersection. Returns Graph consisting of nodes and edges that are part of either A or B, but not both at the same time.
+	* 
+	* Effectively, it is equal to Difference(Union(A,B), Intersection(A,B,dummy)).
+	* \param a Graph A, one of component for inverse intersection
+	* \param b Graph B, one of component for inverse intersection
+	* \return Graph that consists only of nodes and edges that belong to either A and B, but not both at the same time.
+	* \par Time complexity: O(edges)
+	*/
+	Graph InverseIntersection(const Graph& a, const Graph& b);
+
+	/**
 	* Graph difference. 
 	* \param a Graph A, left-side graph (minuend) that B will be "substracted" from.
 	* \param b Graph B, right-side graph (subtrahend)
