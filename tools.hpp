@@ -10,14 +10,21 @@
 * 
 */
 
+#include <iostream>
 #include <memory>
 #include <string>
 #include <stdexcept>
+#include <fstream>
 #include "graph.hpp"
 
 namespace HWDG
 {
 	#ifndef DOXYGEN_SHOULD_SKIP_THIS
+		constexpr char HEADER_BIN[] = "HDWGBIN";
+		constexpr char HEADER_BIN_REV[] = "NIBGWDH";
+		constexpr char HEADER_SAVE[] = "HDWGSAV";
+		constexpr char HEADER_SAVE_REV[] = "VASGWDH";
+
 		double RandomDouble(const double& min, const double& max);
 		int RandomInt(const int& min, const int& max);
 		
@@ -61,13 +68,64 @@ namespace HWDG
 	*/
 	Graph RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2*density) for very small density, for dense it is O(n^3) 
 
-	// Serialisation. Allows to store graph in files. 
-	// Binary form is actual serialisation that can be used to pickle later. Fast and compact, but platform dependant and unreadable for humans
-	// Plain text save/load is good for manual creation of graphs. Slow and takes more space, but platform independant and human readable
-	Graph LoadGraphTxtFile(const std::string& filename);
-	void SaveGraphTxtFile(const Graph& graph, const std::string& filename);
-	Graph LoadGraphBinFile(const std::string& filename);
-	void SaveGraphBinFile(const Graph& graph, const std::string& filename);
+	template<typename TYPE>
+	void SaveBin(const TYPE& obj, const std::string& filename)
+	{
+		std::ofstream file;
+		file.open(filename, std::ios::out | std::ios::binary);
+		if (file.good() == false) throw std::ios_base::failure(string_format("Failed to open file: %s", filename.c_str()));
+		file.write(HEADER_BIN, sizeof(HEADER_BIN));
+		TYPE::SaveBin(file, obj);
+		file.write(HEADER_BIN_REV, sizeof(HEADER_BIN_REV));
+		if (file.good() == false) throw std::ios_base::failure(string_format("Error happened during saving of a graph to file: %s", filename.c_str()));
+	}
+
+	template<typename TYPE>
+	TYPE LoadBin(const std::string& filename)
+	{
+		std::ifstream file;
+		file.open(filename, std::ios::in | std::ios::binary);
+		if (file.good() == false) throw std::ios_base::failure(string_format("Failed to open file: %s", filename.c_str()));
+		// header
+		char header[sizeof(HEADER_BIN)] = "";
+		file.read(header, sizeof(HEADER_BIN));
+		if (std::string(header) != std::string(HEADER_BIN)) throw std::ios_base::failure(string_format("This isn't file with graph (binary form): %s", filename.c_str()));
+		// data
+		TYPE output = TYPE::LoadBin(file);
+		// endmark
+		char endmark[sizeof(HEADER_BIN_REV)] = "";
+		file.read(endmark, sizeof(HEADER_BIN_REV));
+		if (std::string(endmark) != std::string(HEADER_BIN_REV)) throw std::ios_base::failure(string_format("Malformed data (no endmark) in file: %s", filename.c_str()));
+		return output;
+	}
+
+	template<typename TYPE>
+	void SaveTxt(const TYPE& obj, const std::string& filename)
+	{
+		std::ofstream file(filename);
+		if (file.good() == false) throw std::ios_base::failure(string_format("Failed to open file: %s", filename.c_str()));
+		file << HEADER_SAVE << "\n";
+		TYPE::SaveTxt(file, obj);
+		file << HEADER_SAVE_REV << "\n";
+		if (file.good() == false) throw std::ios_base::failure(string_format("Error happened during saving of a graph to file: %s", filename.c_str()));
+	}
+
+	template<typename TYPE>
+	TYPE LoadTxt(const std::string& filename)
+	{
+		std::ifstream file(filename);
+		if (file.good() == false) throw std::ios_base::failure(string_format("Failed to open file: %s", filename.c_str()));
+		// header
+		std::string header;
+		file >> header;
+		if (header != std::string(HEADER_SAVE)) throw std::ios_base::failure(string_format("This isn't file with graph (plain form): %s", filename.c_str()));
+		// data
+		TYPE output = TYPE::LoadTxt(file);
+		// endmark
+		file >> header;
+		if (header != std::string(HEADER_SAVE_REV)) throw std::ios_base::failure(string_format("Malformed data (no endmark) in file: %s", filename.c_str()));
+		return output;
+	}
 }
 
 #endif
