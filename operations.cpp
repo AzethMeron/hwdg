@@ -153,7 +153,7 @@ namespace HWDG
 
 	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func)
 	{
-		std::unordered_set<Node, Node::HashFunction> visited;
+		std::unordered_set<Node, Node::HashFunction> visited; visited.reserve(graph.size_nodes());
 		std::queue<NodeInGraph> next;
 		if (!graph.has(starting_node)) { throw std::invalid_argument("BreadthFirstSearch: starting node isn't part of given graph"); }
 		next.push(graph.fetch(starting_node)); visited.insert(starting_node);
@@ -173,22 +173,28 @@ namespace HWDG
 		}
 	}
 
-	// This implementation is WRONG
 	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func)
 	{
-		std::unordered_set<Node, Node::HashFunction> visited; visited.insert(starting_node);
+		std::unordered_set<Node, Node::HashFunction> visited; visited.reserve(graph.size_nodes());
 		std::stack<Edge> next;
 		if (!graph.has(starting_node)) { throw std::invalid_argument("DepthFirstSearch: starting node isn't part of given graph"); }
-		for (const Edge& edge : graph.fetch(starting_node)) { next.push(edge); visited.insert(edge.target()); }
+		visited.insert(starting_node);
+		for (const Edge& edge : graph.fetch(starting_node)) { next.push(edge); }
 		while (next.size())
 		{
-			Edge edge = next.top(); next.pop();
-			func(edge);
-			for (const Edge& new_edge : graph.fetch(edge.target())) 
-			{ 
-				auto iter = visited.find(new_edge.target());
-				if(iter == visited.end())
-				{ next.push(new_edge); visited.insert(new_edge.target()); }
+			Edge current = next.top(); next.pop();
+			Node target = current.target();
+			// Check if target node was visited, since stack allows duplicates. Skip if that's the case
+			auto iter = visited.find(target);
+			if (iter != visited.end()) continue;
+			// Mark as visited
+			visited.insert(target);
+			// Function call
+			func(current);
+
+			for (const Edge& edge : graph.fetch(target))
+			{
+				next.push(edge);
 			}
 		}
 	}
