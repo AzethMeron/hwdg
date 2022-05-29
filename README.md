@@ -174,6 +174,31 @@ int main()
 }
 ```
 
+You can also use BreadthFirstSearch() and DepthFirstSearch() to traverse graph, in slightly different manner.
+```c++
+#include <iostream>
+#include "hwdg.hpp"
+
+int main()
+{
+	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
+	HWDG::BreadthFirstSearch(graph, HWDG::Node(3), [&graph](const HWDG::Edge& edge, const auto& visited) {
+		HWDG::NodeInGraph current = graph.fetch(edge.target());
+		for (const auto& e : current)
+		{
+			// do something with all neighbours of current node
+			// if you want to check whether node was visited...
+			auto check_if_visited = visited.find(e.target());
+			if (check_if_visited != visited.end()) // Check if target node was visited
+			{ }
+			else // not visited
+			{ }
+		}
+	});
+	return 0;
+}
+```
+
 # Serialization
 You could see in examples above LoadTxt(), SaveTxt(), LoadBin(), SaveBin() functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.
 
