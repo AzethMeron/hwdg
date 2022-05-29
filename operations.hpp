@@ -9,6 +9,7 @@
 */
 
 #include <functional>
+#include <unordered_set>
 #include "graph.hpp"
 
 namespace HWDG
@@ -176,10 +177,10 @@ namespace HWDG
 	*
 	* \param graph Graph to be traversed, 
 	* \param starting_node Starting Node from which traversal will happen.
-	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed.
+	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed. Unordered set contains all already visited edges.
 	* \par Time complexity: O(edges)
 	*/
-	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func);
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&, const std::unordered_set<Node, Node::HashFunction>& visited)> func);
 	
 	/**
 	* Depth First Search (DFS) of graph.
@@ -189,10 +190,10 @@ namespace HWDG
 	* 
 	* \param graph Graph to be traversed,
 	* \param starting_node Starting Node from which traversal will happen.
-	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed.
+	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed. Unordered set contains all already visited edges.
 	* \par Time complexity: O(edges)
 	*/
-	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func);
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&, const std::unordered_set<Node, Node::HashFunction>& visited)> func);
 }
 
 #endif

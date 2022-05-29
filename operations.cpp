@@ -161,7 +161,7 @@ namespace HWDG
 		return ValueSimilarity(a,b) / SizeSimilarity(a,b);
 	}
 
-	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func)
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&, const std::unordered_set<Node, Node::HashFunction>&)> func)
 	{
 		std::unordered_set<Node, Node::HashFunction> visited; visited.reserve(graph.size_nodes());
 		std::queue<NodeInGraph> next;
@@ -177,13 +177,13 @@ namespace HWDG
 				{
 					next.push(graph.fetch(edge.target()));
 					visited.insert(edge.target());
-					func(edge);
+					func(edge, visited);
 				}
 			}
 		}
 	}
 
-	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&)> func)
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&, const std::unordered_set<Node, Node::HashFunction>&)> func)
 	{
 		std::unordered_set<Node, Node::HashFunction> visited; visited.reserve(graph.size_nodes());
 		std::stack<Edge> next;
@@ -200,7 +200,7 @@ namespace HWDG
 			// Mark as visited
 			visited.insert(target);
 			// Function call
-			func(current);
+			func(current, visited);
 
 			for (const Edge& edge : graph.fetch(target))
 			{
