@@ -163,7 +163,7 @@ namespace HWDG
 		{
 			Node source = Node::LoadBin(file);
 			Pathtable<TYPE> output(source);
-			size_t size;
+			size_t size = 0;
 			file.read((char*)&size, sizeof(size));
 			output.reserve(size);
 			for (size_t i = 0; i < size; ++i)

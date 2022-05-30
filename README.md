@@ -19,6 +19,7 @@ This implementation features Weighted Directed Graphs, so Graphs consists of Nod
 - Heap-based Dijkstra algorithm.
 - Bellman-Ford algorithm.
 - Graph union, intersection, difference, several algorithms for graph similarity check.
+- BFS and DFS search of graph.
 - and more.
 
 # Third-party code used
@@ -30,6 +31,8 @@ String formatting by iFreilicht: https://stackoverflow.com/questions/2342162/std
 Graphs are built using Nodes (also called Vertices in literature) and weighted Edges that points from source Node to target Node. Two edges are considered identical if their source and target nodes have the same ID - weight is omitted during comparison. Nodes are identified by ID - unsigned 32bit integer. If you want to store some other datatype inside your graph, like strings, you can use externally implemented dictionary and hashing functions to do so. For any node A and B, within the graph, there can be only one edge with source node A and target node B.
 
 Nodes DO NOT have to have consecutive ID numbers, I've been using such in examples only for simplicity. It's an unordered map, so ID can be any unsigned 32bit integer.
+
+Internally, Graph uses unordered map, which means the order of nodes is random.
 
 # Brief introduction
 Given there's no documentation yet, I've decided to make quick instruction on how-to-use.
@@ -131,7 +134,7 @@ int main()
 }
 ```
 
-Dijkstra and Bellman-Ford algorithms are conducted within constructors of objects, which is bad practice but it's the way I've taken. However in your code you should use functions DijkstraResults() and BellmanFordResults() which returns DijkstraPathtable or BellmanPathtable.
+Dijkstra and Bellman-Ford algorithms are conducted within constructors of objects, which is bad practice but it's the way I've taken. However in your code you should use functions DijkstraResults() and BellmanFordResults() which returns DijkstraTable or BellmanTable 
 ```c++
 #include <iostream>
 #include "hwdg.hpp"

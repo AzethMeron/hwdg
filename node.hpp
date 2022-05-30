@@ -29,7 +29,8 @@ namespace HWDG
 			/**
 			* Get unique identifier.
 			* \return Identifier of node
-			* \par Time complexity: O(1)
+			* \par Time complexity: 
+			* \f$O(1)\f$
 			*/
 			const uint32_t& id(void) const;
 
@@ -42,21 +43,24 @@ namespace HWDG
 			/**
 			* Create new node with given identifier.
 			* ID must be unique: two objects of Node class with the same ID are considered the same node.
-			* \par Time complexity: O(1)
+			* \par Time complexity: 
+			* \f$O(1)\f$
 			*/
 			Node(const uint32_t& id);
 
 			/** 
 			* Compare nodes.
 			* \return true if ID of lvalue is equal to ID of rvalue, false otherwise
-			* \par Time complexity: O(1)
+			* \par Time complexity: 
+			* \f$O(1)\f$
 			*/
 			bool operator == (const Node& rval) const;
 
 			/** 
 			* Get string representation.
 			* Useful during development and debugging.
-			* \par Time complexity: O(1)
+			* \par Time complexity: 
+			* \f$O(1)\f$
 			*/
 			std::string str(void) const;
 
@@ -83,7 +87,8 @@ namespace HWDG
 			* Save to stream - binary form.
 			* \param file Reference to ostream-like object, opened in binary mode.
 			* \param node Node to be saved.
-			* \par Time complexity: O(1)
+			* \par Time complexity: 
+			* \f$O(1)\f$
 			*/
 			static void SaveBin(std::ostream& file, const Node& node);
 			
@@ -91,7 +96,8 @@ namespace HWDG
 			* Load from stream - binary form.
 			* \param file Reference to istream-like object, opened in binary mode.
 			* \return Node loaded from stream.
-			* \par Time complexity: O(1)
+			* \par Time complexity: 
+			* \f$O(1)\f$
 			*/
 			static Node LoadBin(std::istream& file);
 			
@@ -99,7 +105,8 @@ namespace HWDG
 			* Save to stream - text form.
 			* \param file Reference to ostream-like object.
 			* \param node Node to be saved.
-			* \par Time complexity: O(1)
+			* \par Time complexity: 
+			* \f$O(1)\f$
 			*/
 			static void SaveTxt(std::ostream& file, const Node& node);
 			
@@ -107,7 +114,8 @@ namespace HWDG
 			* Load from stream - text form.
 			* \param file Reference to istream-like object.
 			* \return Node loaded from stream.
-			* \par Time complexity: O(1)
+			* \par Time complexity: 
+			* \f$O(1)\f$
 			*/
 			static Node LoadTxt(std::istream& file);
 	};

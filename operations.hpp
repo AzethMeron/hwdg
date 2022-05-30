@@ -26,7 +26,8 @@ namespace HWDG
 	* \param a Graph A, one of components for union (sum)
 	* \param b Graph B, one of components for union (sum)
 	* \return Graph consisting of all nodes and edges existing in either a or b, with weight computed by algorithm.
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	Graph Union(const Graph& a, const Graph& b); // linear
 
@@ -43,7 +44,8 @@ namespace HWDG
 	* \param b Graph B, one of components for union (sum)
 	* \param balancer Balancing factor used in weight computation. MUST belong to [0,1]
 	* \return Graph consisting of all nodes and edges existing in either a or b, with weight computed by algorithm.
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	Graph Union(const Graph& a, const Graph& b, float balancer); // linear
 	
@@ -58,7 +60,8 @@ namespace HWDG
 	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'.
 	* \param a Graph A, to which Graph B will be added.
 	* \param b Graph B, that will be added to A.
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	void MergeUnion(Graph& a, const Graph& b); // linear
 
@@ -74,7 +77,8 @@ namespace HWDG
 	* \param a Graph A, to which Graph B will be added.
 	* \param b Graph B, that will be added to A.
 	* \param balancer Balancing factor used in weight computation. MUST belong to [0,1]
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	void MergeUnion(Graph& a, const Graph& b, float balancer); // linear
 
@@ -89,7 +93,8 @@ namespace HWDG
 	* \param b Graph B, one of component for intersection
 	* \param balancer Balancing factor used in weight computation. MUST belong to [0,1]
 	* \return Graph that consists only of nodes and edges that belong to both A and B 
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	Graph Intersection(const Graph& a, const Graph& b, float balancer); // linear
 
@@ -100,7 +105,8 @@ namespace HWDG
 	* \param a Graph A, one of component for inverse intersection
 	* \param b Graph B, one of component for inverse intersection
 	* \return Graph that consists only of nodes and edges that belong to either A and B, but not both at the same time.
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	Graph InverseIntersection(const Graph& a, const Graph& b);
 
@@ -109,7 +115,8 @@ namespace HWDG
 	* \param a Graph A, left-side graph (minuend) that B will be "substracted" from.
 	* \param b Graph B, right-side graph (subtrahend)
 	* \return Graph consisting of those edges and nodes that belong to A, but NOT to B.
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	Graph Difference(const Graph& a, const Graph& b); // linear
 
@@ -121,7 +128,8 @@ namespace HWDG
 	* \param a Graph A
 	* \param b Graph B
 	* \return Result of CS algorithm, belongs to [0,1]
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	double ContainmentSimilarity(const Graph& a, const Graph& b); // linear
 
@@ -133,7 +141,8 @@ namespace HWDG
 	* \param a Graph A
 	* \param b Graph B
 	* \return Result of SS algorithm, belongs to [0,1]
-	* \par Time complexity: O(1)
+	* \par Time complexity: 
+	* \f$O(1)\f$
 	*/
 	double SizeSimilarity(const Graph& a, const Graph& b); // constant
 
@@ -149,7 +158,8 @@ namespace HWDG
 	* \param a Graph A
 	* \param b Graph B
 	* \return Result of VS algorithm, belongs to [0,1]
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	double ValueSimilarity(const Graph& a, const Graph& b); // linear
 
@@ -163,7 +173,8 @@ namespace HWDG
 	* \param a Graph A
 	* \param b Graph B
 	* \return Result of NVS algorithm
-	* \par Time complexity: O(edges)
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
 	double NormalizedValueSimilarity(const Graph& a, const Graph& b); // linear
 
@@ -177,10 +188,11 @@ namespace HWDG
 	*
 	* \param graph Graph to be traversed, 
 	* \param starting_node Starting Node from which traversal will happen.
-	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed. Unordered set contains all already visited edges.
-	* \par Time complexity: O(edges)
+	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed. Unordered set contains all already visited nodes.
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
-	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&, const std::unordered_set<Node, Node::HashFunction>& visited)> func);
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func);
 	
 	/**
 	* Depth First Search (DFS) of graph.
@@ -190,10 +202,11 @@ namespace HWDG
 	* 
 	* \param graph Graph to be traversed,
 	* \param starting_node Starting Node from which traversal will happen.
-	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed. Unordered set contains all already visited edges.
-	* \par Time complexity: O(edges)
+	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed. Unordered set contains all already visited nodes.
+	* \par Time complexity: 
+	* \f$O(edges)\f$
 	*/
-	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge&, const std::unordered_set<Node, Node::HashFunction>& visited)> func);
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func);
 }
 
 #endif

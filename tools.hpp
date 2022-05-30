@@ -51,9 +51,11 @@ namespace HWDG
 	* \param weight_max Maximal weight of edge in graph.
 	* \param loops Are loops allowed?
 	* \return Randomly generated Graph.
-	* \par Time complexity: O(nodes * nodes)
+	* \par Time complexity: 
+	* \f$O(nodes^2)\f$
 	*/
 	Graph RandomGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2)
+
 	/**
 	* Generates random graph. Useful during development, for tests. Value of density in output Graph is roughly equal to the one that was used in function call, but remember it ISN'T guaranteed.
 	* 
@@ -64,10 +66,20 @@ namespace HWDG
 	* \param weight_max Maximal weight of edge in graph.
 	* \param loops Are loops allowed?
 	* \return Randomly generated Graph.
-	* \par Time complexity: O(nodes * nodes * density) for small density.
+	* \par Time complexity: 
+	* \f$O(nodes^2 * density)\f$ for small density, otherwise \f$O(nodes^3)\f$
 	*/
 	Graph RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2*density) for very small density, for dense it is O(n^3) 
 
+	/** Save object to file in binary mode. 
+	* 
+	* \tparam TYPE Type of data you want to save. Must implement static member function TYPE::SaveBin()
+	* \param obj Object to be saved.
+	* \param filename Name of file to which you want to save object to.
+	* \throws std::ios_base::failure Writing to file error.
+	* \par Time complexity: 
+	* \f$O(n)\f$
+	*/
 	template<typename TYPE>
 	void SaveBin(const TYPE& obj, const std::string& filename)
 	{
@@ -80,6 +92,14 @@ namespace HWDG
 		if (file.good() == false) throw std::ios_base::failure(string_format("Error happened during saving of a graph to file: %s", filename.c_str()));
 	}
 
+	/** Load object from file in binary mode.
+	*
+	* \tparam TYPE Type of data you want to save. Must implement static member function TYPE::LoadBin()
+	* \param filename Name of file from which data will be loaded
+	* \throws std::ios_base::failure Reading error
+	* \par Time complexity: 
+	* \f$O(n)\f$
+	*/
 	template<typename TYPE>
 	TYPE LoadBin(const std::string& filename)
 	{
@@ -99,6 +119,15 @@ namespace HWDG
 		return output;
 	}
 
+	/** Save object to file in text mode.
+	*
+	* \tparam TYPE Type of data you want to save. Must implement static member function TYPE::SaveTxt()
+	* \param obj Object to be saved.
+	* \param filename Name of file to which you want to save object to.
+	* \throws std::ios_base::failure Writing to file error.
+	* \par Time complexity: 
+	* \f$O(n)\f$
+	*/
 	template<typename TYPE>
 	void SaveTxt(const TYPE& obj, const std::string& filename)
 	{
@@ -110,6 +139,14 @@ namespace HWDG
 		if (file.good() == false) throw std::ios_base::failure(string_format("Error happened during saving of a graph to file: %s", filename.c_str()));
 	}
 
+	/** Load object from file in text mode.
+	*
+	* \tparam TYPE Type of data you want to save. Must implement static member function TYPE::LoadTxt()
+	* \param filename Name of file from which data will be loaded
+	* \throws std::ios_base::failure Reading error
+	* \par Time complexity: 
+	* \f$O(n)\f$
+	*/
 	template<typename TYPE>
 	TYPE LoadTxt(const std::string& filename)
 	{
