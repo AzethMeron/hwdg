@@ -214,7 +214,9 @@ namespace HWDG
 	* \par Time complexity:
 	* \f$O(edges)\f$
 	*/
-	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first)> priority);
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, 
+		std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, 
+		std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first, const std::unordered_set<Node, Node::HashFunction>& visited)> priority);
 
 	/**
 	* Depth First Search (DFS) of graph.
@@ -243,6 +245,8 @@ namespace HWDG
 	* \par Time complexity:
 	* \f$O(edges)\f$
 	*/
-	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first)> priority);
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node, 
+		std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, 
+		std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first, const std::unordered_set<Node, Node::HashFunction>& visited)> priority);
 }
 #endif

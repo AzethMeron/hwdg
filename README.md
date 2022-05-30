@@ -211,12 +211,12 @@ There's also another implementation of functions above that allows you to specif
 int main()
 {
 	HWDG::Graph graph = HWDG::RandomLowDensityGraph(100, 0.3, 100, 150, true);
-	HWDG::BreadthFirstSearch(graph, HWDG::Node(3), 
-		[&graph](const HWDG::Edge& edge, const auto& visited) {
-		HWDG::NodeInGraph current = graph.fetch(edge.target());
+	HWDG::DepthFirstSearch(graph, HWDG::Node(3),
+		[&graph](const HWDG::Edge& edge, const auto& set_of_visited) {
+			HWDG::NodeInGraph current = graph.fetch(edge.target());
 			std::cout << edge.str() << std::endl;
-		}, 
-		[](const HWDG::NodeInGraph& node, std::vector<HWDG::Edge>& to_be_visited) {
+		},
+		[](const HWDG::NodeInGraph& node, std::vector<HWDG::Edge>& to_be_visited, const auto& set_of_visited) {
 			// add all neighbours in undefined order
 			for (const HWDG::Edge& edge : node)
 			{

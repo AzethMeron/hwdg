@@ -165,7 +165,7 @@ namespace HWDG
 
 	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
 	{
-		BreadthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first) {
+		BreadthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first, const std::unordered_set<Node, Node::HashFunction>& visited) {
 			// Default behaviour: undefined order for edges (neighbours) on given depth
 			for (const Edge& edge : node)
 			{
@@ -174,7 +174,9 @@ namespace HWDG
 			});
 	}
 
-	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first)> priority)
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, 
+		std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, 
+		std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first, const std::unordered_set<Node, Node::HashFunction>& visited)> priority)
 	{
 		std::unordered_set<Node, Node::HashFunction> visited; visited.reserve(graph.size_nodes());
 		std::queue<NodeInGraph> next;
@@ -185,7 +187,7 @@ namespace HWDG
 			NodeInGraph current = next.front(); next.pop();
 
 			std::vector<Edge> res;
-			priority(current, res);
+			priority(current, res, visited);
 
 			for (const auto& edge : res)
 			{
@@ -202,7 +204,7 @@ namespace HWDG
 
 	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
 	{
-		DepthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first){
+		DepthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first, const std::unordered_set<Node, Node::HashFunction>& visited){
 			// Default behaviour: undefined order for edges (neighbours) on given depth
 			for (const Edge& edge : node)
 			{
@@ -211,7 +213,9 @@ namespace HWDG
 			});
 	}
 
-	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first)> priority)
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node,
+		std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, 
+		std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first, const std::unordered_set<Node, Node::HashFunction>& visited)> priority)
 	{
 		std::unordered_set<Node, Node::HashFunction> visited; visited.reserve(graph.size_nodes());
 		std::stack<Edge> next;
@@ -231,7 +235,7 @@ namespace HWDG
 			func(current, visited);
 
 			std::vector<Edge> res;
-			priority(graph.fetch(current.target()), res);
+			priority(graph.fetch(current.target()), res, visited);
 			std::reverse(res.begin(), res.end());
 			for (const Edge& edge : res)
 			{

@@ -24,7 +24,7 @@ namespace HWDG
 	/**
 	* Cell within Pathtable, representing previous Node in path, and weight of path to this point. 
 	* 
-	* You're not supposed to actually use that class, it's used internally by Dijkstra and BellmanFord algorithms.
+	* You're not supposed to actually use that class, it's used internally by Dijkstra and BellmanFord algorithms. That being said, if you want to salvage some information out of results, feel free to do so.
 	*/
 	struct PathtableCell
 	{
