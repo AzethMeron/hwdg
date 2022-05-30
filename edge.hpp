@@ -30,7 +30,7 @@ namespace HWDG
 			static uint64_t calculate_id(const Node& src, const Node& tgt, float weight);
 		public:
 			/**
-			* Default weight, used when weight of Edge wasn't provided..
+			* Default weight, used when weight of Edge wasn't provided.
 			*/
 			static constexpr float DUMMY_WEIGHT = 1;
 
