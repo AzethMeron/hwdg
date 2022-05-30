@@ -4,6 +4,8 @@
 #include <queue>
 #include <stack>
 #include <functional>
+#include <vector>
+#include <algorithm>
 
 #include "operations.hpp"
 #include "node.hpp"
@@ -183,7 +185,17 @@ namespace HWDG
 		}
 	}
 
-	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<std::vector<Edge>(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
+	{
+		DepthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first){
+			for (const Edge& edge : node)
+			{
+				to_be_visited_first.push_back(edge);
+			}
+			});
+	}
+
+	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first)> priority)
 	{
 		std::unordered_set<Node, Node::HashFunction> visited; visited.reserve(graph.size_nodes());
 		std::stack<Edge> next;
@@ -200,8 +212,11 @@ namespace HWDG
 			// Mark as visited
 			visited.insert(target);
 			// Function call
-			const std::vector<Edge> res = func(current, visited);
+			func(current, visited);
 
+			std::vector<Edge> res;
+			priority(graph.fetch(current.target()), res);
+			std::reverse(res.begin(), res.end());
 			for (const Edge& edge : res)
 			{
 				next.push(edge);

@@ -48,10 +48,9 @@ namespace HWDG
 			Dijkstra(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
 			const Pathtable<Dijkstra::Cell>& Results(void) const;
-	};
 
-	typedef Pathtable<Dijkstra::Cell> DijkstraTable;
-	DijkstraTable DijkstraResults(const Graph& graph, const Node& source);
+			static const Pathtable<Dijkstra::Cell> Compute(const Graph& graph, const Node& src);
+	};
 }
 
 #endif

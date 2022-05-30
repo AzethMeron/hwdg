@@ -134,27 +134,27 @@ int main()
 }
 ```
 
-Dijkstra and Bellman-Ford algorithms are conducted within constructors of objects, which is bad practice but it's the way I've taken. However in your code you should use functions DijkstraResults() and BellmanFordResults() which returns DijkstraTable or BellmanTable 
+Dijkstra and Bellman-Ford algorithms are conducted within constructors of objects, which is bad practice but it's the path (hehe) I've taken. However in your code you should use functions Dijkstra::Compute() and BellmanFord::Compute() which returns Pathtable of corresponding type.
 ```c++
 #include <iostream>
 #include "hwdg.hpp"
 
 int main()
 {
-	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
-	try {
-		auto dijkstra_path = HWDG::DijkstraResults(graph, HWDG::Node(0));
-		auto bellman_path = HWDG::BellmanFordResults(graph, HWDG::Node(0));
-		std::cout << dijkstra_path.str() << std::endl;
-		std::cout << bellman_path.str() << std::endl;
-	}
-	catch (const std::invalid_argument& e)
-	{
-		// This section will be triggered if graph contains negative edges
-		// or if there's negative cycle, in case of Bellman-Ford algorithm
-		std::cout << "Exception occured: " << e.what() << std::endl;
-	}
-	return 0;
+    HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
+    try {
+        auto dijkstra_path = HWDG::Dijkstra::Compute(graph, HWDG::Node(0));
+        auto bellman_path = HWDG::BellmanFord::Compute(graph, HWDG::Node(0));
+        std::cout << dijkstra_path.str() << std::endl;
+        std::cout << bellman_path.str() << std::endl;
+    }
+    catch (const std::invalid_argument& e)
+    {
+        // This section will be triggered if graph contains negative edges
+        // or if there's negative cycle, in case of Bellman-Ford algorithm
+        std::cout << "Exception occured: " << e.what() << std::endl;
+    }
+    return 0;
 }
 ```
 
@@ -264,3 +264,5 @@ While time complexity of my implementation is good, space complexity is not. Her
     1000 nodes, density 1.0 ⇾ 250 MB of RAM occupied
 
 This is because I'm using hashtables, not only to store nodes in the graph, but also to store edges for each node. Note that for 20k nodes and density 0.1, it still means there are 2000 edges per node, totaling to 4 M edges.
+
+Within documentation, all time complexity represents average case.

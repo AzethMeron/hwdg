@@ -73,9 +73,9 @@ namespace HWDG
 		return this->_results.GetPath(target);
 	}
 
-	BellmanTable BellmanFordResults(const Graph& graph, const Node& source)
+	const Pathtable<PathtableCell> BellmanFord::Compute(const Graph& graph, const Node& src)
 	{
-		BellmanFord vessel(graph, source);
+		BellmanFord vessel(graph, src);
 		return vessel.Results();
 	}
 }

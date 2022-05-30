@@ -202,9 +202,9 @@ namespace HWDG
 		return this->_results;
 	}
 
-	DijkstraTable DijkstraResults(const Graph& graph, const Node& source)
+	const Pathtable<Dijkstra::Cell> Dijkstra::Compute(const Graph& graph, const Node& src)
 	{
-		Dijkstra vessel(graph, source);
+		Dijkstra vessel(graph, src);
 		return vessel.Results();
 	}
 }

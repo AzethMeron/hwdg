@@ -24,10 +24,9 @@ namespace HWDG
 			BellmanFord(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
 			const Pathtable<PathtableCell>& Results(void) const;
-	}; 
 
-	typedef Pathtable<PathtableCell> BellmanTable;
-	BellmanTable BellmanFordResults(const Graph& graph, const Node& source);
+			static const Pathtable<PathtableCell> Compute(const Graph& graph, const Node& src);
+	}; 
 }
 
 #endif
