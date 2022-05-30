@@ -165,6 +165,16 @@ namespace HWDG
 
 	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
 	{
+		BreadthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first) {
+			for (const Edge& edge : node)
+			{
+				to_be_visited_first.push_back(edge);
+			}
+			});
+	}
+
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first)> priority)
+	{
 		std::unordered_set<Node, Node::HashFunction> visited; visited.reserve(graph.size_nodes());
 		std::queue<NodeInGraph> next;
 		if (!graph.has(starting_node)) { throw std::invalid_argument("BreadthFirstSearch: starting node isn't part of given graph"); }
@@ -172,7 +182,11 @@ namespace HWDG
 		while (next.size())
 		{
 			NodeInGraph current = next.front(); next.pop();
-			for (const auto& edge : current)
+
+			std::vector<Edge> res;
+			priority(current, res);
+
+			for (const auto& edge : res)
 			{
 				auto iter = visited.find(edge.target());
 				if (iter == visited.end())

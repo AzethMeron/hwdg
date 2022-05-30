@@ -19,7 +19,8 @@
 namespace HWDG
 {
 	/**
-	* Representation of node/vertex inside Graph's context. Aside from current Node, it includes list of Edge s coming out from this node.
+	* Representation of node/vertex inside Graph's context. 
+	* Aside from current Node, it includes list of Edge s coming out from this node.
 	*/
 	class NodeInGraph : public Node
 	{

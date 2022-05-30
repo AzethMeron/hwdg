@@ -186,6 +186,8 @@ namespace HWDG
 	* It starts at starting node and adds all of its neightbours before into to-be-visited queue. Then the same is done to each element in the queue.
 	* However if neighbour was visited already or is currently in queue, then it's ignored.
 	* Note that all of neighbours of Node are added into queue, but they're not processed immediately. It's FIFO queue.
+	* 
+	* Sequence of neighbours in FIFO queue is random.
 	*
 	* \param graph Graph to be traversed,
 	* \param starting_node Starting Node from which traversal will happen.
@@ -194,6 +196,25 @@ namespace HWDG
 	* \f$O(edges)\f$
 	*/
 	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func);
+	
+	/**
+	* Breadth First Search (BFS) of graph.
+	* BFS traverses graph's nodes in such a way that each Node is visited only once and with minimal number of traversals (weight isn't considered here, only number of traversals)
+	*
+	* It starts at starting node and adds all of its neightbours before into to-be-visited queue. Then the same is done to each element in the queue.
+	* However if neighbour was visited already or is currently in queue, then it's ignored.
+	* Note that all of neighbours of Node are added into queue, but they're not processed immediately. It's FIFO queue.
+	*
+	* Sequence of neighbours in FIFO queue is determined by priority function.
+	* 
+	* \param graph Graph to be traversed,
+	* \param starting_node Starting Node from which traversal will happen.
+	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed. Unordered set contains all already visited nodes.
+	* \param priority Function (typically lambda expression) that decides on sequence in which nodes are visited. This function MUST add all neighbours into parameter 'to_be_traversed_first', then to_be_traversed_first.front() will be visited first and to_be_traversed_first.back() will be visited last. No need to check whether neighbour was visited in the past, overlying algorithm deals with that part on it's own.
+	* \par Time complexity:
+	* \f$O(edges)\f$
+	*/
+	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first)> priority);
 
 	/**
 	* Depth First Search (DFS) of graph.
@@ -218,7 +239,7 @@ namespace HWDG
 	* \param graph Graph to be traversed,
 	* \param starting_node Starting Node from which traversal will happen.
 	* \param func Function (typically lambda expression) that will be called for each Edge that is traversed. Unordered set contains all already visited nodes.
-	* \param priority Function (typically lambda expression) that decides on sequence in which nodes are visited. This function MUST add all neighbours into parameter 'res', then res.front() will be visited first and res.back() will be visited last.
+	* \param priority Function (typically lambda expression) that decides on sequence in which nodes are visited. This function MUST add all neighbours into parameter 'to_be_traversed_first', then to_be_traversed_first.front() will be visited first and to_be_traversed_first.back() will be visited last. No need to check whether neighbour was visited in the past, overlying algorithm deals with that part on it's own.
 	* \par Time complexity:
 	* \f$O(edges)\f$
 	*/
