@@ -1,6 +1,15 @@
 #ifndef HWDG_PATH_HPP
 #define HWDG_PATH_HPP
 
+/**
+* @file path.hpp
+* @author Jakub Grzana
+* @date March 2022
+* @brief Structures and classes for Pathfinding
+*
+* This file contains classes Pathtable, PathTableCell and Path, used by all pathfinding algorithms.
+*/
+
 #include <vector>
 #include <string>
 #include <cstdint>
@@ -12,22 +21,79 @@
 
 namespace HWDG
 {
+	/**
+	* Cell within Pathtable, representing previous Node in path, and weight of path to this point. 
+	* 
+	* You're not supposed to actually use that class, it's used internally by Dijkstra and BellmanFord algorithms.
+	*/
 	struct PathtableCell
 	{
-		const Node node;
-		double pathweight;
-		int64_t prev_id;
+		//! Node corresponding to this cell
+		const Node node;  
+		//! Sum of weights leading to this point
+		double pathweight; 
+
+		/** 
+		 * Node::id() of previous Node in path
+		 *
+		 * PathtableCell::NO_PREVIOUS if unaccessible
+		 *
+		 * PathtableCell::STARTING if it's starting Node*/
+		int64_t prev_id; 
+
+		/**
+		 * Get string representation.
+		 * Useful during development and debugging.
+		 * \par Time complexity:
+		 * \f$O(1)\f$
+		 */
 		std::string str(void) const;
-		PathtableCell() = delete;
+
+		//! PathtableCell must be initialised, so default constructor is removed.
+		PathtableCell() = delete; 
+
 		PathtableCell(const Node& n, const Node& src);
 		PathtableCell(const Node& n, const double& weight, int64_t prev_id);
 
+		/**
+		* Save to stream - text form.
+		* \param file Reference to ostream-like object.
+		* \param cell PathtableCell to be saved.
+		* \par Time complexity:
+		* \f$O(1)\f$
+		*/
 		static void SaveTxt(std::ostream& file, const PathtableCell& cell);
+
+		/**
+		* Load from stream - text form.
+		* \param file Reference to istream-like object.
+		* \return PathtableCell loaded from stream.
+		* \par Time complexity:
+		* \f$O(1)\f$
+		*/
 		static PathtableCell LoadTxt(std::istream& file);
+		
+		/**
+		* Save to stream - binary form.
+		* \param file Reference to ostream-like object, opened in binary mode.
+		* \param cell PathtableCell to be saved.
+		* \par Time complexity:
+		* \f$O(1)\f$
+		*/
 		static void SaveBin(std::ostream& file, const PathtableCell& cell);
+
+		/**
+		* Load from stream - binary form.
+		* \param file Reference to istream-like object, opened in binary mode.
+		* \return PathtableCell loaded from stream.
+		* \par Time complexity:
+		* \f$O(1)\f$
+		*/
 		static PathtableCell LoadBin(std::istream& file);
 
+		//! Dummy ID number, used when there's no previous node (unaccessible, or not found yet)
 		static constexpr int64_t NO_PREVIOUS = -1;
+		//! Dummy ID number, used to distinguish starting node
 		static constexpr int64_t STARTING = -2;
 	};
 
