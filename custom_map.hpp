@@ -1,6 +1,18 @@
 #ifndef HWDG_CUSTOM_MAP_HPP
 #define HWDG_CUSTOM_MAP_HPP
 
+/**
+* @file custom_map.hpp
+* @author Jakub Grzana
+* @date March 2022
+* @brief Monstrosity
+*
+* Thin wrapper for std::unordered_map, providing iterators that allows easier iteration over content (skips key, returning only value) 
+* It simplifies usage of Graph and other parts of this library, but it's terrible design choice afterall.
+* 
+* Operator -> for iterators is removed, because I couldn't make it work without terrible pointer hacking so it's safer this way.
+*/
+
 #include <unordered_map>
 
 namespace HWDG

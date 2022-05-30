@@ -187,7 +187,7 @@ namespace HWDG
 	* However if neighbour was visited already or is currently in queue, then it's ignored.
 	* Note that all of neighbours of Node are added into queue, but they're not processed immediately. It's FIFO queue.
 	* 
-	* Sequence of neighbours in FIFO queue is random.
+	* Sequence of neighbours in FIFO queue is undefined.
 	*
 	* \param graph Graph to be traversed,
 	* \param starting_node Starting Node from which traversal will happen.
@@ -220,7 +220,7 @@ namespace HWDG
 	* Depth First Search (DFS) of graph.
 	* DFS traverses graph's nodes in such a way that each Node is visited only once.
 	*
-	* It starts at starting node and follows one neighbour as deep in graph as possible before moving on to next neighbour. Next neighbours to follow are chosen randomly.
+	* It starts at starting node and follows one neighbour as deep in graph as possible before moving on to next neighbour. Next neighbours to follow are chosen arbitrarily, sequence is undefined.
 	*
 	* \param graph Graph to be traversed,
 	* \param starting_node Starting Node from which traversal will happen.

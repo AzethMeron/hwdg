@@ -106,22 +106,93 @@ namespace HWDG
 
 			/**
 			* Get unique identifier of Edge.
+			* 
+			* Identifier is based only on Edge::source() and Edge::target(). Direction of edge matters.
+			* \return Identifier of Edge
+			* \par Time complexity:
+			* \f$O(1)\f$
 			*/
 			uint64_t id(void) const;
 
+			/**
+			* Compare Edges. Ignores weight, only Edge::source() and Edge::target() matters.
+			* 
+			* \param edge Edge to compare against
+			* \return true if Edge::id() of edges are equal.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			bool operator == (const Edge& edge) const;
 
+			/**
+			* Get string representation.
+			* Useful during development and debugging.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			std::string str(void) const;
 
+			/**
+			* Scale weight of Edge. 
+			* 
+			* Creates new Edge with the same source and target Node, and weight multiplied by factor.
+			* \param factor Mulitipaction factor for weight.
+			* \return New, scaled Edge.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			Edge Scale(const float& factor) const;
 
+			/**
+			* Edge pointing in reversed direction.
+			* 
+			* Creates new Edge pointing from target to source Node, and the same weight. Equivalent to Edge(this->target(), this->source(), this->weight())
+			* \return New Edge poinitng in reversed direction
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			Edge Reverse(void) const;
 
+			/**
+			* Save to stream - binary form.
+			* \param file Reference to ostream-like object, opened in binary mode.
+			* \param edge Edge to be saved.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			static void SaveBin(std::ostream& file, const Edge& edge);
+
+			/**
+			* Load from stream - binary form.
+			* \param file Reference to istream-like object, opened in binary mode.
+			* \return Edge loaded from stream.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			static Edge LoadBin(std::istream& file);
+
+			/**
+			* Save to stream - text form.
+			* \param file Reference to ostream-like object.
+			* \param edge Edge to be saved.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			static void SaveTxt(std::ostream& file, const Edge& edge);
+
+			/**
+			* Load from stream - text form.
+			* \param file Reference to istream-like object.
+			* \return Edge loaded from stream.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			static Edge LoadTxt(std::istream& file);
 
+			/**
+			* Support for C++ STL hashing.
+			* Allows edges to be stored in STL sets. Hash of Edge is equal its' identifier.
+			*/
 			struct HashFunction
 			{
 				uint64_t operator()(const Edge& node) const;

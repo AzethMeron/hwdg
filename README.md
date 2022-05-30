@@ -32,7 +32,7 @@ Graphs are built using Nodes (also called Vertices in literature) and weighted E
 
 Nodes DO NOT have to have consecutive ID numbers, I've been using such in examples only for simplicity. It's an unordered map, so ID can be any unsigned 32bit integer.
 
-Internally, Graph uses unordered map, which means the order of nodes is random.
+Internally, Graph uses unordered map, which means the order of nodes is undefined.
 
 # Brief introduction
 Given there's no documentation yet, I've decided to make quick instruction on how-to-use.
@@ -202,6 +202,33 @@ int main()
 }
 ```
 
+There's also another implementation of functions above that allows you to specify order (priority) of neighbours to follow, so you still do BFS/DFS algorithms but with more control which path within graph you follow.
+```c++
+#include <iostream>
+#include <algorithm>
+#include "hwdg.hpp"
+
+int main()
+{
+	HWDG::Graph graph = HWDG::RandomLowDensityGraph(100, 0.3, 100, 150, true);
+	HWDG::BreadthFirstSearch(graph, HWDG::Node(3), 
+		[&graph](const HWDG::Edge& edge, const auto& visited) {
+		HWDG::NodeInGraph current = graph.fetch(edge.target());
+			std::cout << edge.str() << std::endl;
+		}, 
+		[](const HWDG::NodeInGraph& node, std::vector<HWDG::Edge>& to_be_visited) {
+			// add all neighbours in undefined order
+			for (const HWDG::Edge& edge : node)
+			{
+				to_be_visited.push_back(edge); // no need to worry about visited/not visited, underlying algorithm will deal with it on its' own
+			}
+			// sort ascending by weight
+			std::sort(to_be_visited.begin(), to_be_visited.end(), [](const auto& a, const auto& b) { return a.weight() < b.weight(); });
+		});
+	return 0;
+}
+```
+
 # Serialization
 You could see in examples above LoadTxt(), SaveTxt(), LoadBin(), SaveBin() functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.
 
@@ -265,4 +292,4 @@ While time complexity of my implementation is good, space complexity is not. Her
 
 This is because I'm using hashtables, not only to store nodes in the graph, but also to store edges for each node. Note that for 20k nodes and density 0.1, it still means there are 2000 edges per node, totaling to 4 M edges.
 
-Within documentation, all time complexity represents average case.
+Within documentation, **all time complexity represents average case** 

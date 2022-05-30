@@ -166,6 +166,7 @@ namespace HWDG
 	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
 	{
 		BreadthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first) {
+			// Default behaviour: undefined order for edges (neighbours) on given depth
 			for (const Edge& edge : node)
 			{
 				to_be_visited_first.push_back(edge);
@@ -202,6 +203,7 @@ namespace HWDG
 	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
 	{
 		DepthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first){
+			// Default behaviour: undefined order for edges (neighbours) on given depth
 			for (const Edge& edge : node)
 			{
 				to_be_visited_first.push_back(edge);
