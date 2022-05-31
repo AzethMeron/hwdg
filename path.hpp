@@ -162,7 +162,7 @@ namespace HWDG
 			while (true)
 			{
 				const TYPE& c = this->getCell(analysing);
-				if (c.prev_id < 0) break;
+				if ((c.prev_id == TYPE::NO_PREVIOUS) || (c.prev_id == TYPE::STARTING)) break;
 				analysing = Node(c.prev_id);
 				nodes.push_back(analysing);
 			}
