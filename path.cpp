@@ -27,11 +27,11 @@ namespace HWDG
 		return this->_nodes.size();
 	}
 
-	auto Path::begin(void) const
+	typename std::vector<Node>::const_iterator Path::begin(void) const
 	{
 		return this->_nodes.begin();
 	}
-	auto Path::end(void) const
+	typename std::vector<Node>::const_iterator Path::end(void) const
 	{
 		return this->_nodes.end();
 	}

@@ -73,10 +73,10 @@ namespace HWDG
 			output.reserve_edges_in_node(a, edges_per_node);
 			for (size_t i = 0; i < edges_per_node; ++i)
 			{
-				for(size_t j = 0; j < size; ++j) // if the edge isn't generate in "size" tries, it is most likely impossible to create
+				float weight = (float)RandomDouble(weight_min, weight_max); // weight for incoming edge
+				for(size_t j = 0; j < size; ++j) // if the edge isn't generated in "size" tries, it is most likely impossible to create
 				{
 					Node b = Node(RandomInt(0, size - 1));
-					float weight = (float)RandomDouble(weight_min, weight_max);
 					Edge potential_edge = Edge(a, b, weight);
 					// conditions
 					if (output.has(potential_edge)) continue; // if exists, try again

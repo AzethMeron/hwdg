@@ -40,7 +40,7 @@ namespace HWDG
 		L*w_{e_A} + (1-L) * w_{e_B} & \textrm{if $ e \in A $ and $ e \in B$}
 		\end{array} \right. \f$
 	*
-	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'.
+	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'. \f$L\f$ is balancer.
 	* \param a Graph A, one of components for union (sum)
 	* \param b Graph B, one of components for union (sum)
 	* \param balancer Balancing factor used in weight computation. MUST belong to [0,1]
@@ -58,7 +58,7 @@ namespace HWDG
 		w_{e_A} + w_{e_B} & \textrm{if $ e \in A $ and $ e \in B$}
 		\end{array} \right. \f$
 	*
-	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'.
+	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'. \f$L\f$ is balancer.
 	* \param a Graph A, to which Graph B will be added.
 	* \param b Graph B, that will be added to A.
 	* \par Time complexity:
@@ -74,7 +74,7 @@ namespace HWDG
 		L*w_{e_A} + (1-L) * w_{e_B} & \textrm{if $ e \in A $ and $ e \in B$}
 		\end{array} \right. \f$
 	*
-	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'.
+	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'. \f$L\f$ is balancer.
 	* \param a Graph A, to which Graph B will be added.
 	* \param b Graph B, that will be added to A.
 	* \param balancer Balancing factor used in weight computation. MUST belong to [0,1]
@@ -89,7 +89,7 @@ namespace HWDG
 		L*w_{e_A} + (1-L) * w_{e_B} & \textrm{if $ e \in A $ and $ e \in B$}
 		\end{array} \right. \f$
 	*
-	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'.
+	* where \f$ w_{e_x} \f$ stands for 'weight' of edge 'e' in graph 'x'. \f$L\f$ is balancer.
 	* \param a Graph A, one of component for intersection
 	* \param b Graph B, one of component for intersection
 	* \param balancer Balancing factor used in weight computation. MUST belong to [0,1]

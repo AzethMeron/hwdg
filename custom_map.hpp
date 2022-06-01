@@ -17,7 +17,7 @@
 
 namespace HWDG
 {	
-	#ifndef DOXYGEN_SHOULD_SKIP_THIS
+	//#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		namespace Map
 		{
 			template<typename keytype, typename valuetype>
@@ -60,7 +60,7 @@ namespace HWDG
 					const_iterator<keytype, valuetype> find(const keytype& id) const { return const_iterator<keytype, valuetype>(std::unordered_map<keytype, valuetype>::find(id)); }
 			};
 		}
-	#endif
+	//#endif
 }
 
 #endif

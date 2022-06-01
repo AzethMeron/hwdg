@@ -22,7 +22,7 @@
 namespace HWDG
 {
 	/**
-	* Cell within Pathtable, representing previous Node in path, and weight of path to this point. 
+	* Low level, cell within Pathtable, representing previous Node in path, and weight of path to this point. 
 	* 
 	* You're not supposed to actually use that class, it's used internally by Dijkstra and BellmanFord algorithms. That being said, if you want to salvage some information out of results, feel free to do so.
 	*/
@@ -97,27 +97,109 @@ namespace HWDG
 		static constexpr int64_t STARTING = -2;
 	};
 
+	/**
+	* High-level class to extract Path from Pathtable.
+	* 
+	* Path from Node A to B extracted from Pathtable or returned by pathfinding algorithm. Supports indexed and range loops.
+	*/
 	class Path
 	{
-	private:
-		std::vector<Node> _nodes;
-		double _pathweight;
-		bool _exists;
-	public:
-		size_t size(void) const;
-		auto begin(void) const;
-		auto end(void) const;
-		const Node& operator [] (const unsigned int& i) const;
-		double Weight(void) const;
-		bool Exists(void) const;
-		std::string str(void) const;
-		Path() = delete;
-		Path(const std::vector<Node>& nodes, const double& weight, bool exists);
+		private:
+			std::vector<Node> _nodes;
+			double _pathweight;
+			bool _exists;
+		public:
+			/**
+			* Number of nodes within Path. Includes starting and target Node.
+			* \return Number of nodes on path from source to target Node.
+			* \par Time complexity:
+			* \f$O(1)\$
+			*/
+			size_t size(void) const;
 
-		static void SaveTxt(std::ostream& file, const Path& path);
-		static Path LoadTxt(std::istream& file);
-		static void SaveBin(std::ostream& file, const Path& path);
-		static Path LoadBin(std::istream& file);
+			/**
+			* Support for C++ range loops.
+			*/
+			typename std::vector<Node>::const_iterator begin(void) const;
+
+			/**
+			* Support for C++ range loops.
+			*/
+			typename std::vector<Node>::const_iterator end(void) const;
+
+			/**
+			* Get Node under given index within path.
+			* \param i Index within Path, must belong to [0,size()-1]
+			* \return Node under given index within path.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
+			const Node& operator [] (const unsigned int& i) const;
+
+			/**
+			* Get total weight of Path.
+			* \return Sum of all edges that are taken by this Path.
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
+			double Weight(void) const;
+
+			/**
+			* Check whether Path actually exists.
+			* \return true, if target Node is accessible from source (path exists)
+			* \return false, if target Node is NOT accessible from source (path doesn't exists)
+			*/
+			bool Exists(void) const;
+
+			/**
+			* Get string representation.
+			* Useful during development and debugging.
+			* \par Time complexity:
+			* \f$O(n)\f$
+			*/
+			std::string str(void) const;
+
+			/**
+			* Removed default constructor.
+			*/
+			Path() = delete;
+			Path(const std::vector<Node>& nodes, const double& weight, bool exists);
+
+			/**
+			* Save to stream - text form.
+			* \param file Reference to ostream-like object.
+			* \param path Path to be saved.
+			* \par Time complexity:
+			* \f$O(n)\f$
+			*/
+			static void SaveTxt(std::ostream& file, const Path& path);
+
+			/**
+			* Load from stream - text form.
+			* \param file Reference to istream-like object.
+			* \return Path loaded from stream.
+			* \par Time complexity:
+			* \f$O(n)\f$
+			*/
+			static Path LoadTxt(std::istream& file);
+
+			/**
+			* Save to stream - binary form.
+			* \param file Reference to ostream-like object, opened in binary mode.
+			* \param path Path to be saved.
+			* \par Time complexity:
+			* \f$O(n)\f$
+			*/
+			static void SaveBin(std::ostream& file, const Path& path);
+
+			/**
+			* Load from stream - binary form.
+			* \param file Reference to istream-like object, opened in binary mode.
+			* \return Patj loaded from stream.
+			* \par Time complexity:
+			* \f$O(n)\f$
+			*/
+			static Path LoadBin(std::istream& file);
 	};
 
 	template<typename TYPE>
