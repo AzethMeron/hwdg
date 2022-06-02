@@ -113,7 +113,7 @@ namespace HWDG
 			* Number of nodes within Path. Includes starting and target Node.
 			* \return Number of nodes on path from source to target Node.
 			* \par Time complexity:
-			* \f$O(1)\$
+			* \f$O(1)\f$
 			*/
 			size_t size(void) const;
 
