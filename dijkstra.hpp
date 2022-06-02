@@ -43,12 +43,12 @@ namespace HWDG
 			const Cell& getCell(const Node& node) const;
 			void UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight);
 			void Algorithm(const Graph& graph);
-		public:
+		private:
 			Dijkstra() = delete;
 			Dijkstra(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
 			const Pathtable<Dijkstra::Cell>& Results(void) const;
-
+		public:
 			static const Pathtable<Dijkstra::Cell> Compute(const Graph& graph, const Node& src);
 	};
 }

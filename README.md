@@ -13,7 +13,7 @@ This implementation features Weighted Directed Graphs, so Graphs consists of Nod
 ![ezgif-1-a456a8853e](https://user-images.githubusercontent.com/41695668/170822880-fc0ba747-e863-4aa3-b9a0-b695f782c32e.png)
 
 # Features
-- Graph representation using list of successors (except list is replaced with map)
+- Graph representation using list of successors (except list is replaced with unordered map)
 - Serialization of graphs (and most of other types)
 - Addition of edge, removal or check of existence has constant time complexity.
 - Heap-based Dijkstra algorithm.
@@ -110,31 +110,7 @@ int main()
 }
 ```
 
-Now, Dijkstra algorithm. I'll use the graph from the previous example (which was saved in manual.txt)
-```c++
-#include <iostream>
-#include "hwdg.hpp"
-
-int main()
-{
-	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
-	try {
-		HWDG::Dijkstra vessel(graph, HWDG::Node(0)); // Dijkstra algorithm is executed in constructor
-		auto pathtable = vessel.Results();
-		std::cout << "Pathtable: node_id path_weight previous_node" << std::endl << pathtable.str() << std::endl;
-		HWDG::Path path_to_node_3 = pathtable.GetPath(HWDG::Node(3));
-		std::cout << "Path to node 3: " << path_to_node_3.str() << std::endl;
-	}
-	catch (const std::invalid_argument& e)
-	{
-		// This section will be triggered if graph contains negative edges
-		std::cout << "Exception occured: " << e.what() << std::endl;
-	}
-	return 0;
-}
-```
-
-Dijkstra and Bellman-Ford algorithms are conducted within constructors of objects, which is bad practice but it's the path (hehe) I've taken. However in your code you should use functions Dijkstra::Compute() and BellmanFord::Compute() which returns Pathtable of corresponding type.
+Now, Dijkstra and BellmanFord algorithms. I'll use the graph from the previous example (which was saved in manual.txt)
 ```c++
 #include <iostream>
 #include "hwdg.hpp"
@@ -172,6 +148,22 @@ int main()
 		{
 			std::cout << "Traversing: " << node.id() << " - " << edge.str() << std::endl;
 		}
+	}
+	return 0;
+}
+```
+
+Traversing graph (through all edges, in undefined order)
+```c++
+#include <iostream>
+#include "hwdg.hpp"
+
+int main()
+{
+	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
+	for (const auto& edge : graph.edges())
+	{
+		std::cout << edge.str() << std::endl;
 	}
 	return 0;
 }
