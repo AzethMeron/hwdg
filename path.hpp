@@ -148,6 +148,8 @@ namespace HWDG
 			* Check whether Path actually exists.
 			* \return true, if target Node is accessible from source (path exists)
 			* \return false, if target Node is NOT accessible from source (path doesn't exists)
+			* \par Time complexity:
+			* \f$O(1)\f$
 			*/
 			bool Exists(void) const;
 
@@ -163,6 +165,16 @@ namespace HWDG
 			* Removed default constructor.
 			*/
 			Path() = delete;
+
+			/**
+			* Constructor for Path object, used by algorithms.
+			* It's probably unnecessary for you to use it manually.
+			* \param nodes std::vector<Node> storing nodes in the path.
+			* \param weight Total weight of path (sum of weights of all edges it traverses)
+			* \param exists Whether the path actually exist (true) or not (false). 
+			* \par Time complexity:
+			* \f$O(1)\f$
+			*/
 			Path(const std::vector<Node>& nodes, const double& weight, bool exists);
 
 			/**
@@ -202,13 +214,45 @@ namespace HWDG
 			static Path LoadBin(std::istream& file);
 	};
 
+	/**
+		* Thin wrapper for std::unordered_map. It's pathtable used by Dijkstra and BellmanFord algorithms.
+		* 
+		* Pathtable contains information about path from single source Node to every other Node. 
+		* You can check any Node within pathtable, and you will get total weight required to reach this Node, as well as ID of previous Node.
+		*
+		* If ID of previous node is equal PathtableCell::NO_PREVIOUS, it means there's no path to this Node.
+		* 
+		* If ID of previous node is equal PathtableCell::STARTING, it means it's source node.
+		* 
+		* \tparam TYPE Type of cells stored in Pathtable, it must implement (be a child of, or compatible with) PathtableCell.
+	*/
 	template<typename TYPE>
 	struct Pathtable : public Map::unordered_map<uint32_t, TYPE>
 	{
+		/**
+		* Source Node for this Pathtable.
+		*/
 		const Node source;
+
+		/**
+		* Pathtable object cannot be created without parameters. 
+		* Default constructor is deleted.
+		*/
 		Pathtable() = delete;
+
+		/**
+		* Pathtable must receive source Node to start.
+		* This Node cannot be changed later. Also don't forget to Pathtable::Initailise()
+		* \param src Source Node
+		*/
 		Pathtable(const Node& src) : source(src) {}
 
+		/**
+		* Check whether there's cell created for given Node.
+		* \param node Node that we check for.
+		* \par Time complexity:
+		* \f$O(1)\f$
+		*/
 		bool has(const Node& node) const
 		{
 			auto iter = this->find(node.id());
@@ -216,6 +260,15 @@ namespace HWDG
 			return true;
 		}
 
+		/**
+		* Update weight (and previous node in a path) of given Node.
+		* Used internally by algorithms, when shorter path to given node is found.
+		* \param node (Target) Node which we want update path to.
+		* \param prev_node New previous Node in path.
+		* \param pathweight TNew total weight of path to node.
+		* \par Time complexity:
+		* \f$O(1)\f$
+		*/
 		void UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight)
 		{
 			TYPE& c = (*this->find(node.id()));
@@ -223,16 +276,39 @@ namespace HWDG
 			c.prev_id = prev_node.id();
 		}
 
+		/**
+		* Get PathtableCell -like object corresponding to node - constant mode.
+		* \param node Node which we want get cell of.
+		* \return Constant (read-only) reference to cell corresponding to node.
+		* \par Time complexity:
+		* \f$O(1)\f$
+		*/
 		const TYPE& getCell(const Node& node) const
 		{
 			return (*this->find(node.id()));
 		}
 
+		/**
+		* Get PathtableCell -like object corresponding to node - reference mode.
+		* \param node Node which we want get cell of.
+		* \return Reference to cell corresponding to node.
+		* \par Time complexity:
+		* \f$O(1)\f$
+		*/
 		TYPE& getCell(const Node& node)
 		{
 			return (*this->find(node.id()));
 		}
 
+		/**
+		* Get Path to target Node.
+		* 
+		* This is only function you're likely to use (maybe aside serialisation). It allows you to get Path leading from Pathtable::source to target Node.
+		* \param tgt Target Node, to which Path should be generated.
+		* \return Path leading from Pathtable::source to target Node.
+		* \par Time complexity:
+		* \f$O(n)\f$
+		*/
 		Path GetPath(const Node& tgt) const
 		{
 			if (!this->has(tgt)) throw std::invalid_argument(string_format("No node %s in graph this algorithm was used on", tgt.str()));
@@ -252,6 +328,15 @@ namespace HWDG
 			return Path(nodes, weight, exists);
 		}
 		
+		/**
+		* Prepare Pathtable to be used by pathfinding algorithm.
+		* 
+		* It reserves memory and inserts cells for all nodes within that graph. You shouldn't need to use it, like never.
+		* \param graph Graph for which this Pathtable will be fitted.
+		* \param src Source Node, relict of old code, it must be the same as Pathtable::source.
+		* \par Time complexity:
+		* \f$O(nodes)\f$
+		*/
 		void Initialise(const Graph& graph, const Node& src)
 		{
 			this->reserve(graph.size_nodes());
@@ -261,6 +346,12 @@ namespace HWDG
 			}
 		}
 
+		/**
+		* Get string representation.
+		* Useful during development and debugging.
+		* \par Time complexity:
+		* \f$O(n)\f$
+		*/
 		std::string str(void) const
 		{
 			std::string output = "";
@@ -271,6 +362,13 @@ namespace HWDG
 			return output;
 		}
 
+		/**
+		* Save to stream - text form.
+		* \param file Reference to ostream-like object.
+		* \param table Pathtable to be saved.
+		* \par Time complexity:
+		* \f$O(n)\f$
+		*/
 		static void SaveTxt(std::ostream& file, const Pathtable<TYPE>& table)
 		{
 			Node::SaveTxt(file, table.source);
@@ -281,6 +379,13 @@ namespace HWDG
 			}
 		}
 
+		/**
+		* Load from stream - text form.
+		* \param file Reference to istream-like object.
+		* \return Pathtable loaded from stream.
+		* \par Time complexity:
+		* \f$O(n)\f$
+		*/
 		static Pathtable<TYPE> LoadTxt(std::istream& file)
 		{
 			Node node = Node::LoadTxt(file);
@@ -296,6 +401,13 @@ namespace HWDG
 			return output;
 		}
 
+		/**
+		* Save to stream - binary form.
+		* \param file Reference to ostream-like object, opened in binary mode.
+		* \param table Pathtable to be saved.
+		* \par Time complexity:
+		* \f$O(n)\f$
+		*/
 		static void SaveBin(std::ostream& file, const Pathtable<TYPE>& table)
 		{
 			Node::SaveBin(file, table.source);
@@ -307,6 +419,13 @@ namespace HWDG
 			}
 		}
 
+		/**
+		* Load from stream - binary form.
+		* \param file Reference to istream-like object, opened in binary mode.
+		* \return Pathtable loaded from stream.
+		* \par Time complexity:
+		* \f$O(n)\f$
+		*/
 		static Pathtable<TYPE> LoadBin(std::istream& file)
 		{
 			Node source = Node::LoadBin(file);

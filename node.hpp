@@ -18,8 +18,7 @@
 namespace HWDG
 {
 	/**
-	* @brief Representation of node (vertex) outside of Graph context.
-	* 
+	* Representation of node (vertex) outside of Graph context.
 	*/
 	class Node 
 	{

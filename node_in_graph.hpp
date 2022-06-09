@@ -52,6 +52,7 @@ namespace HWDG
 			* \f$O(1)\f$
 			*/
 			bool add(const Node& tgt_node, float weight); // constant
+			
 			/**
 			* Remove Edge coming out from this node.
 			* \param edge Edge to be removed.
@@ -61,7 +62,14 @@ namespace HWDG
 			*/
 			bool remove(const Edge& edge); // constant
 			
+			/**
+			* Support for C++ range loops.
+			*/
 			Map::const_iterator<uint64_t, Edge> begin() const;
+
+			/**
+			* Support for C++ range loops.
+			*/
 			Map::const_iterator<uint64_t, Edge> end() const;
 
 			/**

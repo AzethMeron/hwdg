@@ -20,4 +20,14 @@
 #include "bellmanford.hpp"
 #include "dijkstra.hpp"
 
+/**
+* Main namespace of library. 
+* All classes and functions belong to this namespace, so it doesn't overlap with your code with any capacity. 
+* You can use "using namespace HWDG" if you wish so.
+*/
+namespace HWDG
+{
+
+}
+
 #endif
