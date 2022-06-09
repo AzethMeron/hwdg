@@ -12,6 +12,9 @@ This implementation features Weighted Directed Graphs, so Graphs consists of Nod
 
 ![ezgif-1-a456a8853e](https://user-images.githubusercontent.com/41695668/170822880-fc0ba747-e863-4aa3-b9a0-b695f782c32e.png)
 
+# Documentation
+This project has documentation written in Doxygen. You can view it by opening Dox/html/index.html
+
 # Features
 - Graph representation using list of successors (except list is replaced with unordered map)
 - Serialization of graphs (and most of other types)

@@ -51,6 +51,7 @@ namespace HWDG
 			* 
 			* \param graph Graph that you want to find Pathtable for.
 			* \param src Source Node, for which the Pathtable will be created.
+			* \return Pathtable with paths from source Node to every other Node within Graph.
 			* \throws std::invalid_argument if Graph has negative cycles.
 			* 
 			* \par Time complexity:
