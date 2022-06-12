@@ -25,6 +25,11 @@ This project has documentation written in Doxygen. You can view it by opening Do
 - BFS and DFS search of graph.
 - and more.
 
+# Installation
+No external libraries are required. HWDG is written purely in C++20.  
+Simply create a project, then add all .hpp files to header files, and .cpp to source file.  
+Remember to turn optimization on (flag -O2) for much better performance.  
+
 # Third-party code used
 Doxygen dark theme by MaJerle: https://github.com/MaJerle/doxygen-dark-theme
 
