@@ -13,7 +13,7 @@ namespace HWDG
 {
 	BellmanFord::BellmanFord(const Graph& graph, const Node& src) : _results(src)
 	{
-		if (!graph.has(src)) throw std::invalid_argument(string_format("Node %s doesn't belong to given graph", src.str().c_str()));
+		if (!graph.has(src)) throw std::invalid_argument(Tools::string_format("Node %s doesn't belong to given graph", src.str().c_str()));
 		Algorithm(graph);
 	}
 
@@ -73,7 +73,7 @@ namespace HWDG
 		return this->_results.GetPath(target);
 	}
 
-	const Pathtable<PathtableCell> BellmanFord::Compute(const Graph& graph, const Node& src)
+	Pathtable<PathtableCell> BellmanFord::Compute(const Graph& graph, const Node& src)
 	{
 		BellmanFord vessel(graph, src);
 		return vessel.Results();

@@ -19,6 +19,7 @@
 #include "path.hpp"
 #include "bellmanford.hpp"
 #include "dijkstra.hpp"
+#include "bfspathfinding.hpp"
 
 /**
 * Main namespace of library. 

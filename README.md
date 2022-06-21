@@ -53,9 +53,9 @@ Following code generates a random graph of size 10 with density=50%, minimal wei
 
 int main()
 {
-	HWDG::Graph graph = HWDG::RandomLowDensityGraph(10, 0.5, 10, 400, true);
+	HWDG::Graph graph = HWDG::Tools::RandomLowDensityGraph(10, 0.5, 10, 400, true);
 	std::cout << "Generated random graph: " << graph.str();
-	HWDG::SaveBin(graph, "graph");
+	HWDG::Tools::SaveBin(graph, "graph");
 	return 0;
 }
 ```
@@ -67,11 +67,11 @@ Let's load previously generated graph, generate new one, and try some basic oper
 
 int main()
 {
-	HWDG::Graph graph_a = HWDG::RandomGraph(10, 0.5, 10, 400, true);
-	HWDG::Graph graph_b = HWDG::LoadBin<HWDG::Graph>("graph");
-	std::cout << "Union: " << HWDG::Union(graph_a, graph_b).str() << std::endl;
-	std::cout << "Difference: " << HWDG::Difference(graph_a, graph_b).str() << std::endl;
-	std::cout << "Intersection: " << HWDG::Intersection(graph_a, graph_b, 0.5).str() << std::endl;
+	HWDG::Graph graph_a = HWDG::Tools::RandomGraph(10, 0.5, 10, 400, true);
+	HWDG::Graph graph_b = HWDG::Tools::LoadBin<HWDG::Graph>("graph");
+	std::cout << "Union: " << HWDG::Operations::Union(graph_a, graph_b).str() << std::endl;
+	std::cout << "Difference: " << HWDG::Operations::Difference(graph_a, graph_b).str() << std::endl;
+	std::cout << "Intersection: " << HWDG::Operations::Intersection(graph_a, graph_b, 0.5).str() << std::endl;
 	return 0;
 }
 ```
@@ -114,7 +114,7 @@ int main()
 		<< "Has edge 2->3? " << graph.has(HWDG::Edge(n[2], n[3])) << std::endl
 		<< "Has edge 3->2? " << graph.has(HWDG::Edge(n[3], n[2])) << std::endl;
 	// Saving to file in text form
-	HWDG::SaveTxt(graph, "manual.txt");
+	HWDG::Tools::SaveTxt(graph, "manual.txt");
 	return 0;
 }
 ```
@@ -126,12 +126,14 @@ Now, Dijkstra and BellmanFord algorithms. I'll use the graph from the previous e
 
 int main()
 {
-    HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
+    HWDG::Graph graph = HWDG::Tools::LoadTxt<HWDG::Graph>("manual.txt");
     try {
         auto dijkstra_path = HWDG::Dijkstra::Compute(graph, HWDG::Node(0));
         auto bellman_path = HWDG::BellmanFord::Compute(graph, HWDG::Node(0));
         std::cout << dijkstra_path.str() << std::endl;
         std::cout << bellman_path.str() << std::endl;
+        HWDG::Path path_to_node_4 = dijkstra_path.GetPath(HWDG::Node(4));
+        std::cout << path_to_node_4.str();
     }
     catch (const std::invalid_argument& e)
     {
@@ -150,7 +152,7 @@ Traversing graph (through nodes and edges originating from each node)
 
 int main()
 {
-	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
+	HWDG::Graph graph = HWDG::Tools::LoadTxt<HWDG::Graph>("manual.txt");
 	for (const auto& node : graph)
 	{
 		for (const auto& edge : node)
@@ -169,7 +171,7 @@ Traversing graph (through all edges, in undefined order)
 
 int main()
 {
-	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
+	HWDG::Graph graph = HWDG::Tools::LoadTxt<HWDG::Graph>("manual.txt");
 	for (const auto& edge : graph.edges())
 	{
 		std::cout << edge.str() << std::endl;
@@ -185,8 +187,8 @@ You can also use BreadthFirstSearch() and DepthFirstSearch() to traverse graph, 
 
 int main()
 {
-	HWDG::Graph graph = HWDG::LoadTxt<HWDG::Graph>("manual.txt");
-	HWDG::BreadthFirstSearch(graph, HWDG::Node(3), [&graph](const HWDG::Edge& edge, const auto& visited) {
+	HWDG::Graph graph = HWDG::Tools::LoadTxt<HWDG::Graph>("manual.txt");
+	HWDG::Operations::BreadthFirstSearch(graph, HWDG::Node(3), [&graph](const HWDG::Edge& edge, const auto& visited) {
 		HWDG::NodeInGraph current = graph.fetch(edge.target());
 		for (const auto& e : current)
 		{
@@ -194,11 +196,13 @@ int main()
 			// if you want to check whether node was visited...
 			auto check_if_visited = visited.find(e.target());
 			if (check_if_visited != visited.end()) // Check if target node was visited
-			{ }
+			{
+			}
 			else // not visited
-			{ }
+			{
+			}
 		}
-	});
+		});
 	return 0;
 }
 ```
@@ -211,8 +215,8 @@ There's also another implementation of functions above that allows you to specif
 
 int main()
 {
-	HWDG::Graph graph = HWDG::RandomLowDensityGraph(100, 0.3, 100, 150, true);
-	HWDG::DepthFirstSearch(graph, HWDG::Node(3),
+	HWDG::Graph graph = HWDG::Tools::RandomLowDensityGraph(100, 0.3, 100, 150, true);
+	HWDG::Operations::DepthFirstSearch(graph, HWDG::Node(3),
 		[&graph](const HWDG::Edge& edge, const auto& set_of_visited) {
 			HWDG::NodeInGraph current = graph.fetch(edge.target());
 			std::cout << edge.str() << std::endl;
@@ -231,7 +235,7 @@ int main()
 ```
 
 # Serialization
-You could see in examples above LoadTxt(), SaveTxt(), LoadBin(), SaveBin() functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.
+You could see in examples above Tools::LoadTxt(), Tools::SaveTxt(), Tools::LoadBin(), Tools::SaveBin() functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.
 
 SaveTxt stores datatype with basic string representation that can be viewed in any text editor, and it's actually a viable way to create small graphs. Txt representation also works the same for any computer architecture, regardless of big endian / little endian. Downsides are: it's slower and wasteful when it comes to space.
 

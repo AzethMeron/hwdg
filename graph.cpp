@@ -59,14 +59,14 @@ namespace HWDG
 	const NodeInGraph& Graph::fetch(const Node& node) const
 	{
 		auto iter = this->get_node(node);
-		if (iter == this->end()) throw std::out_of_range(string_format("No such node: %s", node.str().c_str()));
+		if (iter == this->end()) throw std::out_of_range(Tools::string_format("No such node: %s", node.str().c_str()));
 		return *iter;
 	}
 
 	const Edge& Graph::fetch(const Edge& edge) const
 	{
 		auto iter = this->get_edge(edge);
-		if (iter == this->_edges.cend()) throw std::out_of_range(string_format("No such edge: %s", edge.str().c_str()));
+		if (iter == this->_edges.cend()) throw std::out_of_range(Tools::string_format("No such edge: %s", edge.str().c_str()));
 		return *iter;
 	}
 
@@ -118,7 +118,7 @@ namespace HWDG
 		std::string output = "[\n";
 		for (const auto& node : *this)
 		{
-			std::string tmp = string_format("	%s\n", node.str().c_str());
+			std::string tmp = Tools::string_format("	%s\n", node.str().c_str());
 			output.append(tmp);
 		}
 		output.append("]");
@@ -130,7 +130,7 @@ namespace HWDG
 		std::string output = "[\n";
 		for (const auto& edge : this->_edges)
 		{
-			output.append(string_format("	%s\n", edge.str().c_str()));
+			output.append(Tools::string_format("	%s\n", edge.str().c_str()));
 		}
 		output.append("]");
 		return output;

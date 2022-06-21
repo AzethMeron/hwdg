@@ -7,5 +7,5 @@ var searchData=
   ['node_5fin_5fgraph_2ehpp_4',['node_in_graph.hpp',['../node__in__graph_8hpp.html',1,'']]],
   ['nodeingraph_5',['NodeInGraph',['../class_h_w_d_g_1_1_node_in_graph.html',1,'HWDG::NodeInGraph'],['../class_h_w_d_g_1_1_node_in_graph.html#ab03cb1506c1af290e5e92b5b43534928',1,'HWDG::NodeInGraph::NodeInGraph()=delete'],['../class_h_w_d_g_1_1_node_in_graph.html#a07fd415b143a8572e8822e79f08acf00',1,'HWDG::NodeInGraph::NodeInGraph(const Node &amp;n)']]],
   ['nodes_6',['nodes',['../class_h_w_d_g_1_1_graph.html#afb792a8089472b3959788880de298f1e',1,'HWDG::Graph']]],
-  ['normalizedvaluesimilarity_7',['NormalizedValueSimilarity',['../namespace_h_w_d_g.html#a2a88c623e5e25a111bc898113d4b6118',1,'HWDG']]]
+  ['normalizedvaluesimilarity_7',['NormalizedValueSimilarity',['../class_h_w_d_g_1_1_operations.html#af2a59807f4e41b116c1c21ab8ef44fe3',1,'HWDG::Operations']]]
 ];

@@ -19,7 +19,7 @@ namespace HWDG
 
 	std::string PathtableCell::str(void) const
 	{
-		return string_format("%d %f %d", this->node.id(), this->pathweight, this->prev_id);
+		return Tools::string_format("%d %f %d", this->node.id(), this->pathweight, this->prev_id);
 	}
 
 	size_t Path::size(void) const
@@ -57,7 +57,7 @@ namespace HWDG
 		{
 			return std::string("Path doesn't exist");
 		}
-		std::string output = string_format("Pathweight: %f [ ", this->Weight());
+		std::string output = Tools::string_format("Pathweight: %f [ ", this->Weight());
 		for (const Node& node : *this)
 		{
 			output.append(node.str() + std::string(" "));

@@ -9,23 +9,21 @@
 
 namespace HWDG
 {
-	#ifndef DOXYGEN_SHOULD_SKIP_THIS
-		int RandomInt(const int& min, const int& max) {
-			static thread_local std::random_device rd;
-			static thread_local std::mt19937 generator(rd());
-			std::uniform_int_distribution<int> distribution(min, max);
-			return distribution(generator);
-		}
+	int Tools::RandomInt(const int& min, const int& max) {
+		static thread_local std::random_device rd;
+		static thread_local std::mt19937 generator(rd());
+		std::uniform_int_distribution<int> distribution(min, max);
+		return distribution(generator);
+	}
 
-		double RandomDouble(const double& min, const double& max) {
-			static thread_local std::random_device rd;
-			static thread_local std::mt19937 generator(rd());
-			std::uniform_real_distribution<double> distribution(min, max);
-			return distribution(generator);
-		}
-	#endif
+	double Tools::RandomDouble(const double& min, const double& max) {
+		static thread_local std::random_device rd;
+		static thread_local std::mt19937 generator(rd());
+		std::uniform_real_distribution<double> distribution(min, max);
+		return distribution(generator);
+	}
 
-	Graph RandomGraph(size_t size, float density, float weight_min, float weight_max, bool loops)
+	Graph Tools::RandomGraph(size_t size, float density, float weight_min, float weight_max, bool loops)
 	{
 		Graph output;
 		output.reserve_nodes(size);
@@ -53,7 +51,7 @@ namespace HWDG
 		return output;
 	}
 
-	Graph RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops)
+	Graph Tools::RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops)
 	{
 		// Manage density, because contrary to previous algorithm, it matters here
 		if (density > 1.0) density = 1.0;

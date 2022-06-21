@@ -28,7 +28,7 @@ namespace HWDG
 
 	std::string Node::str(void) const
 	{
-		return string_format("%lu", this->id());
+		return Tools::string_format("%lu", this->id());
 	}
 
 	void Node::SaveBin(std::ostream& file, const Node& node)

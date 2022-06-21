@@ -311,7 +311,7 @@ namespace HWDG
 		*/
 		Path GetPath(const Node& tgt) const
 		{
-			if (!this->has(tgt)) throw std::invalid_argument(string_format("No node %s in graph this algorithm was used on", tgt.str()));
+			if (!this->has(tgt)) throw std::invalid_argument(Tools::string_format("No node %s in graph this algorithm was used on", tgt.str()));
 			std::vector<Node> nodes;
 			const double weight = this->getCell(tgt).pathweight;
 			const bool exists = this->getCell(tgt).prev_id != TYPE::NO_PREVIOUS;

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['heap_5fposition_0',['heap_position',['../struct_h_w_d_g_1_1_dijkstra_1_1_cell.html#abf8821fee24ee82994ddbeba198f1471',1,'HWDG::Dijkstra::Cell']]]
+  ['edgeweight_0',['EdgeWeight',['../class_h_w_d_g_1_1_b_f_s_pathfinding.html#a4a9604016a3fb801e47e9e1048c576ee',1,'HWDG::BFSPathfinding']]]
 ];

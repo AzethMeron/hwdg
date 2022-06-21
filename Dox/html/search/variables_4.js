@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pathweight_0',['pathweight',['../struct_h_w_d_g_1_1_pathtable_cell.html#a42b45e475dd63f798cb50db76b4fd6c6',1,'HWDG::PathtableCell']]],
-  ['prev_5fid_1',['prev_id',['../struct_h_w_d_g_1_1_pathtable_cell.html#a82dac6561268f33265ee98c6da7a9043',1,'HWDG::PathtableCell']]]
+  ['no_5fprevious_0',['NO_PREVIOUS',['../struct_h_w_d_g_1_1_pathtable_cell.html#a208d24267e4057e48de401be5353ddad',1,'HWDG::PathtableCell']]],
+  ['node_1',['node',['../struct_h_w_d_g_1_1_pathtable_cell.html#af164ccddfe87145712e5fc9934db6aa3',1,'HWDG::PathtableCell']]]
 ];

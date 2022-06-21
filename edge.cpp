@@ -58,7 +58,7 @@ namespace HWDG
 
 	std::string Edge::str(void) const
 	{
-		return string_format("(%s, %s, %f)", this->source().str().c_str(), this->target().str().c_str(), this->weight());
+		return Tools::string_format("(%s, %s, %f)", this->source().str().c_str(), this->target().str().c_str(), this->weight());
 	}
 	
 	Edge Edge::Scale(const float& factor) const

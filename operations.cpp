@@ -16,22 +16,22 @@
 
 namespace HWDG
 {
-	Graph Union(const Graph& a, const Graph& b)
+	Graph Operations::Union(const Graph& a, const Graph& b)
 	{
 		Graph output = a;
-		MergeUnion(output, b);
+		Operations::MergeUnion(output, b);
 		return output;
 	}
 	
 	// balancer = 0..1
-	Graph Union(const Graph& a, const Graph& b, float balancer)
+	Graph Operations::Union(const Graph& a, const Graph& b, float balancer)
 	{
 		Graph output = a;
-		MergeUnion(output, b, balancer);
+		Operations::MergeUnion(output, b, balancer);
 		return output;
 	}
 
-	void MergeUnion(Graph& a, const Graph& b)
+	void Operations::MergeUnion(Graph& a, const Graph& b)
 	{
 		// adding nodes
 		for (auto& node : b)
@@ -54,7 +54,7 @@ namespace HWDG
 			}
 		}
 	}
-	void MergeUnion(Graph& a, const Graph& b, float balancer)
+	void Operations::MergeUnion(Graph& a, const Graph& b, float balancer)
 	{
 		// adding nodes from b
 		for (auto& node : b)
@@ -78,7 +78,7 @@ namespace HWDG
 		}
 	}
 
-	Graph Intersection(const Graph& a, const Graph& b, float balancer)
+	Graph Operations::Intersection(const Graph& a, const Graph& b, float balancer)
 	{
 		Graph output;
 		for(auto& node : a.nodes())
@@ -100,7 +100,7 @@ namespace HWDG
 		return output;
 	}
 
-	Graph InverseIntersection(const Graph& a, const Graph& b)
+	Graph Operations::InverseIntersection(const Graph& a, const Graph& b)
 	{
 		Graph output;
 		for (auto& node : a.nodes()) { if (!b.has(node)) { output.add((const Node&)node); } }
@@ -110,7 +110,7 @@ namespace HWDG
 		return output;
 	}
 
-	Graph Difference(const Graph& a, const Graph& b)
+	Graph Operations::Difference(const Graph& a, const Graph& b)
 	{
 		Graph output;
 		for(auto& node : a.nodes())
@@ -130,20 +130,20 @@ namespace HWDG
 		return output;
 	}
 
-	double SizeSimilarity(const Graph& a, const Graph& b)
+	double Operations::SizeSimilarity(const Graph& a, const Graph& b)
 	{
 		double size_a = a.size_edges();
 		double size_b = b.size_edges();
 		return std::min(size_a, size_b) / std::max(size_a, size_b);
 	}
 
-	double ContainmentSimilarity(const Graph& a, const Graph& b)
+	double Operations::ContainmentSimilarity(const Graph& a, const Graph& b)
 	{
-		double common_edges = Intersection(a,b,0.5).size_edges();
+		double common_edges = Operations::Intersection(a,b,0.5).size_edges();
 		return common_edges / std::min(a.size_edges(), b.size_edges());
 	}
 	
-	double ValueSimilarity(const Graph& a, const Graph& b)
+	double Operations::ValueSimilarity(const Graph& a, const Graph& b)
 	{
 		double output = 0;
 		for(auto& edge : a.edges())
@@ -158,14 +158,14 @@ namespace HWDG
 		return output / std::max(a.size_edges(), b.size_edges());
 	}
 	
-	double NormalizedValueSimilarity(const Graph& a, const Graph& b)
+	double Operations::NormalizedValueSimilarity(const Graph& a, const Graph& b)
 	{
 		return ValueSimilarity(a,b) / SizeSimilarity(a,b);
 	}
 
-	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
+	void Operations::BreadthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
 	{
-		BreadthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first, const std::unordered_set<Node, Node::HashFunction>& visited) {
+		Operations::BreadthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first, const std::unordered_set<Node, Node::HashFunction>& visited) {
 			// Default behaviour: undefined order for edges (neighbours) on given depth
 			for (const Edge& edge : node)
 			{
@@ -174,7 +174,7 @@ namespace HWDG
 			});
 	}
 
-	void BreadthFirstSearch(const Graph& graph, const Node& starting_node, 
+	void Operations::BreadthFirstSearch(const Graph& graph, const Node& starting_node,
 		std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, 
 		std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first, const std::unordered_set<Node, Node::HashFunction>& visited)> priority)
 	{
@@ -202,9 +202,9 @@ namespace HWDG
 		}
 	}
 
-	void DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
+	void Operations::DepthFirstSearch(const Graph& graph, const Node& starting_node, std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func)
 	{
-		DepthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first, const std::unordered_set<Node, Node::HashFunction>& visited){
+		Operations::DepthFirstSearch(graph, starting_node, func, [](const NodeInGraph& node, std::vector<Edge>& to_be_visited_first, const std::unordered_set<Node, Node::HashFunction>& visited){
 			// Default behaviour: undefined order for edges (neighbours) on given depth
 			for (const Edge& edge : node)
 			{
@@ -213,7 +213,7 @@ namespace HWDG
 			});
 	}
 
-	void DepthFirstSearch(const Graph& graph, const Node& starting_node,
+	void Operations::DepthFirstSearch(const Graph& graph, const Node& starting_node,
 		std::function<void(const Edge& edge, const std::unordered_set<Node, Node::HashFunction>& visited)> func, 
 		std::function<void(const NodeInGraph& node, std::vector<Edge>& to_be_traversed_first, const std::unordered_set<Node, Node::HashFunction>& visited)> priority)
 	{

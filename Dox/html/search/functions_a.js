@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mergeunion_0',['MergeUnion',['../namespace_h_w_d_g.html#a9de275cd8674b0f40a4922e78e9dbe5e',1,'HWDG::MergeUnion(Graph &amp;a, const Graph &amp;b)'],['../namespace_h_w_d_g.html#a55adce6f32b5d8add6711e13a3836eae',1,'HWDG::MergeUnion(Graph &amp;a, const Graph &amp;b, float balancer)']]]
+  ['mergeunion_0',['MergeUnion',['../class_h_w_d_g_1_1_operations.html#adfd95f315ec558a93e723120f759c681',1,'HWDG::Operations::MergeUnion(Graph &amp;a, const Graph &amp;b)'],['../class_h_w_d_g_1_1_operations.html#a2e2eeb1a194d061893f9d543257003e4',1,'HWDG::Operations::MergeUnion(Graph &amp;a, const Graph &amp;b, float balancer)']]]
 ];

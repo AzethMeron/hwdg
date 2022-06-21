@@ -56,10 +56,10 @@ namespace HWDG
 		std::string list_of_next = "[";
 		for(auto& edge : *this)
 		{
-			list_of_next.append(string_format(" (%s, %.1f) ", edge.target().str().c_str(), edge.weight()));
+			list_of_next.append(Tools::string_format(" (%s, %.1f) ", edge.target().str().c_str(), edge.weight()));
 		}
 		list_of_next.append("]");
-		std::string output = string_format("(%s, %s)", Node::str().c_str(), list_of_next.c_str());
+		std::string output = Tools::string_format("(%s, %s)", Node::str().c_str(), list_of_next.c_str());
 		return output;
 	}
 

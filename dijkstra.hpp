@@ -63,7 +63,6 @@ namespace HWDG
 			void UpdateWeight(const Node& node, const Node& prev_node, const double& pathweight);
 			void Algorithm(const Graph& graph);
 		private:
-			Dijkstra() = delete;
 			Dijkstra(const Graph& graph, const Node& src);
 			Path GetPath(const Node& target) const;
 			const Pathtable<Dijkstra::Cell>& Results(void) const;
@@ -82,7 +81,8 @@ namespace HWDG
 			* \par Time complexity:
 			* \f$O(nodes * \log_{2}nodes)\f$
 			*/
-			static const Pathtable<Dijkstra::Cell> Compute(const Graph& graph, const Node& src);
+			static Pathtable<Dijkstra::Cell> Compute(const Graph& graph, const Node& src);
+			Dijkstra() = delete;
 	};
 }
 

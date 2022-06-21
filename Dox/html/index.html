@@ -85,6 +85,9 @@ What is Graph? Brief, rudimentary introduction</h1>
 <p >This implementation features Weighted Directed Graphs, so Graphs consists of Nodes (also called Vertices in literature) and Edges pointing from Node A to Node B with weight W. Example of such simple graph:</p>
 <p ><img src="https://user-images.githubusercontent.com/41695668/170822880-fc0ba747-e863-4aa3-b9a0-b695f782c32e.png" alt="ezgif-1-a456a8853e" class="inline"/></p>
 <h1><a class="anchor" id="autotoc_md3"></a>
+Documentation</h1>
+<p >This project has documentation written in Doxygen. You can view it by opening Dox/html/index.html</p>
+<h1><a class="anchor" id="autotoc_md4"></a>
 Features</h1>
 <ul>
 <li>Graph representation using list of successors (except list is replaced with unordered map)</li>
@@ -96,16 +99,23 @@ Features</h1>
 <li>BFS and DFS search of graph.</li>
 <li>and more.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Installation</h1>
+<p >No external libraries are required. <a class="el" href="namespace_h_w_d_g.html" title="Main namespace of library.">HWDG</a> is written purely in C++20. <br  />
+ Simply create a project, then add all .hpp files to header files, and .cpp to source file. <br  />
+ Remember to turn optimization on (flag -O2) for much better performance. <br  />
+ DO NOT USE CMAKE YET! CMakeLists.txt is INCOMPLETE! WORK IN PROGRESS! <br  />
+</p>
+<h1><a class="anchor" id="autotoc_md6"></a>
 Third-party code used</h1>
 <p >Doxygen dark theme by MaJerle: <a href="https://github.com/MaJerle/doxygen-dark-theme">https://github.com/MaJerle/doxygen-dark-theme</a></p>
 <p >String formatting by iFreilicht: <a href="https://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf">https://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf</a></p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Few notes about terms</h1>
 <p >Graphs are built using Nodes (also called Vertices in literature) and weighted Edges that points from source Node to target Node. Two edges are considered identical if their source and target nodes have the same ID - weight is omitted during comparison. Nodes are identified by ID - unsigned 32bit integer. If you want to store some other datatype inside your graph, like strings, you can use externally implemented dictionary and hashing functions to do so. For any node A and B, within the graph, there can be only one edge with source node A and target node B.</p>
 <p >Nodes DO NOT have to have consecutive ID numbers, I've been using such in examples only for simplicity. It's an unordered map, so ID can be any unsigned 32bit integer.</p>
 <p >Internally, Graph uses unordered map, which means the order of nodes is undefined.</p>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Brief introduction</h1>
 <p >Given there's no documentation yet, I've decided to make quick instruction on how-to-use.</p>
 <p >Following code generates a random graph of size 10 with density=50%, minimal weight of edge=10 and maximal=400, with loops allowed. Then, a string representation of this graph is displayed to standard output. Finally, the graph is saved to file "graph" in binary form. </p><div class="fragment"><div class="line"> {c++}</div>
@@ -114,9 +124,9 @@ Brief introduction</h1>
 <div class="line"> </div>
 <div class="line">int main()</div>
 <div class="line">{</div>
-<div class="line">    HWDG::Graph graph = HWDG::RandomLowDensityGraph(10, 0.5, 10, 400, true);</div>
+<div class="line">    HWDG::Graph graph = HWDG::Tools::RandomLowDensityGraph(10, 0.5, 10, 400, true);</div>
 <div class="line">    std::cout &lt;&lt; &quot;Generated random graph: &quot; &lt;&lt; graph.str();</div>
-<div class="line">    HWDG::SaveBin(graph, &quot;graph&quot;);</div>
+<div class="line">    HWDG::Tools::SaveBin(graph, &quot;graph&quot;);</div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p >Let's load previously generated graph, generate new one, and try some basic operations: union, difference, intersection </p><div class="fragment"><div class="line"> {c++}</div>
@@ -125,11 +135,11 @@ Brief introduction</h1>
 <div class="line"> </div>
 <div class="line">int main()</div>
 <div class="line">{</div>
-<div class="line">    HWDG::Graph graph_a = HWDG::RandomGraph(10, 0.5, 10, 400, true);</div>
-<div class="line">    HWDG::Graph graph_b = HWDG::LoadBin&lt;HWDG::Graph&gt;(&quot;graph&quot;);</div>
-<div class="line">    std::cout &lt;&lt; &quot;Union: &quot; &lt;&lt; HWDG::Union(graph_a, graph_b).str() &lt;&lt; std::endl;</div>
-<div class="line">    std::cout &lt;&lt; &quot;Difference: &quot; &lt;&lt; HWDG::Difference(graph_a, graph_b).str() &lt;&lt; std::endl;</div>
-<div class="line">    std::cout &lt;&lt; &quot;Intersection: &quot; &lt;&lt; HWDG::Intersection(graph_a, graph_b, 0.5).str() &lt;&lt; std::endl;</div>
+<div class="line">    HWDG::Graph graph_a = HWDG::Tools::RandomGraph(10, 0.5, 10, 400, true);</div>
+<div class="line">    HWDG::Graph graph_b = HWDG::Tools::LoadBin&lt;HWDG::Graph&gt;(&quot;graph&quot;);</div>
+<div class="line">    std::cout &lt;&lt; &quot;Union: &quot; &lt;&lt; HWDG::Operations::Union(graph_a, graph_b).str() &lt;&lt; std::endl;</div>
+<div class="line">    std::cout &lt;&lt; &quot;Difference: &quot; &lt;&lt; HWDG::Operations::Difference(graph_a, graph_b).str() &lt;&lt; std::endl;</div>
+<div class="line">    std::cout &lt;&lt; &quot;Intersection: &quot; &lt;&lt; HWDG::Operations::Intersection(graph_a, graph_b, 0.5).str() &lt;&lt; std::endl;</div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p >And now, let's create the graph manually: </p><div class="fragment"><div class="line"> {c++}</div>
@@ -169,7 +179,7 @@ Brief introduction</h1>
 <div class="line">        &lt;&lt; &quot;Has edge 2-&gt;3? &quot; &lt;&lt; graph.has(HWDG::Edge(n[2], n[3])) &lt;&lt; std::endl</div>
 <div class="line">        &lt;&lt; &quot;Has edge 3-&gt;2? &quot; &lt;&lt; graph.has(HWDG::Edge(n[3], n[2])) &lt;&lt; std::endl;</div>
 <div class="line">    // Saving to file in text form</div>
-<div class="line">    HWDG::SaveTxt(graph, &quot;manual.txt&quot;);</div>
+<div class="line">    HWDG::Tools::SaveTxt(graph, &quot;manual.txt&quot;);</div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p >Now, Dijkstra and BellmanFord algorithms. I'll use the graph from the previous example (which was saved in manual.txt) </p><div class="fragment"><div class="line"> {c++}</div>
@@ -178,12 +188,14 @@ Brief introduction</h1>
 <div class="line"> </div>
 <div class="line">int main()</div>
 <div class="line">{</div>
-<div class="line">    HWDG::Graph graph = HWDG::LoadTxt&lt;HWDG::Graph&gt;(&quot;manual.txt&quot;);</div>
+<div class="line">    HWDG::Graph graph = HWDG::Tools::LoadTxt&lt;HWDG::Graph&gt;(&quot;manual.txt&quot;);</div>
 <div class="line">    try {</div>
 <div class="line">        auto dijkstra_path = HWDG::Dijkstra::Compute(graph, HWDG::Node(0));</div>
 <div class="line">        auto bellman_path = HWDG::BellmanFord::Compute(graph, HWDG::Node(0));</div>
 <div class="line">        std::cout &lt;&lt; dijkstra_path.str() &lt;&lt; std::endl;</div>
 <div class="line">        std::cout &lt;&lt; bellman_path.str() &lt;&lt; std::endl;</div>
+<div class="line">        HWDG::Path path_to_node_4 = dijkstra_path.GetPath(HWDG::Node(4));</div>
+<div class="line">        std::cout &lt;&lt; path_to_node_4.str();</div>
 <div class="line">    }</div>
 <div class="line">    catch (const std::invalid_argument&amp; e)</div>
 <div class="line">    {</div>
@@ -199,7 +211,7 @@ Brief introduction</h1>
 <div class="line"> </div>
 <div class="line">int main()</div>
 <div class="line">{</div>
-<div class="line">    HWDG::Graph graph = HWDG::LoadTxt&lt;HWDG::Graph&gt;(&quot;manual.txt&quot;);</div>
+<div class="line">    HWDG::Graph graph = HWDG::Tools::LoadTxt&lt;HWDG::Graph&gt;(&quot;manual.txt&quot;);</div>
 <div class="line">    for (const auto&amp; node : graph)</div>
 <div class="line">    {</div>
 <div class="line">        for (const auto&amp; edge : node)</div>
@@ -215,21 +227,21 @@ Brief introduction</h1>
 <div class="line"> </div>
 <div class="line">int main()</div>
 <div class="line">{</div>
-<div class="line">    HWDG::Graph graph = HWDG::LoadTxt&lt;HWDG::Graph&gt;(&quot;manual.txt&quot;);</div>
+<div class="line">    HWDG::Graph graph = HWDG::Tools::LoadTxt&lt;HWDG::Graph&gt;(&quot;manual.txt&quot;);</div>
 <div class="line">    for (const auto&amp; edge : graph.edges())</div>
 <div class="line">    {</div>
 <div class="line">        std::cout &lt;&lt; edge.str() &lt;&lt; std::endl;</div>
 <div class="line">    }</div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
-</div><!-- fragment --><p >You can also use <a class="el" href="namespace_h_w_d_g.html#a7b1335e550ac012515e07da6f8009032" title="Breadth First Search (BFS) of graph.">BreadthFirstSearch()</a> and <a class="el" href="namespace_h_w_d_g.html#a1397d769f1f4c8b17b46702eabc332fe" title="Depth First Search (DFS) of graph.">DepthFirstSearch()</a> to traverse graph, in slightly different manner. </p><div class="fragment"><div class="line"> {c++}</div>
+</div><!-- fragment --><p >You can also use BreadthFirstSearch() and DepthFirstSearch() to traverse graph, in slightly different manner. </p><div class="fragment"><div class="line"> {c++}</div>
 <div class="line">#include &lt;iostream&gt;</div>
 <div class="line">#include &quot;hwdg.hpp&quot;</div>
 <div class="line"> </div>
 <div class="line">int main()</div>
 <div class="line">{</div>
-<div class="line">    HWDG::Graph graph = HWDG::LoadTxt&lt;HWDG::Graph&gt;(&quot;manual.txt&quot;);</div>
-<div class="line">    HWDG::BreadthFirstSearch(graph, HWDG::Node(3), [&amp;graph](const HWDG::Edge&amp; edge, const auto&amp; visited) {</div>
+<div class="line">    HWDG::Graph graph = HWDG::Tools::LoadTxt&lt;HWDG::Graph&gt;(&quot;manual.txt&quot;);</div>
+<div class="line">    HWDG::Operations::BreadthFirstSearch(graph, HWDG::Node(3), [&amp;graph](const HWDG::Edge&amp; edge, const auto&amp; visited) {</div>
 <div class="line">        HWDG::NodeInGraph current = graph.fetch(edge.target());</div>
 <div class="line">        for (const auto&amp; e : current)</div>
 <div class="line">        {</div>
@@ -237,11 +249,13 @@ Brief introduction</h1>
 <div class="line">            // if you want to check whether node was visited...</div>
 <div class="line">            auto check_if_visited = visited.find(e.target());</div>
 <div class="line">            if (check_if_visited != visited.end()) // Check if target node was visited</div>
-<div class="line">            { }</div>
+<div class="line">            {</div>
+<div class="line">            }</div>
 <div class="line">            else // not visited</div>
-<div class="line">            { }</div>
+<div class="line">            {</div>
+<div class="line">            }</div>
 <div class="line">        }</div>
-<div class="line">    });</div>
+<div class="line">        });</div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p >There's also another implementation of functions above that allows you to specify order (priority) of neighbours to follow, so you still do BFS/DFS algorithms but with more control which path within graph you follow. </p><div class="fragment"><div class="line"> {c++}</div>
@@ -251,8 +265,8 @@ Brief introduction</h1>
 <div class="line"> </div>
 <div class="line">int main()</div>
 <div class="line">{</div>
-<div class="line">    HWDG::Graph graph = HWDG::RandomLowDensityGraph(100, 0.3, 100, 150, true);</div>
-<div class="line">    HWDG::DepthFirstSearch(graph, HWDG::Node(3),</div>
+<div class="line">    HWDG::Graph graph = HWDG::Tools::RandomLowDensityGraph(100, 0.3, 100, 150, true);</div>
+<div class="line">    HWDG::Operations::DepthFirstSearch(graph, HWDG::Node(3),</div>
 <div class="line">        [&amp;graph](const HWDG::Edge&amp; edge, const auto&amp; set_of_visited) {</div>
 <div class="line">            HWDG::NodeInGraph current = graph.fetch(edge.target());</div>
 <div class="line">            std::cout &lt;&lt; edge.str() &lt;&lt; std::endl;</div>
@@ -268,9 +282,9 @@ Brief introduction</h1>
 <div class="line">        });</div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
 Serialization</h1>
-<p >You could see in examples above <a class="el" href="namespace_h_w_d_g.html#ab908ab18cd038439108689003e4e5389" title="Load object from file in text mode.">LoadTxt()</a>, <a class="el" href="namespace_h_w_d_g.html#aed54e86d592f3e74b07a4d3d8b602e8c" title="Save object to file in text mode.">SaveTxt()</a>, <a class="el" href="namespace_h_w_d_g.html#a68635147a3ea51445f7135b194f40506" title="Load object from file in binary mode.">LoadBin()</a>, <a class="el" href="namespace_h_w_d_g.html#a72e3c48717069c9966704007b404c3ce" title="Save object to file in binary mode.">SaveBin()</a> functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.</p>
+<p >You could see in examples above Tools::LoadTxt(), Tools::SaveTxt(), Tools::LoadBin(), Tools::SaveBin() functions. Those are wrappers for more raw functions that allow you to store most of datatypes in files (or streams). All serialization functions are written as static member functions of classes, and have no checksum control or any sanity check for loaded data, so be careful.</p>
 <p >SaveTxt stores datatype with basic string representation that can be viewed in any text editor, and it's actually a viable way to create small graphs. Txt representation also works the same for any computer architecture, regardless of big endian / little endian. Downsides are: it's slower and wasteful when it comes to space.</p>
 <p >SaveBin stores as little data as necessary, representing attributes with their binary form. It's fast and space efficient, but you can't even safely open such files, and it depends on computer architecture. </p><div class="fragment"><div class="line"> {c++}</div>
 <div class="line">#include &lt;iostream&gt;</div>
@@ -309,7 +323,7 @@ Serialization</h1>
 <div class="line"> </div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
 Performance</h1>
 <p >Operating on graphs is fast. All basic operations are implemented properly, with constant/linear complexity. Pathfinding algorithms are also well-implemented, with Dijkstra complexity equal nodes*ln(nodes). Below I've attached results of the performance test:</p>
 <p ><img src="https://user-images.githubusercontent.com/41695668/170328332-fa909703-aaa1-4d0f-a250-e31807a516e8.png" alt="bellman" class="inline"/> <img src="https://user-images.githubusercontent.com/41695668/170328336-b6d431b6-7957-46ab-90af-294691d01677.png" alt="dijkstra" class="inline"/></p>

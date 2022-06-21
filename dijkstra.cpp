@@ -17,7 +17,7 @@ namespace HWDG
 	}
 	Dijkstra::Dijkstra(const Graph& graph, const Node& src) : _results(src)
 	{
-		if (!graph.has(src)) throw std::invalid_argument(string_format("Node %s doesn't belong to given graph", src.str().c_str()));
+		if (!graph.has(src)) throw std::invalid_argument(Tools::string_format("Node %s doesn't belong to given graph", src.str().c_str()));
 		Algorithm(graph);
 	}
 	Dijkstra::Cell::Cell(const PathtableCell& cell) : PathtableCell(cell)
@@ -202,7 +202,7 @@ namespace HWDG
 		return this->_results;
 	}
 
-	const Pathtable<Dijkstra::Cell> Dijkstra::Compute(const Graph& graph, const Node& src)
+	Pathtable<Dijkstra::Cell> Dijkstra::Compute(const Graph& graph, const Node& src)
 	{
 		Dijkstra vessel(graph, src);
 		return vessel.Results();

@@ -183,7 +183,7 @@ $(function() {
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno"><a class="line" href="struct_h_w_d_g_1_1_pathtable.html#a9615839cb3e2c1af4b8bcbbb3df6f461">  312</a></span>        <a class="code hl_class" href="class_h_w_d_g_1_1_path.html">Path</a> <a class="code hl_function" href="struct_h_w_d_g_1_1_pathtable.html#a9615839cb3e2c1af4b8bcbbb3df6f461">GetPath</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_h_w_d_g_1_1_node.html">Node</a>&amp; tgt)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>            <span class="keywordflow">if</span> (!this-&gt;<a class="code hl_function" href="struct_h_w_d_g_1_1_pathtable.html#a9dc378255ddd25aa9fa3d2993cabf9db">has</a>(tgt)) <span class="keywordflow">throw</span> std::invalid_argument(string_format(<span class="stringliteral">&quot;No node %s in graph this algorithm was used on&quot;</span>, tgt.<a class="code hl_function" href="class_h_w_d_g_1_1_node.html#aa00e360e24e0e04bda9565b8fbf07ea9">str</a>()));</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>            <span class="keywordflow">if</span> (!this-&gt;<a class="code hl_function" href="struct_h_w_d_g_1_1_pathtable.html#a9dc378255ddd25aa9fa3d2993cabf9db">has</a>(tgt)) <span class="keywordflow">throw</span> std::invalid_argument(Tools::string_format(<span class="stringliteral">&quot;No node %s in graph this algorithm was used on&quot;</span>, tgt.<a class="code hl_function" href="class_h_w_d_g_1_1_node.html#aa00e360e24e0e04bda9565b8fbf07ea9">str</a>()));</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            std::vector&lt;Node&gt; nodes;</div>
 <div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>            <span class="keyword">const</span> <span class="keywordtype">double</span> weight = this-&gt;<a class="code hl_function" href="struct_h_w_d_g_1_1_pathtable.html#a63215a7870ca977cd52323bc29a390e2">getCell</a>(tgt).pathweight;</div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span> exists = this-&gt;<a class="code hl_function" href="struct_h_w_d_g_1_1_pathtable.html#a63215a7870ca977cd52323bc29a390e2">getCell</a>(tgt).prev_id != TYPE::NO_PREVIOUS;</div>
@@ -225,7 +225,7 @@ $(function() {
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>            file &lt;&lt; table.size() &lt;&lt; <span class="charliteral">&#39; &#39;</span>;</div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; cell : table)</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>            {</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                <a class="code hl_function" href="namespace_h_w_d_g.html#aed54e86d592f3e74b07a4d3d8b602e8c">TYPE::SaveTxt</a>(file, cell);</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                TYPE::SaveTxt(file, cell);</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>            }</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>        }</div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
@@ -238,7 +238,7 @@ $(function() {
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            output.reserve(size);</div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; size; ++i)</div>
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>            {</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                TYPE cell = <a class="code hl_function" href="namespace_h_w_d_g.html#ab908ab18cd038439108689003e4e5389">TYPE::LoadTxt</a>(file);</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                TYPE cell = TYPE::LoadTxt(file);</div>
 <div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>                output.insert({ cell.node.id(), cell });</div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>            }</div>
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>            <span class="keywordflow">return</span> output;</div>
@@ -251,7 +251,7 @@ $(function() {
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>            file.write((<span class="keyword">const</span> <span class="keywordtype">char</span>*)&amp;size, <span class="keyword">sizeof</span>(size));</div>
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; cell : table)</div>
 <div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>            {</div>
-<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>                <a class="code hl_function" href="namespace_h_w_d_g.html#a72e3c48717069c9966704007b404c3ce">TYPE::SaveBin</a>(file, cell);</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>                TYPE::SaveBin(file, cell);</div>
 <div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>            }</div>
 <div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        }</div>
 <div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span> </div>
@@ -264,7 +264,7 @@ $(function() {
 <div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>            output.reserve(size);</div>
 <div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; size; ++i)</div>
 <div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>            {</div>
-<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>                TYPE cell = <a class="code hl_function" href="namespace_h_w_d_g.html#a68635147a3ea51445f7135b194f40506">TYPE::LoadBin</a>(file);</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>                TYPE cell = TYPE::LoadBin(file);</div>
 <div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>                output.insert({ cell.node.id(), cell });</div>
 <div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>            }</div>
 <div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>            <span class="keywordflow">return</span> output;</div>
@@ -302,10 +302,6 @@ $(function() {
 <div class="ttc" id="acustom__map_8hpp_html"><div class="ttname"><a href="custom__map_8hpp.html">custom_map.hpp</a></div><div class="ttdoc">Monstrosity.</div></div>
 <div class="ttc" id="aedge_8hpp_html"><div class="ttname"><a href="edge_8hpp.html">edge.hpp</a></div><div class="ttdoc">Representation of Edge.</div></div>
 <div class="ttc" id="anamespace_h_w_d_g_html"><div class="ttname"><a href="namespace_h_w_d_g.html">HWDG</a></div><div class="ttdoc">Main namespace of library.</div><div class="ttdef"><b>Definition:</b> bellmanford.hpp:21</div></div>
-<div class="ttc" id="anamespace_h_w_d_g_html_a68635147a3ea51445f7135b194f40506"><div class="ttname"><a href="namespace_h_w_d_g.html#a68635147a3ea51445f7135b194f40506">HWDG::LoadBin</a></div><div class="ttdeci">TYPE LoadBin(const std::string &amp;filename)</div><div class="ttdoc">Load object from file in binary mode.</div><div class="ttdef"><b>Definition:</b> tools.hpp:104</div></div>
-<div class="ttc" id="anamespace_h_w_d_g_html_a72e3c48717069c9966704007b404c3ce"><div class="ttname"><a href="namespace_h_w_d_g.html#a72e3c48717069c9966704007b404c3ce">HWDG::SaveBin</a></div><div class="ttdeci">void SaveBin(const TYPE &amp;obj, const std::string &amp;filename)</div><div class="ttdoc">Save object to file in binary mode.</div><div class="ttdef"><b>Definition:</b> tools.hpp:84</div></div>
-<div class="ttc" id="anamespace_h_w_d_g_html_ab908ab18cd038439108689003e4e5389"><div class="ttname"><a href="namespace_h_w_d_g.html#ab908ab18cd038439108689003e4e5389">HWDG::LoadTxt</a></div><div class="ttdeci">TYPE LoadTxt(const std::string &amp;filename)</div><div class="ttdoc">Load object from file in text mode.</div><div class="ttdef"><b>Definition:</b> tools.hpp:151</div></div>
-<div class="ttc" id="anamespace_h_w_d_g_html_aed54e86d592f3e74b07a4d3d8b602e8c"><div class="ttname"><a href="namespace_h_w_d_g.html#aed54e86d592f3e74b07a4d3d8b602e8c">HWDG::SaveTxt</a></div><div class="ttdeci">void SaveTxt(const TYPE &amp;obj, const std::string &amp;filename)</div><div class="ttdoc">Save object to file in text mode.</div><div class="ttdef"><b>Definition:</b> tools.hpp:132</div></div>
 <div class="ttc" id="anode_8hpp_html"><div class="ttname"><a href="node_8hpp.html">node.hpp</a></div><div class="ttdoc">Representation of Node (Vertex) detached from graph.</div></div>
 <div class="ttc" id="astruct_h_w_d_g_1_1_pathtable_cell_html"><div class="ttname"><a href="struct_h_w_d_g_1_1_pathtable_cell.html">HWDG::PathtableCell</a></div><div class="ttdoc">Low level, cell within Pathtable, representing previous Node in path, and weight of path to this poin...</div><div class="ttdef"><b>Definition:</b> path.hpp:30</div></div>
 <div class="ttc" id="astruct_h_w_d_g_1_1_pathtable_cell_html_a0ba882c846939be9389e0e595e41fd43"><div class="ttname"><a href="struct_h_w_d_g_1_1_pathtable_cell.html#a0ba882c846939be9389e0e595e41fd43">HWDG::PathtableCell::PathtableCell</a></div><div class="ttdeci">PathtableCell()=delete</div><div class="ttdoc">PathtableCell must be initialised, so default constructor is removed.</div></div>
