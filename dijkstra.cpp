@@ -15,7 +15,7 @@ namespace HWDG
 	{
 		this->heap_position = -1;
 	}
-	Dijkstra::Dijkstra(const Graph& graph, const Node& src) : _results(src)
+	Dijkstra::Dijkstra(const Graph& graph, const Node& src) : _results(graph, src)
 	{
 		if (!graph.has(src)) throw std::invalid_argument(Tools::string_format("Node %s doesn't belong to given graph", src.str().c_str()));
 		Algorithm(graph);
@@ -30,7 +30,6 @@ namespace HWDG
 		// Condition check
 		if (graph.has_negative_weights()) throw std::invalid_argument("Dijkstra algorithm cannot be used for graphs with negative weights of edges.");
 		// Initialisation
-		this->_results.Initialise(graph, this->_results.source);
 		this->_heap.reserve(graph.size_nodes());
 		for (const Node& node : graph) { this->_heap.push_back(node); }
 		// Convert vector to heap. From this point, both results and heap are synchronized

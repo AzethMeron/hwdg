@@ -11,7 +11,7 @@
 
 namespace HWDG
 {
-	BellmanFord::BellmanFord(const Graph& graph, const Node& src) : _results(src)
+	BellmanFord::BellmanFord(const Graph& graph, const Node& src) : _results(graph, src)
 	{
 		if (!graph.has(src)) throw std::invalid_argument(Tools::string_format("Node %s doesn't belong to given graph", src.str().c_str()));
 		Algorithm(graph);
@@ -19,8 +19,6 @@ namespace HWDG
 
 	void BellmanFord::Algorithm(const Graph& graph)
 	{
-		// Initialisation
-		this->_results.Initialise(graph, this->_results.source);
 		// Algorithm
 		for (int i = 0; i < graph.size_nodes() - 1; ++i)
 		{

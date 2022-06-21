@@ -9,8 +9,7 @@ namespace HWDG
 {
 	Pathtable<PathtableCell> BFSPathfinding::Compute(const Graph& graph, const Node& src)
 	{
-		Pathtable<PathtableCell> table(src);
-		table.Initialise(graph, src);
+		Pathtable<PathtableCell> table(graph, src);
 
 		Operations::BreadthFirstSearch(graph, src,
 			[&table](const Edge& edge, const auto& visited)
