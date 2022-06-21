@@ -37,7 +37,7 @@ namespace HWDG
 			* Thus, it can be used in unweighted graphs as faster alternative to Dijkstra or BellmanFord. 
 			* 
 			* \par Time complexity:
-			* \f$O(edges)\f$
+			* \f$O(nodes)\f$
 			*/
 			static Pathtable<PathtableCell> Compute(const Graph& graph, const Node& src);
 			BFSPathfinding() = delete;
