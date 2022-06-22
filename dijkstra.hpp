@@ -20,14 +20,117 @@
 
 namespace HWDG
 {
+#include <vector>
+#include <algorithm>
+
+	template<typename TYPE>
+	class Heap {
+		private:
+			std::vector<TYPE> _heap;
+		private:
+			inline size_t HeapLeftChild(const size_t& index) const
+			{
+				return index * 2 + 1;
+			}
+			inline size_t HeapRightChild(const size_t& index) const
+			{
+				return index * 2 + 2;
+			}
+			inline bool HeapExist(const size_t& index) const
+			{
+				return index >= 0 && index < this->HeapSize();
+			}
+			inline size_t HeapParent(const size_t& index) const
+			{
+				if (index == 0) return 0;
+				return (index - 1) / 2;
+			}
+			void Heapify(const size_t& position) // Check & swap with children of given position. Doesn't check parent
+			{
+				size_t r_child_ind = this->HeapRightChild(position);
+				size_t l_child_ind = this->HeapLeftChild(position);
+				bool r_child_smaller_than_parent = false;
+				bool l_child_smaller_than_parent = false;
+				if (this->HeapExist(r_child_ind)) r_child_smaller_than_parent = this->HeapCompare(position, r_child_ind);
+				if (this->HeapExist(l_child_ind)) l_child_smaller_than_parent = this->HeapCompare(position, l_child_ind);
+				if (r_child_smaller_than_parent && l_child_smaller_than_parent)
+				{
+					if (this->HeapCompare(r_child_ind, l_child_ind))
+					{
+						this->HeapSwap(position, l_child_ind);
+						this->Heapify(l_child_ind);
+					}
+					else
+					{
+						this->HeapSwap(position, r_child_ind);
+						this->Heapify(r_child_ind);
+					}
+				}
+				else if (r_child_smaller_than_parent)
+				{
+					this->HeapSwap(position, r_child_ind);
+					this->Heapify(r_child_ind);
+				}
+				else if (l_child_smaller_than_parent)
+				{
+					this->HeapSwap(position, l_child_ind);
+					this->Heapify(l_child_ind);
+				}
+			}
+		protected:
+			virtual inline void HeapSwap(const size_t& l, const size_t& r) = 0;
+			virtual bool HeapCompare(const size_t& l, const size_t& r) const = 0;
+		public:
+			size_t HeapSize() const { return this->_heap.size(); }
+			TYPE& HeapAt(const size_t& ind) { return this->_heap.at(ind); } // you're supposed to use RestoreHeap() after modifying 
+			const TYPE& HeapAt(const size_t& ind) const { return this->_heap.at(ind); }
+			void HeapPush(const TYPE& obj)
+			{
+				this->_heap.push_back(obj);
+				this->RestoreHeap(this->HeapSize() - 1);
+			}
+			TYPE HeapPop()
+			{
+				TYPE output = this->HeapAt(0);
+				this->HeapSwap(0, this->HeapSize() - 1);
+				this->_heap.pop_back();
+				this->Heapify(0);
+				return output;
+			}
+			Heap() {}
+			Heap(const std::vector<TYPE>& vec)
+			{
+				this->_heap = vec;
+				for (int64_t i = this->HeapParent(this->HeapSize() - 1); i >= 0; --i)
+				{
+					this->Heapify(i);
+				}
+			}
+			void RestoreHeap(const size_t& position) // Heapify node, then call RestoreHeap for parent of it
+			{
+				this->Heapify(position);
+				size_t parent = this->HeapParent(position);
+				if (parent != position)
+				{
+					this->RestoreHeap(parent);
+				}
+			}
+			auto begin() const { return this->_heap.begin(); }
+			auto end() const { return this->_heap.end(); }
+			void reserve(const size_t& size)
+			{
+				this->_heap.reserve(size);
+			}
+	};
+
+
 	/**
 	* Static class implementing Dijkstra algorithm for pathfinding.
 	* Because it's static class, you can't create objects of it. You are supposed only to call Dijkstra::Compute() static function.
 	* 
 	* There's implementation of binary heap inside Dijkstra class, code might be improved with creation of Heap class that Dijkstra would inherit and override several methods inside.
 	*/
-	class Dijkstra // could be improved by making Heap class, then making Dijkstra inherit on it and overloading certain functions.
-		// it would improve readability, but I'm not going to do it right now since it wouldn't change efficiency and this implementation DOES work
+	class Dijkstra : public Heap<Node> 
 	{
 		public:
 			/**
@@ -42,19 +145,11 @@ namespace HWDG
 			};
 		private:
 			Pathtable<Cell> _results;
-			std::vector<Node> _heap; // effectively, Q set
-		private: // Heap functions. It's a mess.
-			void PushHeap(const Node& node);
-			Node PopHeap();
-			void RestoreHeap(const size_t& position); // Heapify node, then call RestoreHeap for parent of it
-			void Heapify(const size_t& position); // Check & swap with children of given position. Doesn't check parent
-			void MakeHeap();
-			bool HeapCompare(const size_t& index1, const size_t& index2) const;
-			inline size_t HeapLeftChild(const size_t& index) const;
-			inline size_t HeapRightChild(const size_t& index) const;
-			inline bool HeapExist(const size_t& index) const;
-			inline size_t HeapParent(const size_t& index) const;
-			inline void HeapSwap(const size_t& l, const size_t& r);
+		protected:
+			inline void HeapSwap(const size_t& l, const size_t& r) override;
+			bool HeapCompare(const size_t& l, const size_t& r) const override;
+			Node HeapPop();
+		private: 
 			Cell& getCell(const size_t& pos_in_heap);
 			const Cell& getCell(const size_t& pos_in_heap) const;
 		private:

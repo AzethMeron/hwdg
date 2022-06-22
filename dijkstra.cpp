@@ -30,14 +30,18 @@ namespace HWDG
 		// Condition check
 		if (graph.has_negative_weights()) throw std::invalid_argument("Dijkstra algorithm cannot be used for graphs with negative weights of edges.");
 		// Initialisation
-		this->_heap.reserve(graph.size_nodes());
-		for (const Node& node : graph) { this->_heap.push_back(node); }
-		// Convert vector to heap. From this point, both results and heap are synchronized
-		this->MakeHeap();
-		// Dijkstra Algorithm
-		while (this->_heap.size())
+		this->reserve(graph.size_nodes());
+		for (const Node& node : graph) { this->HeapPush(node); }
+		for (size_t i = 0; i < this->HeapSize(); ++i)
 		{
-			const NodeInGraph& current = graph.fetch(this->PopHeap());
+			Cell& c = this->getCell(i);
+			c.heap_position = i;
+		}
+		// Convert vector to heap. From this point, both results and heap are synchronized
+		// Dijkstra Algorithm
+		while (this->HeapSize())
+		{
+			const NodeInGraph& current = graph.fetch(this->HeapPop());
 			const Cell& current_cell = this->getCell(current);
 
 			for (const Edge& edge : current)
@@ -53,48 +57,11 @@ namespace HWDG
 		}
 	}
 
-	void Dijkstra::MakeHeap()
+	Node Dijkstra::HeapPop()
 	{
-		for (int64_t i = HeapParent(this->_heap.size()-1); i >= 0; --i)
-		{
-			this->Heapify(i);
-		}
-		for (size_t i = 0; i < this->_heap.size(); ++i)
-		{
-			Cell& c = this->getCell(i);
-			c.heap_position = i;
-		}
-	}
-
-	void Dijkstra::PushHeap(const Node& node)
-	{
-		this->_heap.push_back(node);
-		this->RestoreHeap(this->_heap.size()-1);
-	}
-
-	Node Dijkstra::PopHeap()
-	{
-		Node output = this->_heap.at(0);
-		this->HeapSwap(0, this->_heap.size() - 1);
-		this->_heap.pop_back();
-		this->Heapify(0);
+		Node output = Heap::HeapPop();
 		(*this->_results.find(output.id())).heap_position = -1;
 		return output;
-	}
-
-	inline size_t Dijkstra::HeapParent(const size_t& index) const
-	{
-		if (index == 0) return 0;
-		return (index - 1) / 2;
-	}
-
-	inline size_t Dijkstra::HeapLeftChild(const size_t& index) const
-	{
-		return index * 2 + 1;
-	}
-	inline size_t Dijkstra::HeapRightChild(const size_t& index) const
-	{
-		return index * 2 + 2;
 	}
 
 	// true if n1 wieksze niz n2 
@@ -105,57 +72,9 @@ namespace HWDG
 		return c1.pathweight > c2.pathweight;
 	}
 
-	inline bool Dijkstra::HeapExist(const size_t& index) const
-	{
-		return index >= 0 && index < this->_heap.size();
-	}
-
-	void Dijkstra::RestoreHeap(const size_t& position)
-	{
-		this->Heapify(position);
-		size_t parent = this->HeapParent(position);
-		if (parent != position)
-		{
-			RestoreHeap(parent);
-		}
-	}
-
-	void Dijkstra::Heapify(const size_t& position)
-	{
-		size_t r_child_ind = this->HeapRightChild(position);
-		size_t l_child_ind = this->HeapLeftChild(position);
-		bool r_child_smaller_than_parent = false;
-		bool l_child_smaller_than_parent = false;
-		if (this->HeapExist(r_child_ind)) r_child_smaller_than_parent = this->HeapCompare(position, r_child_ind);
-		if (this->HeapExist(l_child_ind)) l_child_smaller_than_parent = this->HeapCompare(position, l_child_ind);
-		if (r_child_smaller_than_parent && l_child_smaller_than_parent)
-		{
-			if (this->HeapCompare(r_child_ind, l_child_ind))
-			{
-				this->HeapSwap(position, l_child_ind);
-				this->Heapify(l_child_ind);
-			}
-			else
-			{
-				this->HeapSwap(position, r_child_ind);
-				this->Heapify(r_child_ind);
-			}
-		}
-		else if(r_child_smaller_than_parent)
-		{
-			this->HeapSwap(position, r_child_ind);
-			this->Heapify(r_child_ind);
-		}
-		else if (l_child_smaller_than_parent)
-		{
-			this->HeapSwap(position, l_child_ind);
-			this->Heapify(l_child_ind);
-		}
-	}
-
 	void Dijkstra::HeapSwap(const size_t& l, const size_t& r)
 	{
-		std::swap(this->_heap.at(l), this->_heap.at(r));
+		std::swap(this->HeapAt(l), this->HeapAt(r));
 		Cell& c1 = this->getCell(l);
 		Cell& c2 = this->getCell(r);
 		c1.heap_position = l;
@@ -164,13 +83,13 @@ namespace HWDG
 
 	Dijkstra::Cell& Dijkstra::getCell(const size_t& pos_in_heap)
 	{
-		const Node& n = this->_heap.at(pos_in_heap);
+		const Node& n = this->HeapAt(pos_in_heap);
 		return this->_results.getCell(n);
 	}
 
 	const Dijkstra::Cell& Dijkstra::getCell(const size_t& pos_in_heap) const
 	{
-		const Node& n = this->_heap.at(pos_in_heap);
+		const Node& n = this->HeapAt(pos_in_heap);
 		return this->_results.getCell(n);
 	}
 
