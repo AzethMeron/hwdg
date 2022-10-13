@@ -99,8 +99,11 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac73aa372132d73df946e749ce82d9a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates random graph.  <a href="class_h_w_d_g_1_1_tools.html#ac73aa372132d73df946e749ce82d9a84">More...</a><br /></td></tr>
 <tr class="separator:ac73aa372132d73df946e749ce82d9a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bdabc5b47d08fa116219ce232d66098"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_h_w_d_g_1_1_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_w_d_g_1_1_tools.html#a6bdabc5b47d08fa116219ce232d66098">RandomLowDensityGraph</a> (size_t size, float density, float weight_min, float weight_max, bool loops)</td></tr>
-<tr class="memdesc:a6bdabc5b47d08fa116219ce232d66098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates random graph.  <a href="class_h_w_d_g_1_1_tools.html#a6bdabc5b47d08fa116219ce232d66098">More...</a><br /></td></tr>
+<tr class="memdesc:a6bdabc5b47d08fa116219ce232d66098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="class_h_w_d_g_1_1_tools.html#a9b08714b88b7e35985bee709fec0c791" title="Generates random graph.">HWDG::Tools::RandomSparseGraph</a>.  <a href="class_h_w_d_g_1_1_tools.html#a6bdabc5b47d08fa116219ce232d66098">More...</a><br /></td></tr>
 <tr class="separator:a6bdabc5b47d08fa116219ce232d66098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b08714b88b7e35985bee709fec0c791"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_h_w_d_g_1_1_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_w_d_g_1_1_tools.html#a9b08714b88b7e35985bee709fec0c791">RandomSparseGraph</a> (size_t size, float density, float weight_min, float weight_max, bool loops)</td></tr>
+<tr class="memdesc:a9b08714b88b7e35985bee709fec0c791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates random graph.  <a href="class_h_w_d_g_1_1_tools.html#a9b08714b88b7e35985bee709fec0c791">More...</a><br /></td></tr>
+<tr class="separator:a9b08714b88b7e35985bee709fec0c791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a385ea2d20d9f257e0757bd25fd5d7a"><td class="memTemplParams" colspan="2">template&lt;typename TYPE &gt; </td></tr>
 <tr class="memitem:a7a385ea2d20d9f257e0757bd25fd5d7a"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_h_w_d_g_1_1_tools.html#a7a385ea2d20d9f257e0757bd25fd5d7a">SaveBin</a> (const TYPE &amp;obj, const std::string &amp;filename)</td></tr>
 <tr class="memdesc:a7a385ea2d20d9f257e0757bd25fd5d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save object to file in binary mode.  <a href="class_h_w_d_g_1_1_tools.html#a7a385ea2d20d9f257e0757bd25fd5d7a">More...</a><br /></td></tr>
@@ -362,6 +365,64 @@ template&lt;typename TYPE &gt; </div>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equivalent to <a class="el" href="class_h_w_d_g_1_1_tools.html#a9b08714b88b7e35985bee709fec0c791" title="Generates random graph.">HWDG::Tools::RandomSparseGraph</a>. </p>
+<p >Sparse graph is formalized name, while density graph was introduced by me due to lack of my knowledge. However i decided to NOT remove old function, for backwards compability.</p>
+<p >Still, use <a class="el" href="class_h_w_d_g_1_1_tools.html#a9b08714b88b7e35985bee709fec0c791" title="Generates random graph.">HWDG::Tools::RandomSparseGraph</a>. </p>
+
+</div>
+</div>
+<a id="a9b08714b88b7e35985bee709fec0c791" name="a9b08714b88b7e35985bee709fec0c791"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b08714b88b7e35985bee709fec0c791">&#9670;&nbsp;</a></span>RandomSparseGraph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_h_w_d_g_1_1_graph.html">Graph</a> HWDG::Tools::RandomSparseGraph </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>density</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>weight_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>weight_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loops</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

@@ -128,7 +128,7 @@ namespace HWDG
 	* Static class implementing Dijkstra algorithm for pathfinding.
 	* Because it's static class, you can't create objects of it. You are supposed only to call Dijkstra::Compute() static function.
 	* 
-	* There's implementation of binary heap inside Dijkstra class, code might be improved with creation of Heap class that Dijkstra would inherit and override several methods inside.
+	* Uses binary heap, implemented in HWDG::Heap, to speed up algorithm execution.
 	*/
 	class Dijkstra : public Heap<Node> 
 	{

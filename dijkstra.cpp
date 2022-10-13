@@ -37,7 +37,8 @@ namespace HWDG
 			Cell& c = this->getCell(i);
 			c.heap_position = i;
 		}
-		// Convert vector to heap. From this point, both results and heap are synchronized
+		// From this point, both results and heap are synchronized
+		
 		// Dijkstra Algorithm
 		while (this->HeapSize())
 		{

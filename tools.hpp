@@ -66,6 +66,16 @@ namespace HWDG
 			static Graph RandomGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2)
 
 			/**
+			* Equivalent to HWDG::Tools::RandomSparseGraph.
+			* 
+			* Sparse graph is formalized name, while density graph was introduced by me due to lack of my knowledge. 
+			* However i decided to NOT remove old function, for backwards compability.
+			* 
+			* Still, use HWDG::Tools::RandomSparseGraph.
+			*/
+			static Graph RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2*density) for very small density, for dense it is O(n^3) 
+
+			/**
 			* Generates random graph. Useful during development, for tests. Value of density in output Graph is roughly equal to the one that was used in function call, but remember it ISN'T guaranteed.
 			*
 			* This implementation is much faster than RandomGraph() for small density, but much slower for high.
@@ -78,7 +88,8 @@ namespace HWDG
 			* \par Time complexity:
 			* \f$O(nodes^2 * density)\f$ for small density, otherwise \f$O(nodes^3)\f$
 			*/
-			static Graph RandomLowDensityGraph(size_t size, float density, float weight_min, float weight_max, bool loops); // O(n^2*density) for very small density, for dense it is O(n^3) 
+			static inline Graph RandomSparseGraph(size_t size, float density, float weight_min, float weight_max, bool loops) { return RandomLowDensityGraph(size, density, weight_min, weight_max, loops); }
+
 
 			/** Save object to file in binary mode.
 			*
