@@ -30,7 +30,7 @@ namespace HWDG
 	* 
 	* Uses binary heap, implemented in HWDG::Heap, to speed up algorithm execution.
 	*/
-	class Dijkstra : public Heap<Node> 
+	class Dijkstra : protected Heap<Node> 
 	{
 		public:
 			/**
@@ -45,7 +45,7 @@ namespace HWDG
 			};
 		private:
 			Pathtable<Cell> _results;
-		protected:
+		private:
 			inline void HeapSwap(const size_t& l, const size_t& r) override;
 			bool HeapCompare(const size_t& l, const size_t& r) const override;
 			Node HeapPop();
