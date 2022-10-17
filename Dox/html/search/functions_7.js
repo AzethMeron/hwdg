@@ -5,9 +5,9 @@ var searchData=
   ['has_5fnegative_5fweights_2',['has_negative_weights',['../class_h_w_d_g_1_1_graph.html#ab1ad4077f4098e933098c049a16105e0',1,'HWDG::Graph']]],
   ['heap_3',['Heap',['../class_h_w_d_g_1_1_heap.html#afcd54cc2fa4a10ec9c79da198e466227',1,'HWDG::Heap::Heap()'],['../class_h_w_d_g_1_1_heap.html#a60b6472c023079db13751d9bf6bddb4d',1,'HWDG::Heap::Heap(const std::vector&lt; TYPE &gt; &amp;vec)']]],
   ['heapat_4',['HeapAt',['../class_h_w_d_g_1_1_heap.html#ae538efe0f1c91a754fa04e3d48df0c4d',1,'HWDG::Heap::HeapAt(const size_t &amp;ind)'],['../class_h_w_d_g_1_1_heap.html#a7798f4a91ab02f2191346b5667659e08',1,'HWDG::Heap::HeapAt(const size_t &amp;ind) const']]],
-  ['heapcompare_5',['HeapCompare',['../class_h_w_d_g_1_1_heap.html#ac2eb713223e9f7eb304f4dea54d38fab',1,'HWDG::Heap::HeapCompare()'],['../class_h_w_d_g_1_1_dijkstra.html#a494435602c5ac9b599270419c6909213',1,'HWDG::Dijkstra::HeapCompare()']]],
-  ['heappop_6',['HeapPop',['../class_h_w_d_g_1_1_heap.html#a0497c1a230118fbf1178200a9dbd5dfd',1,'HWDG::Heap::HeapPop()'],['../class_h_w_d_g_1_1_dijkstra.html#acef5b616a464f80e17bf4566d93a0548',1,'HWDG::Dijkstra::HeapPop()']]],
+  ['heapcompare_5',['HeapCompare',['../class_h_w_d_g_1_1_dijkstra.html#a494435602c5ac9b599270419c6909213',1,'HWDG::Dijkstra::HeapCompare()'],['../class_h_w_d_g_1_1_heap.html#ac2eb713223e9f7eb304f4dea54d38fab',1,'HWDG::Heap::HeapCompare()']]],
+  ['heappop_6',['HeapPop',['../class_h_w_d_g_1_1_dijkstra.html#acef5b616a464f80e17bf4566d93a0548',1,'HWDG::Dijkstra::HeapPop()'],['../class_h_w_d_g_1_1_heap.html#a0497c1a230118fbf1178200a9dbd5dfd',1,'HWDG::Heap::HeapPop()']]],
   ['heappush_7',['HeapPush',['../class_h_w_d_g_1_1_heap.html#a47e984d5374999a381a5b29fd915736e',1,'HWDG::Heap']]],
   ['heapsize_8',['HeapSize',['../class_h_w_d_g_1_1_heap.html#a87ce75791932bab29f5cb2bc40a11199',1,'HWDG::Heap']]],
-  ['heapswap_9',['HeapSwap',['../class_h_w_d_g_1_1_heap.html#a647684104da5d6fba93826f86a156946',1,'HWDG::Heap::HeapSwap()'],['../class_h_w_d_g_1_1_dijkstra.html#a82d3eb4e8f0a547ae266ef35862e9dc8',1,'HWDG::Dijkstra::HeapSwap()']]]
+  ['heapswap_9',['HeapSwap',['../class_h_w_d_g_1_1_dijkstra.html#a82d3eb4e8f0a547ae266ef35862e9dc8',1,'HWDG::Dijkstra::HeapSwap()'],['../class_h_w_d_g_1_1_heap.html#a647684104da5d6fba93826f86a156946',1,'HWDG::Heap::HeapSwap()']]]
 ];

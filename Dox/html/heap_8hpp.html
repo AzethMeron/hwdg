@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HWDG: dijkstra.hpp File Reference</title>
+<title>HWDG: heap.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,31 +74,20 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">dijkstra.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">heap.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of Dijkstra algorithm for pathfinding.  
+<p>Binary heap implementation.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="node_8hpp_source.html">node.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="graph_8hpp_source.html">graph.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="custom__map_8hpp_source.html">custom_map.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="path_8hpp_source.html">path.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="bellmanford_8hpp_source.html">bellmanford.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="heap_8hpp_source.html">heap.hpp</a>&quot;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
 </div>
-<p><a href="dijkstra_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="heap_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_w_d_g_1_1_dijkstra.html">HWDG::Dijkstra</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static class implementing <a class="el" href="class_h_w_d_g_1_1_dijkstra.html" title="Static class implementing Dijkstra algorithm for pathfinding.">Dijkstra</a> algorithm for pathfinding.  <a href="class_h_w_d_g_1_1_dijkstra.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_h_w_d_g_1_1_dijkstra_1_1_cell.html">HWDG::Dijkstra::Cell</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extension of <a class="el" href="struct_h_w_d_g_1_1_pathtable_cell.html" title="Low level, cell within Pathtable, representing previous Node in path, and weight of path to this poin...">PathtableCell</a>.  <a href="struct_h_w_d_g_1_1_dijkstra_1_1_cell.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_w_d_g_1_1_heap.html">HWDG::Heap&lt; TYPE &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary heap implementation.  <a href="class_h_w_d_g_1_1_heap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -108,10 +97,10 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Implementation of Dijkstra algorithm for pathfinding. </p>
+<div class="textblock"><p >Binary heap implementation. </p>
 <dl class="section author"><dt>Author</dt><dd>Jakub Grzana </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March 2022</dd></dl>
-<p>This file contains class Dijkstra, which is written in horrible yet consistent way with BellmanFord. </p>
+<dl class="section date"><dt>Date</dt><dd>October 2022</dd></dl>
+<p>Implementation of binary heap with overridable HeapCompare and HeapSwap methods, so it can be used with Dijkstra algorithm. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
